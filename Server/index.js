@@ -12,7 +12,7 @@ app.use(express.json());
 
 
 
-//This route get all products
+//This route gets all products
 app.get('/products', (req, res)=>{
 
   let options = {
@@ -48,7 +48,7 @@ app.get('/products/:product_id', (req, res)=>{
   };
 
 
-  console.log('URL:', options.url);
+
   axios(options)
     .then((response)=>{
       res.json(response.data);
@@ -73,7 +73,7 @@ app.get('/products/:product_id/styles', (req, res)=>{
   };
 
 
-  console.log('URL:', options.url);
+
   axios(options)
     .then((response)=>{
       res.json(response.data);
@@ -83,6 +83,8 @@ app.get('/products/:product_id/styles', (req, res)=>{
       res.status(500).send(err);
     });
 });
+
+
 //This route gives you the related items for a single product
 app.get('/products/:product_id/related', (req, res)=>{
   let product = req.params;
@@ -90,6 +92,33 @@ app.get('/products/:product_id/related', (req, res)=>{
   let options = {
     method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${product.product_id}/related`,
+    headers: {
+      'User-Agent': 'request',
+      'Authorization': `${config.TOKEN}`
+    }
+  };
+
+
+
+  axios(options)
+    .then((response)=>{
+      res.json(response.data);
+
+    })
+    .catch((err)=>{
+      res.status(500).send(err);
+    });
+});
+//This route gives you reviews based on the param object you provide
+app.get('/reviews/:product_id/:count/:page/:sort', (req, res)=>{
+  let query = req.params;
+  console.log('query:', query);
+  // console.log('count',query.count);
+  // console.log('id',query.product_id);
+
+  let options = {
+    method: 'get',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/?product_id=${query.product_id}&count=${query.count}`,
     headers: {
       'User-Agent': 'request',
       'Authorization': `${config.TOKEN}`
@@ -109,7 +138,7 @@ app.get('/products/:product_id/related', (req, res)=>{
 });
 
 
-// app.any?
+
 
 
 
