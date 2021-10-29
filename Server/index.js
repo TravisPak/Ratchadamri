@@ -99,7 +99,7 @@ app.get("/products/:product_id/related", (req, res) => {
 //This route gives you reviews based on the param object you provide
 app.get("/reviews/", (req, res) => {
   let query = req.query;
-  console.log("REQUEST", query);
+  console.log("Query", query);
 
   let options = {
     method: "get",
@@ -122,7 +122,7 @@ app.get("/reviews/", (req, res) => {
 //This route gives you review metadata for a given product
 app.get("/reviews/meta", (req, res) => {
   let query = req.query;
-  console.log("REQUEST", query);
+  console.log("Query", query);
 
   let options = {
     method: "get",
@@ -142,6 +142,161 @@ app.get("/reviews/meta", (req, res) => {
       res.status(500).send(err);
     });
 });
+
+//This route will post a review for a product by product_id
+app.post("/reviews", (req, res) => {
+  let body = req.body;
+  console.log("Body",body);
+
+  let options = {
+    method: "post",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+    data: body,
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.status(201).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+});
+
+//route that will update the helpful section for a specific review
+app.put('/reviews/:review_id/helpful',(req,res)=>{
+  let review = req.params;
+  console.log("Params",review);
+
+  let options = {
+    method: "put",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/${review.review_id}/helpful`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.status(204).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+
+});
+
+//route that updates the report for a specific review
+app.put('/reviews/:review_id/report',(req,res)=>{
+  let review = req.params;
+  console.log("Params",review);
+
+  let options = {
+    method: "put",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/${review.review_id}/report`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.status(204).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+
+});
+
+
+app.get("/qa/questions", (req, res) => {
+  let query = req.query;
+  console.log("Query", query);
+
+  let options = {
+    method: "get",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+    params: query,
+  };
+
+  axios(options)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+
+//get /qa/questions/:question_id/answers
+app.get('/qa/questions/:question_id/answers',(req,res)=>{
+  console.log('params', req.params);
+  let questionId = req.params;
+  let options = {
+    method: "get",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${questionId}/answers`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+
+  };
+
+  axios(options)
+    .then((response)=>{
+      res.json(response.data);
+    })
+    .catch((err)=>{
+      res.send(500).send(err);
+    })
+
+
+});
+
+app.post("/qa/questions", (req, res) => {
+  let body = req.body;
+  console.log("Body",body);
+
+  let options = {
+    method: "post",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+    data: body,
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.status(201).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+});
+
 
 
 
