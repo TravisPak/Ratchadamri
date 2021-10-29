@@ -1,138 +1,144 @@
-const express = require('express');
-const morgan = require('morgan');
-const axios = require('axios');
+const express = require("express");
+const morgan = require("morgan");
+const axios = require("axios");
 const app = express();
-const path = require('path');
-const config = require('../config.js');
+const path = require("path");
+const config = require("../config.js");
 
 //middleware
-app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(morgan("dev"));
+app.use(express.static(path.join(__dirname, "../public")));
 app.use(express.json());
 
-
-
 //This route gets all products
-app.get('/products', (req, res)=>{
-
+app.get("/products", (req, res) => {
   let options = {
-    method: 'get',
-    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/',
+    method: "get",
+    url: "https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/",
     headers: {
-      'User-Agent': 'request',
-      'Authorization': `${config.TOKEN}`
-    }
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
   };
 
-
   axios(options)
-    .then((response)=>{
+    .then((response) => {
       res.json(response.data);
     })
-    .catch((err)=>{
+    .catch((err) => {
       res.status(500).send(err);
     });
 });
 
 //This route gets a single Product
-app.get('/products/:product_id', (req, res)=>{
+app.get("/products/:product_id", (req, res) => {
   let product = req.params;
 
   let options = {
-    method: 'get',
+    method: "get",
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${product.product_id}`,
     headers: {
-      'User-Agent': 'request',
-      'Authorization': `${config.TOKEN}`
-    }
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
   };
 
-
-
   axios(options)
-    .then((response)=>{
+    .then((response) => {
       res.json(response.data);
-
     })
-    .catch((err)=>{
+    .catch((err) => {
       res.status(500).send(err);
     });
 });
 
 //This route gives you the styles for a single product
-app.get('/products/:product_id/styles', (req, res)=>{
+app.get("/products/:product_id/styles", (req, res) => {
   let product = req.params;
 
   let options = {
-    method: 'get',
+    method: "get",
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${product.product_id}/styles`,
     headers: {
-      'User-Agent': 'request',
-      'Authorization': `${config.TOKEN}`
-    }
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
   };
 
-
-
   axios(options)
-    .then((response)=>{
+    .then((response) => {
       res.json(response.data);
-
     })
-    .catch((err)=>{
+    .catch((err) => {
       res.status(500).send(err);
     });
 });
 
-
 //This route gives you the related items for a single product
-app.get('/products/:product_id/related', (req, res)=>{
+app.get("/products/:product_id/related", (req, res) => {
   let product = req.params;
 
   let options = {
-    method: 'get',
+    method: "get",
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${product.product_id}/related`,
     headers: {
-      'User-Agent': 'request',
-      'Authorization': `${config.TOKEN}`
-    }
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
   };
 
-
-
   axios(options)
-    .then((response)=>{
+    .then((response) => {
       res.json(response.data);
-
     })
-    .catch((err)=>{
+    .catch((err) => {
       res.status(500).send(err);
     });
 });
+
 //This route gives you reviews based on the param object you provide
-app.get('/reviews/:product_id/:count/:page/:sort', (req, res)=>{
-  let query = req.params;
-  console.log('query:', query);
-  // console.log('count',query.count);
-  // console.log('id',query.product_id);
+app.get("/reviews/", (req, res) => {
+  let query = req.query;
+  console.log("REQUEST", query);
 
   let options = {
-    method: 'get',
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/?product_id=${query.product_id}&count=${query.count}`,
+    method: "get",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/`,
     headers: {
-      'User-Agent': 'request',
-      'Authorization': `${config.TOKEN}`
-    }
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+    params: query,
   };
 
-
-  console.log('URL:', options.url);
   axios(options)
-    .then((response)=>{
+    .then((response) => {
       res.json(response.data);
-
     })
-    .catch((err)=>{
+    .catch((err) => {
+      res.status(500).send(err);
+    });
+});
+//This route gives you review metadata for a given product
+app.get("/reviews/meta", (req, res) => {
+  let query = req.query;
+  console.log("REQUEST", query);
+
+  let options = {
+    method: "get",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+    params: query,
+  };
+
+  axios(options)
+    .then((response) => {
+      res.json(response.data);
+    })
+    .catch((err) => {
       res.status(500).send(err);
     });
 });
@@ -143,6 +149,6 @@ app.get('/reviews/:product_id/:count/:page/:sort', (req, res)=>{
 
 
 
-
-app.listen('3000', () => { console.log('app is listening on port 3000'); });
-
+app.listen("3000", () => {
+  console.log("app is listening on port 3000");
+});
