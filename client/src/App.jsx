@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductDetail from './ProductDetail/ProductDetail.jsx';
 import Cards from './Cards/index.jsx';
+import ReviewsSection from './Reviews&Ratings/ReviewsSection.jsx';
 import axios from 'axios';
 
 class App extends React.Component {
@@ -42,6 +43,7 @@ return (
 
     <div>
     REVIEWS HERE
+    <ReviewsSection product={this.state.currentProduct}/>
     </div>
   </div>
 )
