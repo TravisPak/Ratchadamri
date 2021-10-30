@@ -12,6 +12,7 @@ app.use(express.json());
 
 //This route gets all products
 app.get("/products", (req, res) => {
+  let query = req.query;
   let options = {
     method: "get",
     url: "https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/",
@@ -19,6 +20,7 @@ app.get("/products", (req, res) => {
       "User-Agent": "request",
       Authorization: `${config.TOKEN}`,
     },
+    params:query
   };
 
   axios(options)
@@ -250,14 +252,16 @@ app.get("/qa/questions", (req, res) => {
 //get /qa/questions/:question_id/answers
 app.get('/qa/questions/:question_id/answers',(req,res)=>{
   console.log('params', req.params);
-  let questionId = req.params;
+  let question = req.params;
+  let query = req.query;
   let options = {
     method: "get",
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${questionId}/answers`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${question.question_id}/answers`,
     headers: {
       "User-Agent": "request",
       Authorization: `${config.TOKEN}`,
     },
+    params:query
 
   };
 
@@ -296,6 +300,164 @@ app.post("/qa/questions", (req, res) => {
       res.status(500).send(err);
     });
 });
+
+
+app.post('/qa/questions/:question_id/answers',(req,res)=>{
+  console.log('params', req.params);
+  let question = req.params;
+  let body = req.body;
+  let options = {
+    method: "get",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${question.question_id}/answers`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+    data:body
+
+  };
+
+  axios(options)
+    .then((response)=>{
+      res.status(201).json(response.data);
+    })
+    .catch((err)=>{
+      res.send(500).send(err);
+    })
+
+
+});
+
+//route that will update the helpful section for a specific question
+app.put('/qa/questions/:question_id/helpful',(req,res)=>{
+  let question = req.params;
+  console.log("Params",question);
+
+  let options = {
+    method: "put",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${question.question_id}/helpful`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.status(204).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+
+});
+
+//route that updates the report for a specific question
+app.put('/qa/questions/:question_id/report',(req,res)=>{
+  let question = req.params;
+  console.log("Params",question);
+
+  let options = {
+    method: "put",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${question.question_id}/report`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.status(204).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+
+});
+
+app.get('/cart',(req,res)=>{
+
+  let options = {
+    method: "get",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/cart`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+
+});
+
+
+app.post('/cart',(req,res)=>{
+  let body = req.body;
+  let options = {
+    method: "post",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/cart`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+    data:body
+
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.status(201).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+
+});
+
+
+app.post('/interactions',(req,res)=>{
+  let body = req.body;
+  let options = {
+    method: "post",
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/interactions`,
+    headers: {
+      "User-Agent": "request",
+      Authorization: `${config.TOKEN}`,
+    },
+    data:body
+
+  };
+
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data', response.data);
+      res.status(201).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message:',err);
+      res.status(500).send(err);
+    });
+
+});
+
 
 
 

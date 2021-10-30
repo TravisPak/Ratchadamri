@@ -24,15 +24,7 @@ class App extends React.Component {
         console.log(err);
       })
 
-    //for testing purposes
-    ///qa/questions/533204/answers
-    axios.get('/qa/questions/533204/answers')
-      .then((data)=>{
-        console.log(data);
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+
   }
 
 render () {
