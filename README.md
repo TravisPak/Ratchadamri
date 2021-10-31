@@ -1,8 +1,8 @@
 # Hackreactor-Front-End-Capstone-Project
 ### Team members 
-  _Travis Pak_
-  _Stephen Mcdaniel_
-  _Jason Adams_
+  _Travis Pak_,
+  _Stephen Mcdaniel_,
+  _Jason Adams_,
   _Darron McIntyre_
 
 
