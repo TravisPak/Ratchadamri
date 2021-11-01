@@ -9,13 +9,13 @@ class ProductInfo extends React.Component {
   render() {
     var product = this.props.product;
     return (
-      <div>
-        <div className="productCategory">{product.category} </div>
-        <div className="productName">{product.name} </div>
+      <div className="product-info">
+        <div className="product-category">{product.category} </div>
+        <div className="product-name">{product.name} </div>
         <div className="price">{product.default_price} </div>
         <StyleSelector product={product}/>
-        <div className="productDesc">{product.description} </div>
-        <div className="socialMedia">social media buttons here </div>
+        <div className="product-desc">{product.description} </div>
+        <div className="social-media">social media buttons here </div>
       </div>
     )
   }
