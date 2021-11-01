@@ -8,7 +8,9 @@ class ProductDetail extends React.Component {
 
   render() {
     return (
-      <div>This is my Product Detail</div>
+      <div>
+        <ProductInfo product={this.props.product}/>
+      </div>
     )
   }
 }
