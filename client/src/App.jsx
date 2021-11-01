@@ -18,38 +18,34 @@ class App extends React.Component {
 
     axios.get('/products/37311')
       .then((response)=>{
-        console.log(response.data);
+        // console.log(response.data);
         this.setState({currentProduct: response.data})
       })
       .catch((err)=>{
         console.log(err);
       })
-
-
   }
 
-render () {
-return (
-  <div>
-    <div>
-      {/* <ProductDetail product={this.state.currentProduct}/> */}
-    </div>
-    <div>
-    <Cards props={this.state} />
-    </div>
-    <div>
-    QUESTIONS ANSWERS HERE
-    </div>
+  render () {
+    return (
+      <div>
+        <div>
+          <ProductDetail product={this.state.currentProduct}/>
+        </div>
+        <div>
+        <Cards props={this.state} />
+        </div>
+        <div>
+        QUESTIONS ANSWERS HERE
+        </div>
 
-    <div>
-    REVIEWS HERE
-    <ReviewsSection product={this.state.currentProduct}/>
-    </div>
-  </div>
-)
-}
-
-
+        <div>
+        REVIEWS HERE
+        <ReviewsSection product={this.state.currentProduct}/>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default App;

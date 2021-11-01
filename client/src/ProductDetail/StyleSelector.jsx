@@ -9,7 +9,7 @@ class StyleSelector extends React.Component {
   getStyles() {
     axios.get(`/products/${this.props.state.product.product_id}/styles`)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
       })
   }
 
