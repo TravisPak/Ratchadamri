@@ -12,7 +12,7 @@ class ProductInfo extends React.Component {
         <div className="product-category">{product.category} </div>
         <div className="product-name">{product.name} </div>
         <div className="price">{product.default_price} </div>
-        <StyleSelector product={product} />
+        <StyleSelector product={product} styles={this.props.styles} updateStyle={this.props.updateStyle}/>
         <div className="social-media">social media buttons here </div>
       </div>
     );

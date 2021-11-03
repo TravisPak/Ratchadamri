@@ -11,6 +11,12 @@ class ProductDetail extends React.Component {
       currentStyle: {}
     };
     this.getStyles = this.getStyles.bind(this);
+    this.updateStyle = this.updateStyle.bind(this);
+  }
+
+  // on click to styleSelector item, update current style
+  updateStyle(clickedStyle) {
+    this.setState({ currentStyle: clickedStyle })
   }
 
   // Get all styles from API, and set styles states
@@ -25,7 +31,7 @@ class ProductDetail extends React.Component {
         console.log(err);
       });
   }
-
+  // wait for API response to getStyles
   componentDidUpdate(prevProps, prevState) {
     if (this.props !== prevProps) {
       this.getStyles();
@@ -33,13 +39,13 @@ class ProductDetail extends React.Component {
   }
 
   render() {
-
     return (
       <div className="product-detail">
-        <ProductInfo product={this.props.product} />
+        <ProductInfo product={this.props.product} styles={this.state.styles} updateStyle={this.updateStyle}/>
         <ImageGallery currentStylePhotos={this.state.currentStyle.photos} />
         <div className="product-desc">{this.props.product.description} </div>
       </div>
+
     );
   }
 }
