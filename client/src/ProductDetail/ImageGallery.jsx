@@ -49,7 +49,7 @@ class ImageGallery extends React.Component {
       this.setState({
         photos: this.props.currentStylePhotos,
         length: this.props.currentStylePhotos.length,
-        activeIndex: 0
+        activeIndex: 0,
       });
     }
   }
@@ -59,37 +59,18 @@ class ImageGallery extends React.Component {
     return (
       <div className="image-gallery">
         <div className="image-area">
-          <div className="left-arrow">
-            {this.state.activeIndex === 0 ? (
-              ""
-            ) : (
-              <LeftArrow goToPrevSlide={this.goToPrevSlide} />
-            )}
-          </div>
+          <div className="left-arrow">{this.state.activeIndex === 0 ? "" : <LeftArrow goToPrevSlide={this.goToPrevSlide} />}</div>
 
-          <div className="main-image">
-            {
-              <img
-                className="main-image"
-                src={photos ? photos[this.state.activeIndex].url : ""}
-              />
-            }
-          </div>
+          <div className="main-image">{<img className="main-image" src={photos ? photos[this.state.activeIndex].url : ""} />}</div>
 
-          <div>
-            {this.state.activeIndex === this.state.length - 1 ? (
-              ""
-            ) : (
-              <RightArrow goToNextSlide={this.goToNextSlide} />
-            )}
-          </div>
+          <div>{this.state.activeIndex === this.state.length - 1 ? "" : <RightArrow goToNextSlide={this.goToNextSlide} />}</div>
         </div>
         <div className="thumbnails">
           {photos
             ? photos.map((eachPhoto, key) => {
                 return (
                   <img
-                    className="thumbnail"
+                    className={"thumbnail"}
                     src={eachPhoto.thumbnail_url}
                     key={key}
                     onClick={() => {

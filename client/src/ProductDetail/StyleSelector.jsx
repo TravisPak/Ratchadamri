@@ -6,7 +6,13 @@ class StyleSelector extends React.Component {
     this.state = {
       selectedStyle: 0,
     };
+    this.updateCheck = this.updateCheck.bind(this);
     this.updateStyleIndex = this.updateStyleIndex.bind(this);
+  }
+
+  updateCheck(event, styles) {
+    console.log(styles);
+    event.target.classList.toggle("clicked")
   }
 
   updateStyleIndex(index) {
@@ -31,6 +37,7 @@ class StyleSelector extends React.Component {
                     onClick={(clicked) => {
                       this.props.updateStyle(this.props.styles[key]);
                       this.updateStyleIndex(key);
+                      this.updateCheck(clicked);
                     }}
                   />
                 );

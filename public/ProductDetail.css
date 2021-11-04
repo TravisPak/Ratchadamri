@@ -1,7 +1,9 @@
 
-/* * {
+* {
   box-sizing: border-box;
-} */
+  font-family: 'Source Sans Pro', sans-serif;sans-serif;
+  font-weight: 400;
+}
 
 .product-detail {
   display: grid;
@@ -11,26 +13,32 @@
   min-width: 50rem;
   height: 50rem;
   border: 3px solid grey;
-  border-radius: 3px;
 }
 
 .product-info {
   grid-row: 1 / span 4;
   grid-column: 4 / 6;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+
   margin: 5px;
-  border: 3px solid grey;
-  border-radius: 3px;
-  font-family: 'Source Sans Pro', sans-serif;
+  /* border: 1px solid grey; */
   font-size: 1em;
   font-weight: 300;
+}
+
+.style-name-display {
+  margin: 0.5rem;
 }
 
 .styles {
   display: flex;
   width: 24rem;
   flex-wrap: wrap;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
 }
 
 .style-image:hover {
@@ -46,8 +54,49 @@
   margin: .75rem
 }
 
+.style-image.clicked {
+  border: 3px solid grey;
+}
+
+.drop-downs {
+  width: 28rem;
+  height: 10rem;
+  /* border: 1px solid grey; */
+  display: flex;
+  justify-content: flex-start;
+  align-content: space-around;
+  flex-wrap: wrap;
+}
+
+.size-menu {
+  height: 4rem;
+  width: 16rem;
+  margin: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+}
+
+.qty-menu {
+  height: 4rem;
+  width: 8rem;
+  margin: 0.5rem;
+
+  font-size: 1rem;
+  text-align: center;
+}
+
+.cart-button {
+  height: 4rem;
+  width: 20rem;
+  margin: 0.5rem;
+
+  font-size: 1rem;
+  text-align: center;
+}
+
 .product-category {
   font-size: 1em;
+  font-weight: 400;
 }
 
 .product-name {
@@ -57,13 +106,27 @@
 
 .price {
   font-size: 1em;
+  font-weight: 400;
+}
+
+.product-overview {
+  grid-area: 5 / 1 / 6 / 4;
+  margin: .25rem;
+  border: 1px solid grey;
+  font-family: 'Source Sans Pro', sans-serif;
+
+}
+
+.product-slogan {
+  margin: .5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 .product-desc {
-  grid-area: 5 / 1 / 6 / 4;
-  margin: 5px;
-  border: 3px solid grey;
-  border-radius: 3px;
+  margin: .5rem;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .social-media {
@@ -80,8 +143,7 @@
   grid-template-rows: 1fr;
   grid-template-columns: 10% 90%;
 
-  border: 3px solid grey;
-  border-radius: 3px;
+  background-color:hsl(0, 0%, 90%)
 }
 
 .image-area {
@@ -92,8 +154,7 @@
   justify-content: space-between;
   align-items: center;
 
-  border: 3px solid red;
-  border-radius: 3px;
+  border: 1px solid gray;
 }
 
 .main-image {

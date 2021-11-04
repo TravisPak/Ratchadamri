@@ -39,12 +39,14 @@ class ProductDetail extends React.Component {
   }
 
   render() {
-    console.log(this.state.styles, this.state.currentStyle);
     return (
       <div className="product-detail">
         <ProductInfo product={this.props.product} styles={this.state.styles} updateStyle={this.updateStyle} currentStyle={this.state.currentStyle}/>
         <ImageGallery currentStylePhotos={this.state.currentStyle.photos} />
-        <div className="product-desc">{this.props.product.description} </div>
+        <div className="product-overview">
+          <div className="product-slogan">{this.props.product.slogan}</div>
+          <div className="product-desc">{this.props.product.description} </div>
+        </div>
       </div>
 
     );

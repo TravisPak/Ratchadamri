@@ -4,40 +4,76 @@ class DropDowns extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedSku: {size: "SELECT SIZE", quantity: "-"},
+      skuObject: { size: "SELECT SIZE", quantity: "-" },
+      skuNumber: null,
+      qty: null,
     };
+    this.createQuantityOptions = this.createQuantityOptions.bind(this);
     this.handleSizeChange = this.handleSizeChange.bind(this);
     this.handleQtyChange = this.handleQtyChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  // CREATE QUANTITY OPTIONS FOR QTY DROP DOWN ONCE SIZE HAS BEEN SELECTED
   createQuantityOptions(qty) {
-    var options = [<option value="-">-</option>];
+    if (qty === 0) {return <option>OUT OF STOCK</option>}
 
-    for (var i = 1; (i <= this.state.selectedSku.quantity && i <= 15); i++) {
-      options.push(<option value={null} key={i}>{i}</option>)
+    var options = [
+      <option value="-" key={0}>
+        -
+      </option>,
+    ];
+    for (var i = 1; i <= this.state.skuObject.quantity && i <= 15; i++) {
+      options.push(
+        <option
+          value={i}
+          key={i}
+          onChange={() => {
+            this.handleQtyChange;
+          }}
+        >
+          {i}
+        </option>
+      );
     }
-
     return options;
   }
-
+  // UPDATE STATE FOR skuObject WHEN A SIZE IS CHOSEN
   handleSizeChange(event) {
-    this.setState({ selectedSku: this.props.currentStyle.skus[event.target.value] })
+    this.setState({
+      skuNumber: event.target.value,
+      skuObject: this.props.currentStyle.skus[event.target.value],
+    });
+  }
+  // UPDATE STATE FOR SELECTEDQTY WHEN A QTY IS CHOSEN
+  handleQtyChange(event) {
+    this.setState({ qty: event.target.value });
   }
 
-  handleQtyChange(event) { }
-
+  // MAKE THIS SEND A POST REQUEST
   handleSubmit(event) {}
 
+  componentDidUpdate(prevProps) {
+    if (this.props.currentStyle !== prevProps.currentStyle) {
+      this.setState({
+        skuObject: { size: "SELECT SIZE", quantity: "-" },
+        skuNumber: null,
+        qty: null,
+      });
+    }
+  }
+
   render() {
-    console.log(this.state);
     var skus = this.props.currentStyle.skus;
-    var qty = this.state.selectedSku.quantity;
-    console.log(qty);
+    var qty = this.state.skuObject.quantity;
     return (
       <form onSubmit={this.handleSubmit} className="drop-downs">
-        <select className="size-drop-down" value={this.state.sizeValue} onChange={this.handleSizeChange}>
-          <option>{this.state.selectedSku.size}</option>
+        <select
+          className="size-menu"
+          value={this.state.sizeValue}
+          onChange={this.handleSizeChange}
+        >
+          <option key={"-"}>{this.state.skuObject.size}</option>
           {skus
             ? Object.keys(skus).map((skuNumber, key) => {
                 if (skus[skuNumber].quantity > 0) {
@@ -50,9 +86,10 @@ class DropDowns extends React.Component {
               })
             : ""}
         </select>
-        <select className="qty-drop-down">
+        <select className="qty-menu" onChange={this.handleQtyChange}>
           {this.createQuantityOptions(qty)}
         </select>
+        <input className="cart-button" type="submit" value="ADD TO BAG" />
       </form>
     );
   }
