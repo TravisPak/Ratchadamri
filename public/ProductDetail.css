@@ -26,11 +26,23 @@
   font-weight: 300;
 }
 
+.styles {
+  display: flex;
+  width: 24rem;
+  flex-wrap: wrap;
+  border: 1px solid grey;
+}
+
+.style-image:hover {
+  border: 3px solid grey;
+  border-radius: 50%;
+}
+
 .style-image {
   border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
-  overflow: hidden;
+  border: 1px solid grey;
+  width: 4rem;
+  height: 4rem;
   margin: .75rem
 }
 
@@ -104,3 +116,6 @@
   z-index: 1;
 }
 
+.thumbnail:hover {
+  border: 3px solid grey;
+}
