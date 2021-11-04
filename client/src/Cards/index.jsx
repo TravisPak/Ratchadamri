@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
-import cardHelpers from './helpers.js';
+import cardHelpers from "./helpers.js";
 const findReviewAverage = cardHelpers.cardHelpers.findReviewAverage;
-console.log('findReviewAverage', findReviewAverage);
+console.log("findReviewAverage", findReviewAverage);
 
 class Cards extends React.Component {
   constructor(props) {
@@ -17,9 +17,9 @@ class Cards extends React.Component {
   componentDidMount() {
     //add results to newRelated array
 
-      //iterate through newrelated again
-        //request url
-          //add to newrelated for each item
+    //iterate through newrelated again
+    //request url
+    //add to newrelated for each item
     var newAverages = {};
     axios
       .get(`/products/${this.state.product_id}/related`)
@@ -28,46 +28,53 @@ class Cards extends React.Component {
           axios
             .get(`products/${res.data[i]}`)
             .then((result) => {
+              console.log("result.data", result.data);
               newAverages[result.data.id] = [result.data];
+              axios
+                .get(`reviews/meta?product_id=${result.data.id}`)
+                .then((response) => {
+                  var avg = findReviewAverage(response.data.ratings);
+                  console.log("response.data", response.data);
+                  // console.log('avg', avg);
+                  newAverages[response.data.product_id].push(avg);
+                  console.log("newAverages", newAverages);
+                  axios
+                    .get(`/products/${response.data.product_id}/styles`)
+                    .then((styles) => {
+                      console.log("styles.data", styles.data);
+                      if (
+                        styles.data.results[0].photos[0].thumbnail_url === null
+                      ) {
+                        newAverages[styles.data.product_id].push("No Photos");
+                      } else {
+                        newAverages[styles.data.product_id].push(
+                          styles.data.results[0].photos[0].thumbnail_url
+                        );
+                      }
+                      // console.log('newAverages after URL', newAverages);
+                    })
+                    .catch((err) => {
+                      console.log("err during styles", err);
+                    });
+                })
+                .catch((err) => {
+                  console.log("err during meta", err);
+                });
             })
             .catch((err) => {
-              console.log(err);
-            })
-            .then(
-              axios
-                .get(`reviews/meta?product_id=${res.data[i]}`)
-                  .then((response) => {
-                    var avg = findReviewAverage(response.data.ratings);
-                    console.log('response.data', response.data);
-                    // console.log('avg', avg);
-                    newAverages[response.data.product_id].push(avg);
-                    console.log('newAverages', newAverages);
-                    }
-                  )
-            )
-            .then(
-              axios
-              .get(`/products/${res.data[i]}/styles`)
-                .then((styles) => {
-                  console.log('styles.data', styles.data);
-                  if (styles.data.results[0].photos[0].thumbnail_url === null) {
-                    newAverages[styles.data.product_id].push('No Photos');
-                  } else {
-                  newAverages[styles.data.product_id].push(styles.data.results[0].photos[0].thumbnail_url)}
-                  // console.log('newAverages after URL', newAverages);
-                })
-            )
-            .then(this.setState({averages: newAverages}))
-
+              console.log("Error during loop", err);
+            });
         }
         console.log("res from related req", res.data);
       })
-      .catch((err) => console.log(err));
-      //iterate through related
-        //request rating
-          //add to related for each item
-
-
+      .catch((err) => console.log("Error after loop", err))
+      .then(
+        // console.log('newaverages at end', newAverages);
+        this.setState({ averages: newAverages })
+      );
+    //iterate through related
+    //request rating
+    //add to related for each item
   }
 
   render() {
