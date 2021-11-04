@@ -10,7 +10,7 @@ class Cards extends React.Component {
     this.state = {
       product_id: "37311",
       related: [],
-      averages: {},
+      relatedInfo: {},
     };
   }
 
@@ -20,58 +20,50 @@ class Cards extends React.Component {
     //iterate through newrelated again
     //request url
     //add to newrelated for each item
-    var newAverages = {};
+    var relatedData = {};
     axios
       .get(`/products/${this.state.product_id}/related`)
       .then((res) => {
         for (var i = 0; i < res.data.length; i++) {
-          axios
-            .get(`products/${res.data[i]}`)
-            .then((result) => {
-              console.log("result.data", result.data);
-              newAverages[result.data.id] = [result.data];
-              axios
-                .get(`reviews/meta?product_id=${result.data.id}`)
-                .then((response) => {
-                  var avg = findReviewAverage(response.data.ratings);
-                  console.log("response.data", response.data);
-                  // console.log('avg', avg);
-                  newAverages[response.data.product_id].push(avg);
-                  console.log("newAverages", newAverages);
-                  axios
-                    .get(`/products/${response.data.product_id}/styles`)
-                    .then((styles) => {
-                      console.log("styles.data", styles.data);
-                      if (
-                        styles.data.results[0].photos[0].thumbnail_url === null
-                      ) {
-                        newAverages[styles.data.product_id].push("No Photos");
-                      } else {
-                        newAverages[styles.data.product_id].push(
-                          styles.data.results[0].photos[0].thumbnail_url
-                        );
-                      }
-                      // console.log('newAverages after URL', newAverages);
-                    })
-                    .catch((err) => {
-                      console.log("err during styles", err);
-                    });
-                })
-                .catch((err) => {
-                  console.log("err during meta", err);
-                });
-            })
-            .catch((err) => {
-              console.log("Error during loop", err);
-            });
+          axios.get(`products/${res.data[i]}`).then((result) => {
+            console.log("result.data", result.data);
+            relatedData[result.data.id] = [result.data];
+            return axios
+              .get(`reviews/meta?product_id=${result.data.id}`)
+              .then((response) => {
+                var avg = findReviewAverage(response.data.ratings);
+                console.log("response.data", response.data);
+                // console.log('avg', avg);
+                relatedData[response.data.product_id].push(avg);
+                console.log("relatedData", relatedData);
+                return axios
+                  .get(`/products/${response.data.product_id}/styles`)
+                  .then((styles) => {
+                    console.log("styles.data", styles.data);
+                    if (
+                      styles.data.results[0].photos[0].thumbnail_url === null
+                    ) {
+                      relatedData[styles.data.product_id].push("No Photos");
+                      this.setState({ relatedInfo: relatedData })
+                    } else {
+                      relatedData[styles.data.product_id].push(
+                        styles.data.results[0].photos[0].thumbnail_url
+                      );
+                      this.setState({ relatedInfo: relatedData })
+                    }
+                    // console.log('relatedData after URL', relatedData);
+                  });
+              });
+          })
+          .catch((error) => console.log('Error in loop: ', error))
         }
         console.log("res from related req", res.data);
       })
       .catch((err) => console.log("Error after loop", err))
-      .then(
-        // console.log('newaverages at end', newAverages);
-        this.setState({ averages: newAverages })
-      );
+      // .then(
+      //   // console.log('relatedData at end', relatedData);
+      // this.setState({ averages: relatedData })
+      // );
     //iterate through related
     //request rating
     //add to related for each item
@@ -79,15 +71,19 @@ class Cards extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="related">
         {
           /* iterate over state.related
         create new span with CATEGORY/NAME/PRICE/STAR RATING */
-          this.state.related.map((item) => (
+          Object.keys(this.state.relatedInfo).map((key) => (
             <div className="item">
-              <span className="item-name">{item.name}</span>
-              <span className="item-category">{item.category}</span>
-              <span className="item-price">{item.default_price}</span>
+              <span className="item-name">{this.state.relatedInfo[key][0].name}</span>
+              <br />
+              <span className="item-category">{'Category: ' + this.state.relatedInfo[key][0].category}</span>
+              <br />
+              <span className="item-price">{'Price: ' + this.state.relatedInfo[key][0].default_price}</span>
+              <br />
+              <span className="stars">{'Stars: ' + this.state.relatedInfo[key][1]}</span>
             </div>
           ))
         }
