@@ -100,7 +100,6 @@ class ImageGallery extends React.Component {
 
   // ENLARGE THUMBNAIL PHOTO ON CLICK
   enlargeThumbnail(clickedPhoto) {
-    console.log(clickedPhoto);
     var clicked = this.state.photos.indexOf(clickedPhoto);
     this.setState({ activeIndex: clicked });
   }

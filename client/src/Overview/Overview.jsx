@@ -3,7 +3,7 @@ import axios from "axios";
 import ProductInfo from "./ProductInfo.jsx";
 import ImageGallery from "./ImageGallery.jsx";
 
-class ProductDetail extends React.Component {
+class Overview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,4 +53,4 @@ class ProductDetail extends React.Component {
   }
 }
 
-export default ProductDetail;
+export default Overview;
