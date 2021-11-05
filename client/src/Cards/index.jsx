@@ -9,7 +9,7 @@ class Cards extends React.Component {
     super(props);
     this.state = {
       product_id: "37311",
-      related: [],
+      product_info: {},
       relatedInfo: {},
     };
   }
@@ -26,24 +26,24 @@ class Cards extends React.Component {
       .then((res) => {
         for (var i = 0; i < res.data.length; i++) {
           axios.get(`products/${res.data[i]}`).then((result) => {
-            console.log("result.data", result.data);
+
             relatedData[result.data.id] = [result.data];
             return axios
               .get(`reviews/meta?product_id=${result.data.id}`)
               .then((response) => {
                 var avg = findReviewAverage(response.data.ratings);
-                console.log("response.data", response.data);
+
                 // console.log('avg', avg);
                 relatedData[response.data.product_id].push(avg);
-                console.log("relatedData", relatedData);
+
                 return axios
                   .get(`/products/${response.data.product_id}/styles`)
                   .then((styles) => {
-                    console.log("styles.data", styles.data);
+
                     if (
                       styles.data.results[0].photos[0].thumbnail_url === null
                     ) {
-                      relatedData[styles.data.product_id].push("No Photos");
+                      relatedData[styles.data.product_id].push('https://http.cat/404');
                       this.setState({ relatedInfo: relatedData })
                     } else {
                       relatedData[styles.data.product_id].push(
@@ -57,7 +57,7 @@ class Cards extends React.Component {
           })
           .catch((error) => console.log('Error in loop: ', error))
         }
-        console.log("res from related req", res.data);
+
       })
       .catch((err) => console.log("Error after loop", err))
       // .then(
@@ -67,6 +67,8 @@ class Cards extends React.Component {
     //iterate through related
     //request rating
     //add to related for each item
+    axios.get(`products/${this.state.product_id}`)
+      .then((result) => {this.setState({product_info: result.data})})
   }
 
   render() {
@@ -75,15 +77,17 @@ class Cards extends React.Component {
         {
           /* iterate over state.related
         create new span with CATEGORY/NAME/PRICE/STAR RATING */
-          Object.keys(this.state.relatedInfo).map((key) => (
-            <div className="item">
-              <span className="item-name">{this.state.relatedInfo[key][0].name}</span>
+          Object.keys(this.state.relatedInfo).map((key, index) => (
+            <div className="item" key={index}>
+              <img className="item-img" src={this.state.relatedInfo[key][2]} />
               <br />
-              <span className="item-category">{'Category: ' + this.state.relatedInfo[key][0].category}</span>
+              <span className="item-category item-text" >{this.state.relatedInfo[key][0].category}</span>
               <br />
-              <span className="item-price">{'Price: ' + this.state.relatedInfo[key][0].default_price}</span>
+              <span className="item-name item-text">{this.state.relatedInfo[key][0].name}</span>
+              {/* <br /> */}
+              <span className="item-price item-text">{'$' + this.state.relatedInfo[key][0].default_price}</span>
               <br />
-              <span className="stars">{'Stars: ' + this.state.relatedInfo[key][1]}</span>
+              <span className="stars item-text">{'Stars: ' + this.state.relatedInfo[key][1]}</span>
             </div>
           ))
         }
