@@ -16,13 +16,12 @@ class DropDowns extends React.Component {
 
   // CREATE QUANTITY OPTIONS FOR QTY DROP DOWN ONCE SIZE HAS BEEN SELECTED
   createQuantityOptions(qty) {
-    if (qty === 0) {return <option>OUT OF STOCK</option>}
+    if (qty === 0) {
+      return <option>OUT OF STOCK</option>;
+    }
 
-    var options = [
-      <option value="-" key={0}>
-        -
-      </option>,
-    ];
+    var options = [<option value="-" key={0}> - </option>];
+    
     for (var i = 1; i <= this.state.skuObject.quantity && i <= 15; i++) {
       options.push(
         <option
@@ -68,11 +67,7 @@ class DropDowns extends React.Component {
     var qty = this.state.skuObject.quantity;
     return (
       <form onSubmit={this.handleSubmit} className="drop-downs">
-        <select
-          className="size-menu"
-          value={this.state.sizeValue}
-          onChange={this.handleSizeChange}
-        >
+        <select className="size-menu" value={this.state.sizeValue} onChange={this.handleSizeChange}>
           <option key={"-"}>{this.state.skuObject.size}</option>
           {skus
             ? Object.keys(skus).map((skuNumber, key) => {
