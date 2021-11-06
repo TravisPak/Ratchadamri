@@ -103,11 +103,15 @@ class Cards extends React.Component {
         }
         <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}><div>
           <table className="related-modal">
-              <tr>{this.state.clickedProduct}</tr>
-              <tr>Characteristics</tr>
-              <tr>{this.state.product_info.name}</tr>
-            {/* iterate on characteristics of clicked and add to table
-              then iterate on characteristics of main and add to table */
+            <thead>
+              <tr>
+              <td>{this.state.clickedProduct}</td>
+              <td>Characteristics</td>
+              <td>{this.state.product_info.name}</td>
+              </tr>
+            </thead>
+            <tbody>
+            {
               this.state.clickedProductInfo.map((feature) => {
                 return (<tr>
                   <td>Placeholder</td>
@@ -115,14 +119,8 @@ class Cards extends React.Component {
                   <td>Placeholder</td>
                 </tr>)
               })
-              // this.state.product_info.features.map((feature) => {
-              //   return (<tr>
-              //     <td>Placeholder</td>
-              //     <td>{feature.feature}</td>
-              //     <td>Placeholder</td>
-              //   </tr>)
-              // })
               }
+              </tbody>
           </table>
           </div></Modal>
       </div>
