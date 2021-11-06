@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductDetail from './ProductDetail/ProductDetail.jsx';
+import Overview from './Overview/Overview.jsx';
 import Cards from './Cards/index.jsx';
 import ReviewsSection from './Reviews&Ratings/ReviewsSection.jsx';
 import axios from 'axios';
@@ -17,11 +17,9 @@ class App extends React.Component {
   // set default start up productId
   componentDidMount() {
 
-    axios.get('/products/37311')
+    axios.get('/products/37318')
       .then((response)=>{
-        console.log(response.data);
         this.setState({currentProduct: response.data});
-        console.log('currentProduct: ', this.state.currentProduct);
       })
       .catch((err)=>{
         console.log(err);
@@ -32,7 +30,7 @@ render () {
 return (
   <div>
     <div>
-      {/* <ProductDetail product={this.state.currentProduct}/> */}
+    <Overview product={this.state.currentProduct}/>
     </div>
     <div>
     <Cards props={this.state} />
@@ -48,8 +46,6 @@ return (
   </div>
 )
 }
-
-
 }
 
 export default App;

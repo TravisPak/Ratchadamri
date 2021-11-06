@@ -10,21 +10,20 @@ class Cards extends React.Component {
   }
 
 
-  // componentDidMount () {
+  componentDidMount () {
 
-  //     axios.get(`/products/${this.state.product_id}/related`)
-  //       .then((res) => {
-  //         for (var i = 0; i < res.data.length; i++) {
-  //           axios.get(`products/${res.data[i]}`)
-  //             .then((result) => console.log(result))
-  //             .catch((err)=>{console.log(err)});
-  //         }
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
+      axios.get(`/products/${this.state.product_id}/related`)
+        .then((res) => {
+          for (var i = 0; i < res.data.length; i++) {
+            axios.get(`products/${res.data[i]}`)
+              .then((result) => {/* console.log(result) */})
+              .catch((err)=>{/* console.log(err) */});
+          }
+          // console.log(res.data);
+        })
+        .catch((err) => console.log(err));
 
-
-  // }
+  }
 
   render() {
     return (
