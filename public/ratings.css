@@ -1,0 +1,51 @@
+.stars {
+  display: flex;
+}
+
+.stars.disabled {
+  pointer-events: none;
+}
+
+.stars a {
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.stars:hover a {
+  opacity: 100%;
+}
+
+.stars a:hover {
+  opacity: 100%;
+}
+
+.stars a:hover ~ a{
+  opacity: 50%;
+}
+
+.stars a.active {
+  opacity: 100%;
+}
+
+.faded-star {
+  opacity:20%;
+}
+
+.reviews-ratings-overall-container{
+  display:flex;
+  width: 74rem;
+}
+
+.rating-breakdown-container{
+  border-style: solid;
+  border-width: .0625rem;
+  padding-bottom: .0625rem;
+  height: 12.5rem;
+}
+
+.list-container{
+  border-style: solid;
+  border-width: .0625rem;
+  padding-bottom: .0625rem;
+
+}
