@@ -225,6 +225,10 @@ app.put('/reviews/:review_id/report',(req,res)=>{
 
 });
 
+
+
+
+//start of Q&A
 //Retrieves a list of questions for a particular product.
 //This list does not include any reported questions
 app.get('/qa/questions/:product_id', (req, res) => {
@@ -240,9 +244,7 @@ app.get('/qa/questions/:product_id', (req, res) => {
     params: {
       product_id: requestParameters.product_id
     }
-
   };
-
   axios(options)
     .then((response) => {
       //console.log(response.data)
@@ -279,7 +281,7 @@ app.get('/qa/questions/:question_id/answers',(req,res)=>{
 });
 
 //Adds a question for the given product
-app.post('/qa/questions/:product_id', (req, res) => {
+app.post('/qa/questions/', (req, res) => {
   let requestParameters = req.params;
   let body = req.body;
   console.log('Body: ', body);
@@ -289,10 +291,10 @@ app.post('/qa/questions/:product_id', (req, res) => {
     url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions',
     headers: {
       'User-Agent': 'request',
-      Authorization: '${config.TOKEN}',
+      Authorization: `${config.TOKEN}`,
     },
     params: {
-      product_id: requestParameters.product_id
+      product_id: body.product_id
     },
     data: body
   };
@@ -360,7 +362,7 @@ app.put('/qa/questions/:question_id/helpful', (req,res)=>{
 //but the question will not be returned in the above GET request.
 app.put('/qa/questions/:question_id/report',(req,res)=>{
   let question = req.params;
-  console.log('Params: ', question);
+  //console.log('Params: ', question);
 
   let options = {
     method: 'put',
@@ -372,7 +374,7 @@ app.put('/qa/questions/:question_id/report',(req,res)=>{
   };
   axios(options)
     .then((response) => {
-      console.log('respnse.data: ', response.data);
+      console.log('response.data: ', response.data);
       res.status(204).json(response.data);
     })
     .catch((err) => {
@@ -431,7 +433,7 @@ app.put('/qa/answers/:answer_id/report',(req,res)=>{
     });
 });
 
-
+///end of Q&A////
 
 
 
@@ -512,13 +514,6 @@ app.post('/interactions',(req,res)=>{
     });
 
 });
-
-
-
-
-
-
-
 
 
 app.listen("3000", () => {

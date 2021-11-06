@@ -1,16 +1,26 @@
 import React from 'react';
 
-
 class SearchBar extends React.Component {
   constructor(props){
     super(props);
-    this.state={};
+    this.state={
+      search: ''
+    };
 
     this.handleSubmit=this.handleSubmit.bind(this);
+    this.handleSearchChange=this.handleSearchChange.bind(this);
   }
 
   handleSubmit(e){
-    console.log('submit clicked');
+    e.preventDefault();
+    console.log('submit clicked on search bar');
+    this.props.handleSearch(this.state.search);
+  }
+
+  handleSearchChange(e){
+    this.setState({
+      search: e.target.value
+    });
   }
 
   render(){
@@ -20,7 +30,8 @@ class SearchBar extends React.Component {
           type="text"
           id="header-search"
           placeholder="Have a question?"
-          onChange={this.props.handleSearch}
+          value={this.state.search}
+          onChange={this.handleSearchChange}
         />
         <button type="submit">Search</button>
       </form>
