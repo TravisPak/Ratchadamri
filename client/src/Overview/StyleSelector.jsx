@@ -26,7 +26,7 @@ class StyleSelector extends React.Component {
             ? this.props.styles.map((style, key) => {
                 return (
                   <div key={key} className="check-and-style">
-                    <FontAwesomeIcon icon={faCheckCircle} size="2x" className={key === this.state.selectedStyle ? "check clicked" : "check"}/>
+                    <FontAwesomeIcon icon={faCheckCircle} className={key === this.state.selectedStyle ? "check clicked" : "check"}/>
                     <img
                       src={style.photos[0].thumbnail_url}
                       key={key}
