@@ -12,11 +12,11 @@ class HelpfulReport extends React.Component {
   }
 
   clickYes() {
-    console.log("Yes");
+    // console.log("Yes");
     axios
       .put(`/reviews/${this.props.id}/helpful`)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         this.props.updateHelpfulness(this.props.id);
       })
       .catch((err) => {
@@ -25,11 +25,11 @@ class HelpfulReport extends React.Component {
   }
 
   clickReport() {
-    console.log("Report");
+    // console.log("Report");
     axios
       .put(`/reviews/${this.props.id}/report`)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
       })
       .catch((err) => {
         console.log(err);

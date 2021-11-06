@@ -23,7 +23,6 @@ class Form extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.buttonClick = this.buttonClick.bind(this);
     this.handleCharacteristicChange =
       this.handleCharacteristicChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
@@ -37,7 +36,7 @@ class Form extends React.Component {
   componentDidMount() {}
 
   validateForm() {
-    console.log("validate here");
+
     //mandatory fields blank
     if (
       this.state.overallRating === "" ||
@@ -89,9 +88,9 @@ class Form extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log("validated or not:", this.validateForm());
+    // console.log("validated or not:", this.validateForm());
     if (this.validateForm()) {
-      console.log("we are validated");
+      // console.log("we are validated");
       axios
         .post("/reviews", {
           product_id: parseInt(this.props.productId),
@@ -105,7 +104,7 @@ class Form extends React.Component {
           characteristics: this.state.characteristics,
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
         })
         .catch((err) => {
           console.log(err);
@@ -193,18 +192,16 @@ class Form extends React.Component {
     }));
   }
 
-  buttonClick(event) {
-    console.log("open upload photos modal");
-  }
+
 
   addPhoto(image) {
-    console.log(`I am adding this photo: ${image}`);
+    // console.log(`I am adding this photo: ${image}`);
     let photos = [...this.state.photos];
     if (photos.length < 5) {
       photos.push(image);
       this.setState({ photos: photos });
     } else {
-      console.log("Reached photo upload limit");
+      // console.log("Reached photo upload limit");
     }
   }
 

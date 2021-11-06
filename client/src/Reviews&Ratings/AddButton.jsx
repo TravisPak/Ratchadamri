@@ -2,7 +2,7 @@ import React from "react";
 
 const AddButton = (props) => {
   const handleClick = () => {
-    console.log("Add a review");
+    // console.log("Add a review");
     props.showModal();
   };
 

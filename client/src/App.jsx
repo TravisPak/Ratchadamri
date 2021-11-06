@@ -43,7 +43,7 @@ return (
 
     <div>
     REVIEWS HERE
-    <ReviewsSection product={this.state.currentProduct}/>
+    <ReviewsSection productId={this.state.currentProduct.id}/>
     </div>
   </div>
 )
