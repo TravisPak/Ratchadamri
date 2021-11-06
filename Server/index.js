@@ -128,7 +128,7 @@ app.get("/reviews/meta", (req, res) => {
 
   let options = {
     method: "get",
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/meta`,
     headers: {
       "User-Agent": "request",
       Authorization: `${config.TOKEN}`,
