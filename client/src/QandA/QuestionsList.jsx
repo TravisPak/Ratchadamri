@@ -27,7 +27,8 @@ hideModal(){
   this.setState({modalShowing: false});
 }
 
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentProductID !== this.props.currentProductID) {
     console.log('currentProductID: ', this.props.currentProductID);
     axios.get(`/qa/questions/${this.props.currentProductID}`)
       .then((response)=>{
@@ -38,6 +39,7 @@ hideModal(){
       .catch((err)=>{
         console.log('error in QList componentDidMount: ', err);
       })
+    }
   }
 
   filterQuestions(arr, searchQuery) {

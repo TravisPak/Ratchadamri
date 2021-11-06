@@ -122,7 +122,7 @@ app.get("/reviews/", (req, res) => {
     });
 });
 //This route gives you review metadata for a given product
-app.get("/reviews/meta", (req, res) => {
+app.get("/reviews/meta/", (req, res) => {
   let query = req.query;
   console.log("Query", query);
 
