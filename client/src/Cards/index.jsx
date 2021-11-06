@@ -16,13 +16,12 @@ class Cards extends React.Component {
         .then((res) => {
           for (var i = 0; i < res.data.length; i++) {
             axios.get(`products/${res.data[i]}`)
-              .then((result) => console.log(result))
-              .catch((err)=>{console.log(err)});
+              .then((result) => {/* console.log(result) */})
+              .catch((err)=>{/* console.log(err) */});
           }
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch((err) => console.log(err));
-
 
   }
 
