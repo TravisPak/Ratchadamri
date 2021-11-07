@@ -1,8 +1,7 @@
 import React from "react";
 import List from "./List.jsx";
-import Form from "./Form.jsx";
-import Modal from "./Modal.jsx";
 import RatingBreakdown from "./RatingBreakdown.jsx";
+import ProductBreakdown from './ProductBreakdown.jsx';
 import axios from "axios";
 
 class ReviewsSection extends React.Component {
@@ -20,6 +19,51 @@ class ReviewsSection extends React.Component {
         {rating:4,isOn:false},
         {rating:5,isOn:false}
       ],
+      characteristicSelections : {
+        Size: [
+          "A size too small",
+          "1/2 a size too small",
+          "Perfect",
+          "1/2 a size too big",
+          "A size too wide",
+        ],
+        Width: [
+          "Too narrow",
+          "Slighty narrow",
+          "Perfect",
+          "Slighthy wide",
+          "Too wide",
+        ],
+        Comfort: [
+          "Uncomfortable",
+          "Slightly uncomfortable",
+          "Ok",
+          "Comfortable",
+          "Perfect",
+        ],
+        Quality: [
+          "Poor",
+          "Below average",
+          "What I expected",
+          "Pretty great",
+          "Perfect",
+        ],
+        Length: [
+          "Runs Short",
+          "Runs slighty short",
+          "Perfect",
+          "Runs slightly long",
+          "Runs long",
+        ],
+        Fit: [
+          "Runs tight",
+          "Runs slightly tight",
+          "Perfect",
+          "Runs slightly long",
+          "Runs long",
+        ],
+      }
+
     };
 
     this.showModal = this.showModal.bind(this);
@@ -88,7 +132,9 @@ class ReviewsSection extends React.Component {
         <RatingBreakdown
           meta={this.state.meta}
           clickRating={this.clickRating}
+
         />
+        <ProductBreakdown characteristics={this.state.meta.characteristics} selections={this.state.characteristicSelections}/>
         <List
           reviews={this.state.reviews}
           productId={this.props.productId}
@@ -96,14 +142,11 @@ class ReviewsSection extends React.Component {
           ratings={this.state.meta.ratings}
           showModal={this.showModal}
           filteredRatings={this.state.filteredRatings}
+          selections = {this.state.characteristicSelections}
         />
-        <br></br>
-        <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
-          <Form
-            characteristics={this.state.meta.characteristics}
-            productId={this.props.productId}
-          />
-        </Modal>
+
+
+
       </div>
     );
   }
