@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 
 class DropDowns extends React.Component {
   constructor(props) {
@@ -19,18 +20,11 @@ class DropDowns extends React.Component {
     if (qty === 0) {
       return <option>OUT OF STOCK</option>;
     }
-
     var options = [<option value="-" key={0}> - </option>];
-    
+
     for (var i = 1; i <= this.state.skuObject.quantity && i <= 15; i++) {
       options.push(
-        <option
-          value={i}
-          key={i}
-          onChange={() => {
-            this.handleQtyChange;
-          }}
-        >
+        <option value={i} key={i} onChange={() => { this.handleQtyChange; }} >
           {i}
         </option>
       );
@@ -50,7 +44,17 @@ class DropDowns extends React.Component {
   }
 
   // MAKE THIS SEND A POST REQUEST
-  handleSubmit(event) {}
+  handleSubmit(event) {
+    event.preventDefault();
+    console.log('submitted: ', this.state.skuNumber, this.state.qty)
+    axios.post('/cart', {
+      sku_id: this.state.skuNumber,
+      count: this.state.qty
+    })
+      .then((response) => {
+        console.log(response);
+      })
+  }
 
   componentDidUpdate(prevProps) {
     if (this.props.currentStyle !== prevProps.currentStyle) {

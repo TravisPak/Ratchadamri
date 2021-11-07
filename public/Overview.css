@@ -31,6 +31,26 @@
   font-weight: 300;
 }
 
+.prices {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 10rem;
+}
+
+.original-price {
+  margin: 0.5rem;
+}
+
+.sale-price {
+  margin: 0.5rem;
+  color: red;
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
 .style-name-display {
   margin: 0.5rem;
 }
