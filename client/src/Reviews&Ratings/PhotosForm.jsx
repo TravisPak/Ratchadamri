@@ -18,6 +18,7 @@ class PhotosForm extends React.Component {
     event.preventDefault();
     // setPhotos in here
     this.props.addPhoto(this.state.image);
+    this.props.handleClose();
   }
 
   render() {
