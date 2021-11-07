@@ -10,6 +10,7 @@ class RatingBreakdown extends React.Component {
     this.getRatingAvg = this.getRatingAvg.bind(this);
 
 
+
   }
 
   getRatingAvg() {
@@ -17,6 +18,7 @@ class RatingBreakdown extends React.Component {
     let totalStars = 0;
 
     for (let key in this.props.meta.ratings) {
+
       total += parseInt(this.props.meta.ratings[key]);
       totalStars += parseInt(key) * parseInt(this.props.meta.ratings[key]);
     }
@@ -25,15 +27,22 @@ class RatingBreakdown extends React.Component {
 
     let avgRating = totalStars / total;
 
+
+
     return (Math.round(avgRating * 10) / 10);
   }
 
 
   getPercentageRecommended() {
-    let yes = this.props.meta.recommended.true;
-    let no = this.props.meta.recommended.false;
+    let yes = this.props.meta.recommended.true ? this.props.meta.recommended.true:0;
+    let no = this.props.meta.recommended.false ? this.props.meta.recommended.false:0;
     let total = parseInt(yes) + parseInt(no);
-    let averagePercent = (yes / total) * 100;
+    let averagePercent;
+    if(total === 0){
+      averagePercent = 0;
+    }
+      averagePercent = (yes / total) * 100;
+
     return averagePercent;
   }
 
@@ -80,7 +89,7 @@ class RatingBreakdown extends React.Component {
           <a className="faded-star">⭐</a>
         </div>
       );
-    } else {
+    } else if(avg === 5){
       return (
         <div>
           <a>⭐</a>
@@ -90,6 +99,17 @@ class RatingBreakdown extends React.Component {
           <a>⭐</a>
         </div>
       );
+    } else {
+      return (
+        <div>
+          <a className="faded-star">⭐</a>
+          <a className="faded-star">⭐</a>
+          <a className="faded-star">⭐</a>
+          <a className="faded-star">⭐</a>
+          <a className="faded-star">⭐</a>
+        </div>
+      )
+
     }
   }
 
