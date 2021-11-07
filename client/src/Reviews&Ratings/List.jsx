@@ -3,11 +3,14 @@ import Tile from "./Tile.jsx";
 import axios from "axios";
 import MoreButton from "./MoreButton.jsx";
 import AddButton from "./AddButton.jsx";
+import Form from "./Form.jsx";
+import Modal from "./Modal.jsx";
 
 class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      modalShowing:false,
       value: "Relevant",
       reviews: [],
       displayList: [],
@@ -19,6 +22,8 @@ class List extends React.Component {
     this.addMore = this.addMore.bind(this);
     this.updateHelpfulness = this.updateHelpfulness.bind(this);
     this.filterList = this.filterList.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
   componentDidUpdate(prevProps,prevState) {
@@ -187,11 +192,21 @@ class List extends React.Component {
     return filteredReviews;
   }
 
+  showModal() {
+    this.setState({ modalShowing: true });
+  }
+
+  hideModal() {
+    this.setState({ modalShowing: false });
+  }
+
   render() {
     if (!this.props.characteristics || !this.props.productId || !this.props.reviews || !this.props.ratings || !this.state.reviews || !this.state.displayList) {
       // console.log('Undefined Area');
     }
     return (
+      <div>
+
       <ul className="list-container">
         <div className="list-total-num-reviews"># of reviews for viewed product{this.props.reviews.length}</div>
 
@@ -221,9 +236,19 @@ class List extends React.Component {
             displayList={this.state.displayList}
             addMore={this.addMore}
           />
-          <AddButton showModal={this.props.showModal} />
+          <AddButton showModal={this.showModal} />
         </div>
       </ul>
+      <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <Form
+            characteristics={this.props.characteristics}
+            productId={this.props.productId}
+            handleClose={this.hideModal}
+            renderList={this.renderList}
+            selections={this.props.selections}
+          />
+        </Modal>
+      </div>
     );
   }
 }
