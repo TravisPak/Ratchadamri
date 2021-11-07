@@ -3,11 +3,14 @@ import Tile from "./Tile.jsx";
 import axios from "axios";
 import MoreButton from "./MoreButton.jsx";
 import AddButton from "./AddButton.jsx";
+import Form from "./Form.jsx";
+import Modal from "./Modal.jsx";
 
 class List extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      modalShowing: false,
       value: "Relevant",
       reviews: [],
       displayList: [],
@@ -19,11 +22,12 @@ class List extends React.Component {
     this.addMore = this.addMore.bind(this);
     this.updateHelpfulness = this.updateHelpfulness.bind(this);
     this.filterList = this.filterList.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
   }
 
-  componentDidUpdate(prevProps,prevState) {
-    if(prevProps.productId !== this.props.productId){
-
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.productId !== this.props.productId) {
       axios
         .get("/reviews/", {
           params: {
@@ -83,11 +87,7 @@ class List extends React.Component {
         // console.log("Newest data:", data.results);
         let reviews = data.results;
 
-
-
-
         //     reviews = this.filterList(data.results,this.props.filteredRating.rating);
-
 
         // console.log('Filtered for 5:',reviews);
 
@@ -177,53 +177,85 @@ class List extends React.Component {
     this.setState({ displayList: reviews });
   }
 
-  filterList(reviews,filteredRatings){
+  filterList(reviews, filteredRatings) {
     //NOT FINISHED
-    let filteredReviews = reviews.filter((review)=>{
-      if(review.rating === filteredRatings[0].rating){
+    let filteredReviews = reviews.filter((review) => {
+      if (review.rating === filteredRatings[0].rating) {
         return review;
       }
     });
     return filteredReviews;
   }
 
+  showModal() {
+    this.setState({ modalShowing: true });
+  }
+
+  hideModal() {
+    this.setState({ modalShowing: false });
+  }
+
   render() {
-    if (!this.props.characteristics || !this.props.productId || !this.props.reviews || !this.props.ratings || !this.state.reviews || !this.state.displayList) {
+    if (
+      !this.props.characteristics ||
+      !this.props.productId ||
+      !this.props.reviews ||
+      !this.props.ratings ||
+      !this.state.reviews ||
+      !this.state.displayList
+    ) {
       // console.log('Undefined Area');
     }
     return (
-      <ul className="list-container">
-        <div className="list-total-num-reviews"># of reviews for viewed product{this.props.reviews.length}</div>
+      <div>
+        <ul className="list-container">
+          <div className="list-total-num-reviews">
+            # of reviews for viewed product{this.props.reviews.length}
+          </div>
 
-        <label className="list-dropdown-title">
-          Sort on
-          <select className="list-dropdown" value={this.state.value} onChange={this.handleChange}>
-            <option value="Relevant">Relevant</option>
-            <option value="Helpful">Helpful</option>
-            <option value="Newest">Newest</option>
-          </select>
-        </label>
+          <label className="list-dropdown-title">
+            Sort on
+            <select
+              className="list-dropdown"
+              value={this.state.value}
+              onChange={this.handleChange}
+            >
+              <option value="Relevant">Relevant</option>
+              <option value="Helpful">Helpful</option>
+              <option value="Newest">Newest</option>
+            </select>
+          </label>
 
-        <div className="list-tile-container">
-          {this.state.displayList.map((review, id) => {
-            return (
-              <Tile
-                key={id}
-                review={review}
-                updateHelpfulness={this.updateHelpfulness}
-              />
-            );
-          })}
-        </div>
-        <div className="list-button-container">
-          <MoreButton
-            reviews={this.state.reviews}
-            displayList={this.state.displayList}
-            addMore={this.addMore}
+          <div className="list-tile-container">
+            {this.state.displayList.map((review, id) => {
+              return (
+                <Tile
+                  key={id}
+                  review={review}
+                  updateHelpfulness={this.updateHelpfulness}
+                />
+              );
+            })}
+          </div>
+          <div className="list-button-container">
+            <MoreButton
+              reviews={this.state.reviews}
+              displayList={this.state.displayList}
+              addMore={this.addMore}
+            />
+            <AddButton showModal={this.showModal} />
+          </div>
+        </ul>
+        <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <Form
+            characteristics={this.props.characteristics}
+            productId={this.props.productId}
+            handleClose={this.hideModal}
+            renderList={this.renderList}
+            selections={this.props.selections}
           />
-          <AddButton showModal={this.props.showModal} />
-        </div>
-      </ul>
+        </Modal>
+      </div>
     );
   }
 }

@@ -6,7 +6,11 @@ const AddButton = (props) => {
     props.showModal();
   };
 
-  return <button className="add-button"onClick={handleClick}>Add A Review +</button>;
+  return (
+    <button className="add-button" onClick={handleClick}>
+      Add A Review +
+    </button>
+  );
 };
 
 export default AddButton;

@@ -8,7 +8,11 @@ const MoreButton = (props) => {
     props.addMore(props.reviews[index], props.reviews[index + 1]);
   };
 
-  return <button className="more-button" onClick={handleClick}>More Reviews</button>;
+  return (
+    <button className="more-button" onClick={handleClick}>
+      More Reviews
+    </button>
+  );
 };
 
 export default MoreButton;

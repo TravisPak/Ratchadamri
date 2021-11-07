@@ -36,7 +36,6 @@ class Form extends React.Component {
   componentDidMount() {}
 
   validateForm() {
-
     //mandatory fields blank
     if (
       this.state.overallRating === "" ||
@@ -105,6 +104,10 @@ class Form extends React.Component {
         })
         .then((data) => {
           // console.log(data);
+
+          //Currently doesn't rerender list
+          this.props.renderList();
+          this.props.handleClose();
         })
         .catch((err) => {
           console.log(err);
@@ -122,61 +125,17 @@ class Form extends React.Component {
     let selection = event.target.value;
     let description = "";
 
-    let characteristicSelections = {
-      Size: [
-        "A size too small",
-        "1/2 a size too small",
-        "Perfect",
-        "1/2 a size too big",
-        "A size too wide",
-      ],
-      Width: [
-        "Too narrow",
-        "Slighty narrow",
-        "Perfect",
-        "Slighthy wide",
-        "Too wide",
-      ],
-      Comfort: [
-        "Uncomfortable",
-        "Slightly uncomfortable",
-        "Ok",
-        "Comfortable",
-        "Perfect",
-      ],
-      Quality: [
-        "Poor",
-        "Below average",
-        "What I expected",
-        "Pretty great",
-        "Perfect",
-      ],
-      Length: [
-        "Runs Short",
-        "Runs slighty short",
-        "Perfect",
-        "Runs slightly long",
-        "Runs long",
-      ],
-      Fit: [
-        "Runs tight",
-        "Runs slightly tight",
-        "Perfect",
-        "Runs slightly long",
-        "Runs long",
-      ],
-    };
-    if (characteristicSelections[characteristic]) {
+    if (this.props.selections[characteristic]) {
       if (selection === "1") {
-        description = characteristicSelections[characteristic][0];
+        description = this.props.selections[characteristic][0];
       } else if (selection === "2") {
-        description = characteristicSelections[characteristic][1];
+        description = this.props.selections[characteristic][1];
       } else if (selection === "3") {
-        description = characteristicSelections[characteristic][2];
+        description = this.props.selections[characteristic][2];
       } else if (selection === "4") {
-        description = characteristicSelections[characteristic][3];
+        description = this.props.selections[characteristic][3];
       } else if (selection === "5") {
-        description = characteristicSelections[characteristic][4];
+        description = this.props.selections[characteristic][4];
       }
     }
 
@@ -191,8 +150,6 @@ class Form extends React.Component {
       },
     }));
   }
-
-
 
   addPhoto(image) {
     // console.log(`I am adding this photo: ${image}`);
@@ -347,7 +304,7 @@ class Form extends React.Component {
           <button type="submit">Submit</button>
         </form>
         <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
-          <PhotosForm addPhoto={this.addPhoto} />
+          <PhotosForm addPhoto={this.addPhoto} handleClose={this.hideModal} />
         </Modal>
       </div>
     );

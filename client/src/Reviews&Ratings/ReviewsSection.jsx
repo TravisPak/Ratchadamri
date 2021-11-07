@@ -1,8 +1,7 @@
 import React from "react";
 import List from "./List.jsx";
-import Form from "./Form.jsx";
-import Modal from "./Modal.jsx";
 import RatingBreakdown from "./RatingBreakdown.jsx";
+import ProductBreakdown from "./ProductBreakdown.jsx";
 import axios from "axios";
 
 class ReviewsSection extends React.Component {
@@ -13,13 +12,58 @@ class ReviewsSection extends React.Component {
       modalShowing: false,
       reviews: [],
       meta: [],
+      filtered: [],
       filteredRatings: [
-        {rating:1,isOn:false},
-        {rating:2,isOn:false},
-        {rating:3,isOn:false},
-        {rating:4,isOn:false},
-        {rating:5,isOn:false}
+        { rating: 1, isOn: false },
+        { rating: 2, isOn: false },
+        { rating: 3, isOn: false },
+        { rating: 4, isOn: false },
+        { rating: 5, isOn: false },
       ],
+      characteristicSelections: {
+        Size: [
+          "A size too small",
+          "1/2 a size too small",
+          "Perfect",
+          "1/2 a size too big",
+          "A size too wide",
+        ],
+        Width: [
+          "Too narrow",
+          "Slighty narrow",
+          "Perfect",
+          "Slighthy wide",
+          "Too wide",
+        ],
+        Comfort: [
+          "Uncomfortable",
+          "Slightly uncomfortable",
+          "Ok",
+          "Comfortable",
+          "Perfect",
+        ],
+        Quality: [
+          "Poor",
+          "Below average",
+          "What I expected",
+          "Pretty great",
+          "Perfect",
+        ],
+        Length: [
+          "Runs Short",
+          "Runs slighty short",
+          "Perfect",
+          "Runs slightly long",
+          "Runs long",
+        ],
+        Fit: [
+          "Runs tight",
+          "Runs slightly tight",
+          "Perfect",
+          "Runs slightly long",
+          "Runs long",
+        ],
+      },
     };
 
     this.showModal = this.showModal.bind(this);
@@ -27,13 +71,10 @@ class ReviewsSection extends React.Component {
     this.clickRating = this.clickRating.bind(this);
   }
 
-  componentDidUpdate(prevProps,prevState) {
-
-    if(prevProps.productId !== this.props.productId){
-
-
-
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.productId !== this.props.productId) {
       let productId = this.props.productId;
+      let copy = [];
 
       axios
         .get("/reviews/", {
@@ -46,6 +87,7 @@ class ReviewsSection extends React.Component {
         })
         .then(({ data }) => {
           // console.log("Data:", data.results);
+          copy = data.results;
           this.setState({ reviews: data.results });
         })
         .catch((err) => {
@@ -63,6 +105,56 @@ class ReviewsSection extends React.Component {
         });
     }
 
+    let fives = [];
+    let fours = [];
+    let threes = [];
+    let twos = [];
+    let ones = [];
+
+    if (this.state.filteredRatings[4].isOn) {
+      fives = this.state.reviews.filter((review) => {
+        if (review.rating === 5) {
+          return review;
+        }
+      });
+    }
+    if (this.state.filteredRatings[3].isOn) {
+      fours = this.state.reviews.filter((review) => {
+        if (review.rating === 4) {
+          return review;
+        }
+      });
+    }
+
+    if (this.state.filteredRatings[2].isOn) {
+      threes = this.state.reviews.filter((review) => {
+        if (review.rating === 3) {
+          return review;
+        }
+      });
+    }
+
+    if (this.state.filteredRatings[1].isOn) {
+      twos = this.state.reviews.filter((review) => {
+        if (review.rating === 2) {
+          return review;
+        }
+      });
+    }
+
+    if (this.state.filteredRatings[0].isOn) {
+      ones = this.state.reviews.filter((review) => {
+        if (review.rating === 1) {
+          return review;
+        }
+      });
+    }
+
+    let filtered = fives.concat(fours).concat(threes).concat(twos).concat(ones);
+    console.log(
+      "🚀 ~ file: ReviewsSection.jsx ~ line 163 ~ ReviewsSection ~ componentDidUpdate ~ filtered",
+      filtered
+    );
   }
 
   showModal() {
@@ -77,18 +169,23 @@ class ReviewsSection extends React.Component {
     // console.log(`Rating to filter by ${rating}`);
     let filteredRatings = [...this.state.filteredRatings];
 
-    filteredRatings[rating-1].isOn = !filteredRatings[rating-1].isOn;
-    this.setState({ filteredRatings : filteredRatings });
+    filteredRatings[rating - 1].isOn = !filteredRatings[rating - 1].isOn;
+    this.setState({ filteredRatings: filteredRatings });
   }
 
   render() {
     return (
       <div className="reviews-ratings-overall-container">
-
-        <RatingBreakdown
-          meta={this.state.meta}
-          clickRating={this.clickRating}
-        />
+        <div>
+          <RatingBreakdown
+            meta={this.state.meta}
+            clickRating={this.clickRating}
+          />
+          <ProductBreakdown
+            characteristics={this.state.meta.characteristics}
+            selections={this.state.characteristicSelections}
+          />
+        </div>
         <List
           reviews={this.state.reviews}
           productId={this.props.productId}
@@ -96,14 +193,8 @@ class ReviewsSection extends React.Component {
           ratings={this.state.meta.ratings}
           showModal={this.showModal}
           filteredRatings={this.state.filteredRatings}
+          selections={this.state.characteristicSelections}
         />
-        <br></br>
-        <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
-          <Form
-            characteristics={this.state.meta.characteristics}
-            productId={this.props.productId}
-          />
-        </Modal>
       </div>
     );
   }
