@@ -7,6 +7,7 @@ class RatingBreakdown extends React.Component {
     this.setStars = this.setStars.bind(this);
     this.getPercentageRecommended = this.getPercentageRecommended.bind(this);
     this.getRatingAvg = this.getRatingAvg.bind(this);
+    this.makeSVGBar = this.makeSVGBar.bind(this);
   }
 
   getRatingAvg() {
@@ -108,6 +109,27 @@ class RatingBreakdown extends React.Component {
     }
   }
 
+  makeSVGBar(){
+    return <svg width="70%" height="16px">
+            <g className="bars">
+              <rect
+                fill="#ebebeb"
+                width="100%"
+                height="8px"
+                x="5%"
+                y="50%"
+              ></rect>
+              <rect
+                fill="#525252"
+                width="100%"
+                height="8px"
+                x="5%"
+                y="50%"
+              ></rect>
+            </g>
+          </svg>
+  }
+
   render() {
     if (!this.props.meta.characteristics) {
       return null;
@@ -129,24 +151,7 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star5-title">5 stars</span>
-          <svg width="70%" height="16px">
-            <g className="bars">
-              <rect
-                fill="#ebebeb"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-              <rect
-                fill="#525252"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-            </g>
-          </svg>
+          {this.makeSVGBar()}
           <span className="star5-total">#{this.props.meta.ratings["5"]}</span>
         </div>
         <div
@@ -156,24 +161,7 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star4-title">4 stars</span>
-          <svg width="70%" height="16px">
-            <g className="bars">
-              <rect
-                fill="#ebebeb"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-              <rect
-                fill="#525252"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-            </g>
-          </svg>
+          {this.makeSVGBar()}
           <span className="star4-total">#{this.props.meta.ratings["4"]}</span>
         </div>
         <div
@@ -183,24 +171,7 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star4-title">3 stars</span>
-          <svg width="70%" height="16px">
-            <g className="bars">
-              <rect
-                fill="#ebebeb"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-              <rect
-                fill="#525252"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-            </g>
-          </svg>
+          {this.makeSVGBar()}
           <span className="star4-total">#{this.props.meta.ratings["3"]}</span>
         </div>
         <div
@@ -210,24 +181,7 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star2-title">2 stars</span>
-          <svg width="70%" height="16px">
-            <g className="bars">
-              <rect
-                fill="#ebebeb"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-              <rect
-                fill="#525252"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-            </g>
-          </svg>
+          {this.makeSVGBar()}
           <span className="star2-total">#{this.props.meta.ratings["2"]}</span>
         </div>
         <div
@@ -237,24 +191,7 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star1-title">1 stars</span>
-          <svg width="70%" height="16px">
-            <g className="bars">
-              <rect
-                fill="#ebebeb"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-              <rect
-                fill="#525252"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-            </g>
-          </svg>
+          {this.makeSVGBar()}
           <span className="star1-total">#{this.props.meta.ratings["1"]}</span>
         </div>
       </div>
