@@ -122,13 +122,13 @@ app.get("/reviews/", (req, res) => {
     });
 });
 //This route gives you review metadata for a given product
-app.get("/reviews/meta", (req, res) => {
+app.get("/reviews/meta/", (req, res) => {
   let query = req.query;
   console.log("Query", query);
 
   let options = {
     method: "get",
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/`,
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews/meta`,
     headers: {
       "User-Agent": "request",
       Authorization: `${config.TOKEN}`,
@@ -226,45 +226,51 @@ app.put('/reviews/:review_id/report',(req,res)=>{
 });
 
 
-app.get("/qa/questions", (req, res) => {
-  let query = req.query;
-  console.log("Query", query);
+
+
+//start of Q&A
+//Retrieves a list of questions for a particular product.
+//This list does not include any reported questions
+app.get('/qa/questions/:product_id', (req, res) => {
+  let requestParameters = req.params;
 
   let options = {
-    method: "get",
+    method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/`,
     headers: {
-      "User-Agent": "request",
+      'User-Agent': 'request',
       Authorization: `${config.TOKEN}`,
     },
-    params: query,
+    params: {
+      product_id: requestParameters.product_id
+    }
   };
-
   axios(options)
     .then((response) => {
-      res.json(response.data);
+      //console.log(response.data)
+      res.send(response.data);
     })
     .catch((err) => {
       res.status(500).send(err);
     });
 });
 
-//get /qa/questions/:question_id/answers
+//Returns answers for a given question.
+//This list does not include any reported answers.
 app.get('/qa/questions/:question_id/answers',(req,res)=>{
-  console.log('params', req.params);
+  console.log('params: ', req.params);
   let question = req.params;
-  let query = req.query;
   let options = {
-    method: "get",
+    method: 'get',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${question.question_id}/answers`,
     headers: {
-      "User-Agent": "request",
+      'User-Agent': 'request',
       Authorization: `${config.TOKEN}`,
     },
-    params:query
-
+    // params: {
+    //   question_id: question_id
+    // }
   };
-
   axios(options)
     .then((response)=>{
       res.json(response.data);
@@ -272,22 +278,25 @@ app.get('/qa/questions/:question_id/answers',(req,res)=>{
     .catch((err)=>{
       res.send(500).send(err);
     })
-
-
 });
 
-app.post("/qa/questions", (req, res) => {
+//Adds a question for the given product
+app.post('/qa/questions/', (req, res) => {
+  let requestParameters = req.params;
   let body = req.body;
-  console.log("Body",body);
+  console.log('Body: ', body);
 
   let options = {
-    method: "post",
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions`,
+    method: 'post',
+    url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions',
     headers: {
-      "User-Agent": "request",
+      'User-Agent': 'request',
       Authorization: `${config.TOKEN}`,
     },
-    data: body,
+    params: {
+      product_id: body.product_id
+    },
+    data: body
   };
 
   axios(options)
@@ -296,27 +305,25 @@ app.post("/qa/questions", (req, res) => {
       res.status(201).json(response.data);
     })
     .catch((err) => {
-      console.log('Error message:',err);
+      console.log('Error message:', err);
       res.status(500).send(err);
     });
 });
 
-
+//Adds an answer for the given question
 app.post('/qa/questions/:question_id/answers',(req,res)=>{
-  console.log('params', req.params);
-  let question = req.params;
+  console.log('params: ', req.params);
+  let reqParams = req.params;
   let body = req.body;
   let options = {
-    method: "get",
-    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${question.question_id}/answers`,
+    method: 'post',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${reqParams.question_id}/answers`,
     headers: {
-      "User-Agent": "request",
+      'User-Agent': 'request',
       Authorization: `${config.TOKEN}`,
     },
     data:body
-
   };
-
   axios(options)
     .then((response)=>{
       res.status(201).json(response.data);
@@ -324,63 +331,113 @@ app.post('/qa/questions/:question_id/answers',(req,res)=>{
     .catch((err)=>{
       res.send(500).send(err);
     })
-
-
 });
 
-//route that will update the helpful section for a specific question
-app.put('/qa/questions/:question_id/helpful',(req,res)=>{
+//Updates a question to show it was found helpful.
+app.put('/qa/questions/:question_id/helpful', (req,res)=>{
   let question = req.params;
-  console.log("Params",question);
+  console.log('Params: ', question);
 
   let options = {
-    method: "put",
+    method: 'put',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${question.question_id}/helpful`,
     headers: {
-      "User-Agent": "request",
+      'User-Agent': 'request',
       Authorization: `${config.TOKEN}`,
-    },
-
+    }
   };
-
   axios(options)
     .then((response) => {
-      console.log('respnse.data', response.data);
+      console.log('respnse.data: ', response.data);
       res.status(204).json(response.data);
     })
     .catch((err) => {
-      console.log('Error message:',err);
+      console.log('Error message: ',err);
       res.status(500).send(err);
     });
-
 });
 
-//route that updates the report for a specific question
+//Updates a question to show it was reported.
+//Note, this action does not delete the question,
+//but the question will not be returned in the above GET request.
 app.put('/qa/questions/:question_id/report',(req,res)=>{
   let question = req.params;
-  console.log("Params",question);
+  //console.log('Params: ', question);
 
   let options = {
-    method: "put",
+    method: 'put',
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${question.question_id}/report`,
     headers: {
-      "User-Agent": "request",
+      'User-Agent': 'request',
       Authorization: `${config.TOKEN}`,
-    },
-
+    }
   };
-
   axios(options)
     .then((response) => {
-      console.log('respnse.data', response.data);
+      console.log('response.data: ', response.data);
       res.status(204).json(response.data);
     })
     .catch((err) => {
-      console.log('Error message:',err);
+      console.log('Error message: ', err);
       res.status(500).send(err);
     });
-
 });
+
+//Updates an answer to show it was found helpful.
+app.put('/qa/answers/:answer_id/helpful',(req,res)=>{
+  let reqParams = req.params;
+  console.log('Params: ', reqParams);
+
+  let options = {
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${reqParams.answer_id}/helpful`,
+    headers: {
+      'User-Agent': 'request',
+      Authorization: `${config.TOKEN}`,
+    }
+  };
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data: ', response.data);
+      res.status(204).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message: ', err);
+      res.status(500).send(err);
+    });
+});
+
+//Updates an answer to show it has been reported.
+//Note, this action does not delete the answer, but the answer will not
+//be returned in the above GET request.
+app.put('/qa/answers/:answer_id/report',(req,res)=>{
+  let reqParams = req.params;
+  console.log('Params: ', reqParams);
+
+  let options = {
+    method: 'put',
+    url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/qa/questions/${reqParams.answer_id}/report`,
+    headers: {
+      'User-Agent': 'request',
+      Authorization: `${config.TOKEN}`,
+    }
+  };
+  axios(options)
+    .then((response) => {
+      console.log('respnse.data: ', response.data);
+      res.status(204).json(response.data);
+    })
+    .catch((err) => {
+      console.log('Error message: ', err);
+      res.status(500).send(err);
+    });
+});
+
+///end of Q&A////
+
+
+
+
 
 app.get('/cart',(req,res)=>{
 
@@ -457,13 +514,6 @@ app.post('/interactions',(req,res)=>{
     });
 
 });
-
-
-
-
-
-
-
 
 
 app.listen("3000", () => {
