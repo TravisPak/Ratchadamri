@@ -72,8 +72,12 @@ class Tile extends React.Component {
     return (
       <div className="tile-container">
         <div className="tile-star-ratings">{this.setStars()}</div>
-        <div className="tile-reviewer-name">{this.props.review.reviewer_name}</div>
-        <div className="tile-date">{moment(this.props.review.date).format("MMMM Do YYYY")}</div>
+        <div className="tile-reviewer-name">
+          {this.props.review.reviewer_name}
+        </div>
+        <div className="tile-date">
+          {moment(this.props.review.date).format("MMMM Do YYYY")}
+        </div>
         <div className="tile-summary">
           <b>{this.props.review.summary}</b>
         </div>
@@ -82,7 +86,8 @@ class Tile extends React.Component {
           <div className="tile-photos">
             {this.props.review.photos.map((photo, id) => {
               return (
-                <img className="tile-photo"
+                <img
+                  className="tile-photo"
                   key={id}
                   src={photo.url}
                   alt=""

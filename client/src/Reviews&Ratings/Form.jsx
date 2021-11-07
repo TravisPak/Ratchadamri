@@ -36,7 +36,6 @@ class Form extends React.Component {
   componentDidMount() {}
 
   validateForm() {
-
     //mandatory fields blank
     if (
       this.state.overallRating === "" ||
@@ -113,7 +112,6 @@ class Form extends React.Component {
         .catch((err) => {
           console.log(err);
         });
-
     }
   }
 
@@ -126,7 +124,6 @@ class Form extends React.Component {
     let characteristic = event.target.name;
     let selection = event.target.value;
     let description = "";
-
 
     if (this.props.selections[characteristic]) {
       if (selection === "1") {
@@ -153,8 +150,6 @@ class Form extends React.Component {
       },
     }));
   }
-
-
 
   addPhoto(image) {
     // console.log(`I am adding this photo: ${image}`);
@@ -309,7 +304,7 @@ class Form extends React.Component {
           <button type="submit">Submit</button>
         </form>
         <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
-          <PhotosForm addPhoto={this.addPhoto} handleClose={this.hideModal}/>
+          <PhotosForm addPhoto={this.addPhoto} handleClose={this.hideModal} />
         </Modal>
       </div>
     );
