@@ -106,6 +106,7 @@ class Form extends React.Component {
           // console.log(data);
 
           //Currently doesn't rerender list
+          this.props.getList();
           this.props.renderList();
           this.props.handleClose();
         })

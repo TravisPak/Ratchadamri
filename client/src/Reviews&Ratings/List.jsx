@@ -24,6 +24,7 @@ class List extends React.Component {
     this.filterList = this.filterList.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.getList = this.getList.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -124,6 +125,26 @@ class List extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  getList(){
+    axios
+    .get("/reviews/", {
+      params: {
+        product_id: this.props.productId,
+        page: 1,
+        count: 1000,
+        sort: "Relevant",
+      },
+    })
+    .then(({ data }) => {
+      // console.log("Data:", data.results);
+
+      this.setState({ reviews: data.results });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
 
   renderList() {
@@ -253,6 +274,7 @@ class List extends React.Component {
             handleClose={this.hideModal}
             renderList={this.renderList}
             selections={this.props.selections}
+            getList={this.getList}
           />
         </Modal>
       </div>
