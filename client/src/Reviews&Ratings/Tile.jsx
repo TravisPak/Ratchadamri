@@ -9,7 +9,7 @@ class Tile extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { isShowing: false, currentPhoto: "" };
+    this.state = { modalShowing: false, currentPhoto: "" };
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.setStars = this.setStars.bind(this);
@@ -61,11 +61,11 @@ class Tile extends React.Component {
 
   showModal(e) {
     // console.log(e.target.src);
-    this.setState({ isShowing: true, currentPhoto: e.target.src });
+    this.setState({ modalShowing: true, currentPhoto: e.target.src });
   }
 
   hideModal() {
-    this.setState({ isShowing: false });
+    this.setState({ modalShowing: false });
   }
 
   render() {
@@ -107,9 +107,18 @@ class Tile extends React.Component {
           id={this.props.review.review_id}
           updateHelpfulness={this.props.updateHelpfulness}
         />
-        <Modal isShowing={this.state.isShowing} handleClose={this.hideModal}>
-          <img src={this.state.currentPhoto} width="150"></img>
-        </Modal>
+        <div className="image-modal">
+          <Modal
+            isShowing={this.state.modalShowing}
+            handleClose={this.hideModal}
+          >
+            <img
+              className="img"
+              src={this.state.currentPhoto}
+              width="150"
+            ></img>
+          </Modal>
+        </div>
       </div>
     );
   }

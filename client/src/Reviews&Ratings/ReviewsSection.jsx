@@ -69,6 +69,8 @@ class ReviewsSection extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.clickRating = this.clickRating.bind(this);
+    this.filterList = this.filterList.bind(this);
+    this.reRenderList = this.reRenderList.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -104,7 +106,9 @@ class ReviewsSection extends React.Component {
           console.log(err);
         });
     }
+  }
 
+  filterList() {
     let fives = [];
     let fours = [];
     let threes = [];
@@ -151,10 +155,12 @@ class ReviewsSection extends React.Component {
     }
 
     let filtered = fives.concat(fours).concat(threes).concat(twos).concat(ones);
-    console.log(
-      "🚀 ~ file: ReviewsSection.jsx ~ line 163 ~ ReviewsSection ~ componentDidUpdate ~ filtered",
-      filtered
-    );
+    // console.log(
+    //   "🚀 ~ file: ReviewsSection.jsx ~ line 163 ~ ReviewsSection ~ componentDidUpdate ~ filtered",
+    //   filtered
+    // );
+
+    this.setState({ filtered: filtered });
   }
 
   showModal() {
@@ -164,13 +170,18 @@ class ReviewsSection extends React.Component {
   hideModal() {
     this.setState({ modalShowing: false });
   }
+  reRenderList(renderFunc) {
+    renderFunc();
+  }
 
   clickRating(rating) {
     // console.log(`Rating to filter by ${rating}`);
     let filteredRatings = [...this.state.filteredRatings];
 
     filteredRatings[rating - 1].isOn = !filteredRatings[rating - 1].isOn;
+
     this.setState({ filteredRatings: filteredRatings });
+    this.filterList();
   }
 
   render() {
@@ -192,8 +203,9 @@ class ReviewsSection extends React.Component {
           characteristics={this.state.meta.characteristics}
           ratings={this.state.meta.ratings}
           showModal={this.showModal}
-          filteredRatings={this.state.filteredRatings}
+          filteredReviews={this.state.filtered}
           selections={this.state.characteristicSelections}
+          reRenderList={this.reRenderList}
         />
       </div>
     );
