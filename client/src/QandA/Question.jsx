@@ -117,57 +117,53 @@ class Question extends React.Component {
   render(){
     if(this.state.seeMoreAnswersClicked){
       return(
-        <div >
-          <h4>Q: {this.props.question.question_body}</h4>
+        <div className='question'>
+          <h4 className='question-body'>Q: {this.props.question.question_body}</h4>
 
-          <h5>Helpfulness rating: {this.props.question.question_helpfulness}</h5>
+          <h5 className='question-helpful-rating'>Helpfulness? Yes: {this.props.question.question_helpfulness}</h5>
 
-          <button onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Helpful?</button>
-          <button onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</button>
+          <button className='question-helpful-btn' onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Helpful?</button>
+          <button className='question-report-btn' onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</button>
 
           <h5>{this.state.answersList.map((answer, i)=>{
             return(
-              <div key={i}>
-              <h5>A: {answer.body}</h5>
-              <h5>Helpfulness rating: {answer.helpfulness}</h5>
-              <h5>by {answer.answerer_name}, {moment(answer.date, 'YYYYMMDD').fromNow()} </h5>
-              <button onClick={()=>this.handleAnswerMarkedHelpful(answer.answer_id)}>Helpful?</button>
-              <button onClick={()=>this.handleAnswerReport(answer.answer_id)}>Report?</button>
+              <div className='answer' key={i}>
+              <h5 className='answer-body'>A: {answer.body}</h5>
+              {/* <h5 className='answer-helpful-rating'>Helpfulness rating: {answer.helpfulness}</h5> */}
+              <h5 className='answer-username'>by {answer.answerer_name}, {moment(answer.date, 'YYYYMMDD').fromNow()} </h5>
+              <button className='answer-helpful-btn' onClick={()=>this.handleAnswerMarkedHelpful(answer.answer_id)}>Helpful?</button>
+              <button className='answer-report-btn' onClick={()=>this.handleAnswerReport(answer.answer_id)}>Report?</button>
               </div>
             );
           })}</h5>
-          <button onClick={this.handleSeeFewerAnswersClick.bind(this)}>Collapse Answers</button>
-          <button onClick={this.showModal}>Add Answer</button>
-          <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <button className='more-answers-btn' onClick={this.handleSeeFewerAnswersClick.bind(this)}>Collapse Answers</button>
+          <button className='add-answer-btn' onClick={this.showModal}>Add Answer</button>
+          <Modal className='modal-answer-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <AnswerSubmissionForm handleAnswerSubmission={this.handleAnswerSubmission.bind(this)} />
           </Modal>
         </div>
       );
     } else {
       return(
-        <div>
-          <h4>Q: {this.props.question.question_body}</h4>
-
-          <h5>Helpfulness rating: {this.props.question.question_helpfulness}</h5>
-
-          <button onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Helpful?</button>
-          <button onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</button>
-
+        <div className='question'>
+          <h4 className='question-body'>Q: {this.props.question.question_body}</h4>
+          <h5 className='question-helpful-rating'>Helpfulness? Yes: {this.props.question.question_helpfulness}</h5>
+          <button className='question-helpful-btn' onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Helpful?</button>
+          <button className='question-report-btn' onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</button>
           <h5>{this.state.answersList.slice(0, 2).map((answer, i)=>{
             return(
-              <div key={i}>
-              <h5>A: {answer.body}</h5>
-              <h5>Helpfulness rating: {answer.helpfulness}</h5>
-              <h5>by {answer.answerer_name}, {moment(answer.date, 'YYYYMMDD').fromNow()} </h5>
-              <button onClick={()=>this.handleAnswerMarkedHelpful(answer.answer_id)}>Helpful?</button>
-              <button onClick={()=>this.handleAnswerReport(answer.answer_id)}>Report?</button>
+              <div className='answer' key={i}>
+              <h5 className='answer-body'>A: {answer.body}</h5>
+              {/* <h5 className='answer-helpful-rating'>Helpfulness rating: {answer.helpfulness}</h5> */}
+              <h5 className='answer-username'>by {answer.answerer_name}, {moment(answer.date, 'YYYYMMDD').fromNow()} </h5>
+              <button className='answer-helpful-btn' onClick={()=>this.handleAnswerMarkedHelpful(answer.answer_id)}>Helpful?</button>
+              <button className='answer-report-btn' onClick={()=>this.handleAnswerReport(answer.answer_id)}>Report?</button>
               </div>
             );
           })}</h5>
-          <button onClick={this.handleSeeMoreAnswersClick.bind(this)}>See More Answers</button>
-
-          <button onClick={this.showModal}>Add Answer</button>
-          <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <button className='more-answers-btn' onClick={this.handleSeeMoreAnswersClick.bind(this)}>See More Answers</button>
+          <button className='add-answer-btn' onClick={this.showModal}>Add Answer</button>
+          <Modal className='modal-answer-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <AnswerSubmissionForm handleAnswerSubmission={this.handleAnswerSubmission.bind(this)} />
           </Modal>
         </div>
