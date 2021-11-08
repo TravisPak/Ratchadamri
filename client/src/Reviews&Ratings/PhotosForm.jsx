@@ -23,7 +23,7 @@ class PhotosForm extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form className="photo-form" onSubmit={this.handleSubmit}>
         <input
           type="text"
           value={this.state.image}

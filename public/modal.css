@@ -7,8 +7,12 @@
   background: rgba(0,0,0,0.6);
 }
 .modal-main {
+  /* display:flex;
+  justify-content: flex-end;
+  align-items: flex-start; */
+  /* border: 1px solid black; */
   position:fixed;
-  background: white;
+  background:honeydew;
   width:80%;
   height:auto;
   top:50%;
@@ -20,4 +24,13 @@
 }
 .display-none {
   display:none;
+}
+
+.modal-button{
+  /* border: 1px solid black; */
+  /* justify-self: flex-start;
+  align-self: flex-end; */
+  position: absolute;
+  z-index: 1;
+
 }
