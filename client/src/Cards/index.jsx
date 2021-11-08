@@ -10,6 +10,8 @@ class Cards extends React.Component {
     this.state = {
       product_id: "37311",
       product_info: {},
+      product_rating: 0,
+      product_url: '',
       clickedProduct: "",
       clickedProductInfo: [],
       relatedInfo: {},
@@ -106,13 +108,58 @@ class Cards extends React.Component {
 
   //ADD ITEM TO OUTFIT
   addItem () {
-    this.setState({ outfit: this.state.outfit.concat(this.state.product_info)})
+    var newUrl;
+    var rating;
+    var outfitAddition = [this.props.product.currentProduct];
+
+    axios.get(`/products/${this.props.product.currentProduct.id}/styles`)
+      .then((styles) => {
+        if (
+          styles.data.results[0].photos[0].thumbnail_url ===
+          null
+        ) {
+         outfitAddition[2] = "https://http.cat/404";
+          axios
+          .get(`reviews/meta?product_id=${this.props.product.currentProduct.id}`)
+            .then((response) => {
+              var avg = findReviewAverage(response.data.ratings);
+              outfitAddition[1] = avg;
+              this.setState({
+                outfit: this.state.outfit.concat([outfitAddition]),
+              })
+            }
+
+
+            )
+
+        } else {
+          outfitAddition[2] = styles.data.results[0].photos[0].thumbnail_url;
+          axios
+          .get(`reviews/meta?product_id=${this.props.product.currentProduct.id}`)
+            .then((response) => {
+              var avg = findReviewAverage(response.data.ratings);
+              outfitAddition[1] = avg;
+              this.setState({
+                outfit: this.state.outfit.concat([outfitAddition]),
+
+              })
+            }
+
+
+            )
+        }
+      })
+
+
+
+
   }
 
   render() {
+
     return (
+      <div className="cards-component">
       <div className="cards">
-      <div className="related">
         {
           /* iterate over state.related
         create new span with CATEGORY/NAME/PRICE/STAR RATING */
@@ -173,8 +220,40 @@ class Cards extends React.Component {
         </Modal>
 
       </div>
+
       <div className="outfit">
       <button type="submit" onClick={this.addItem}>Add to Outfit</button>
+      <div className="cards">
+{          this.state.outfit.map((item, index) => (
+            <div className="item" key={index}>
+                            <a className="item-action-button"
+                onClick={() => {
+                  this.showModal(this.state.relatedInfo[key][0]);
+                }}
+              >
+              ❌
+              </a>
+              <img className="item-img" src={item[2]} />
+              <br />
+              <span className="item-category item-text">
+                {item[0].category}
+              </span>
+              <br />
+
+              <span className="item-name item-text">
+                {item[0].name}
+              </span>
+              <span className="item-price item-text">
+                {"$" + item[0].default_price}
+              </span>
+              <br />
+              <span className="stars item-text">
+                {"Stars: " + item[1]}
+              </span>
+
+            </div>
+          ))}
+      </div>
     </div>
     </div>
     );

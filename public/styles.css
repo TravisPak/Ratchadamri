@@ -2,7 +2,7 @@
   background-color: rgb(42, 125, 199);
 } */
 
-.related {
+.cards {
   display: flex;
   flex-direction: row;
   height: 250px;
@@ -39,6 +39,7 @@
 }
 .modal{
   position: fixed;
+  z-index: 5;
   top:0;
   left:0;
   width:100%;
