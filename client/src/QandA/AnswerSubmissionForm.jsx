@@ -21,7 +21,7 @@ class AnswerSubmissionForm extends React.Component{
   handleNicknameChange(event){
     this.setState({nickname: event.target.value});
   }
-  
+
   handleEmailChange(event){
     this.setState({email: event.target.value});
   }
@@ -33,7 +33,7 @@ class AnswerSubmissionForm extends React.Component{
 
   render(){
     return(
-      <div>
+      <div className='answer-submission-form'>
         <form onSubmit={this.handleSubmit}>
           <input placeholder="Your answer" value={this.state.answer} onChange={this.handleAnswerChange}>
           </input>

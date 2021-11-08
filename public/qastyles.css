@@ -1,0 +1,81 @@
+.qa-widget-home {
+  display: grid;
+  grid-template: repeat(10, 10%) / repeat(10, 10%);
+  margin: auto;
+  width: 74rem;
+  min-width: 50rem;
+  height: 50rem;
+  /* border: 3px solid grey; */
+}
+
+.header {
+  grid-area: 1/5/2/7;
+  /* margin: .25rem; */
+  /* border: 1px solid grey; */
+  /* font-family: 'Source Sans Pro', sans-serif; */
+}
+
+.search-bar {
+  grid-area: 2/5/3/7;
+  /* margin: .25rem; */
+  /* border: 1px solid grey; */
+  /* font-family: 'Source Sans Pro', sans-serif; */
+}
+
+.questions-list {
+  grid-area: 3/4/5/7;
+  overflow-y: scroll;
+  margin: .25rem;
+  /* border: 1px solid grey; */
+  width: 30rem;
+  /* min-width: 50rem; */
+  height: 30rem;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.more-questions-btn {
+  grid-area: 2/7/3/8;
+  /* margin: .25rem; */
+  /* border: 1px solid grey; */
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  width: 5rem;
+  height: 2.5rem;
+}
+
+.add-questions-btn {
+  grid-area: 2/8/3/9;
+  /* margin: .25rem; */
+  /* border: 1px solid grey; */
+  /* font-family: 'Source Sans Pro', sans-serif; */
+  width: 5rem;
+  height: 2.5rem;
+}
+
+.modal-question-submission {
+  /* grid-area: 4/ 5 ; */
+  /* margin: .25rem; */
+  /* border: 1px solid grey; */
+  /* font-family: 'Source Sans Pro', sans-serif; */
+}
+.question {
+  /* display: grid;
+  grid-template: repeat(10, 10%) / repeat(10, 10%);
+  margin: auto;
+  width: 50rem;
+  min-width: 30rem;
+  height: 30rem;
+  border: 3px solid grey; */
+}
+
+
+
+
+
+
+
+
+* {
+
+  text-align: center;
+
+  }
