@@ -139,7 +139,6 @@ class ImageGallery extends React.Component {
 
   render() {
     var photos = this.props.currentStylePhotos;
-    console.log(this.state.zoomed);
     return (
       <div className={this.state.expanded ? "image-gallery expanded" : "image-gallery"}>
         <div className={this.state.expanded ? "image-area expanded" : "image-area"}>
