@@ -16,7 +16,6 @@ class App extends React.Component {
 
   // set default start up productId
   componentDidMount() {
-
     axios.get('/products/37318')
       .then((response)=>{
         this.setState({currentProduct: response.data});
@@ -26,14 +25,29 @@ class App extends React.Component {
       })
   }
 
+  // updateStyle(productId) {
+  //   axios.get(`/products/${productId}`)
+  //     .then((response)=>{
+  //       this.setState({currentProduct: response.data});
+  //     })
+  //     .catch((err)=>{
+  //       console.log(err);
+  //     })
+  // }
+
+  // componentDidMount() {
+  //   update(37311)
+  // }
+
+
 render () {
 return (
   <div>
     <div>
-    <Overview product={this.state.currentProduct}/>
+      <Overview product={this.state.currentProduct}/>
     </div>
     <div>
-    <Cards props={this.state} />
+    <Cards product={this.state} />
     </div>
     <div>
     <QuestionsList currentProductID={this.state.currentProduct.id} />
