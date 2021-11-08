@@ -33,7 +33,7 @@ return (
     <Overview product={this.state.currentProduct}/>
     </div>
     <div>
-    <Cards props={this.state} />
+    <Cards product={this.state} />
     </div>
     <div>
     <QuestionsList currentProductID={this.state.currentProduct.id} />
