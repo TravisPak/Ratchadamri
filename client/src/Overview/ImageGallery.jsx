@@ -123,8 +123,8 @@ class ImageGallery extends React.Component {
     this.setState(this.state.zoomed ? { zoomed: false } : { zoomed: true });
   }
 
-  followMouseZoom(event) {
-    console.log(event);
+  followMouseZoom(X, Y) {
+    console.log(X, Y);
   }
 
   // ADD PROPS (currentStylePhotos) TO STATE ON UPDATE
@@ -159,7 +159,7 @@ class ImageGallery extends React.Component {
               }}
               onMouseMove={() => {
                 if (this.state.zoomed) {
-                  // this.followMouseZoom(event);
+                  this.followMouseZoom(event.clientX, event.clientY);
                 }
               }}
               className={this.state.expanded ? "main-image expanded" : "main-image"}

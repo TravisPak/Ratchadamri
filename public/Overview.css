@@ -250,7 +250,7 @@ button {
   width: 73rem;
   height: 49rem;
 
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   box-shadow: 0.5rem 0.5rem 0.5rem grey;
   overflow: hidden;
 }
