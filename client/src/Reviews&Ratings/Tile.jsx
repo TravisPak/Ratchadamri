@@ -108,10 +108,16 @@ class Tile extends React.Component {
           updateHelpfulness={this.props.updateHelpfulness}
         />
         <div className="image-modal">
-
-        <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
-          <img className="img" src={this.state.currentPhoto} width="150"></img>
-        </Modal>
+          <Modal
+            isShowing={this.state.modalShowing}
+            handleClose={this.hideModal}
+          >
+            <img
+              className="img"
+              src={this.state.currentPhoto}
+              width="150"
+            ></img>
+          </Modal>
         </div>
       </div>
     );

@@ -70,6 +70,7 @@ class ReviewsSection extends React.Component {
     this.hideModal = this.hideModal.bind(this);
     this.clickRating = this.clickRating.bind(this);
     this.filterList = this.filterList.bind(this);
+    this.reRenderList = this.reRenderList.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -105,12 +106,9 @@ class ReviewsSection extends React.Component {
           console.log(err);
         });
     }
-
-
   }
 
-
-  filterList(){
+  filterList() {
     let fives = [];
     let fours = [];
     let threes = [];
@@ -157,13 +155,12 @@ class ReviewsSection extends React.Component {
     }
 
     let filtered = fives.concat(fours).concat(threes).concat(twos).concat(ones);
-    console.log(
-      "🚀 ~ file: ReviewsSection.jsx ~ line 163 ~ ReviewsSection ~ componentDidUpdate ~ filtered",
-      filtered
-    );
+    // console.log(
+    //   "🚀 ~ file: ReviewsSection.jsx ~ line 163 ~ ReviewsSection ~ componentDidUpdate ~ filtered",
+    //   filtered
+    // );
 
-    this.setState({filtered:filtered});
-
+    this.setState({ filtered: filtered });
   }
 
   showModal() {
@@ -172,6 +169,9 @@ class ReviewsSection extends React.Component {
 
   hideModal() {
     this.setState({ modalShowing: false });
+  }
+  reRenderList(renderFunc) {
+    renderFunc();
   }
 
   clickRating(rating) {
@@ -205,6 +205,7 @@ class ReviewsSection extends React.Component {
           showModal={this.showModal}
           filteredReviews={this.state.filtered}
           selections={this.state.characteristicSelections}
+          reRenderList={this.reRenderList}
         />
       </div>
     );

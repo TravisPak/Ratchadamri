@@ -109,25 +109,15 @@ class RatingBreakdown extends React.Component {
     }
   }
 
-  makeSVGBar(){
-    return <svg width="70%" height="16px">
-            <g className="bars">
-              <rect
-                fill="#ebebeb"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-              <rect
-                fill="#525252"
-                width="100%"
-                height="8px"
-                x="5%"
-                y="50%"
-              ></rect>
-            </g>
-          </svg>
+  makeSVGBar() {
+    return (
+      <svg width="70%" height="16px">
+        <g className="bars">
+          <rect fill="#ebebeb" width="100%" height="8px" x="5%" y="50%"></rect>
+          <rect fill="#525252" width="100%" height="8px" x="5%" y="50%"></rect>
+        </g>
+      </svg>
+    );
   }
 
   render() {
