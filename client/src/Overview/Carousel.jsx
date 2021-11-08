@@ -3,7 +3,6 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronCircleRight, faChevronCircleLeft, faChevronUp, faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
-
 const LeftArrow = (props) => {
   return (
     <div className="arrow" onClick={props.goToPrevSlide}>

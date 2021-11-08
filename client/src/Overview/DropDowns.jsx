@@ -52,7 +52,11 @@ class DropDowns extends React.Component {
       count: this.state.qty
     })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
+        alert(`added quantity ${this.state.qty}x of item# ${this.state.skuNumber} to cart`)
+      })
+      .catch((err) => {
+        alert(err);
       })
   }
 

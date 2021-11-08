@@ -19,7 +19,7 @@ class ProductInfo extends React.Component {
           <div className={current.sale_price ? "original-price strikethrough" : "original-price"}>
             $ {current.original_price}
           </div>
-          <div className="sale-price">{current.sale_price} </div>
+          <div className="sale-price">{current.sale_price ? "$ " + current.sale_price : ""} </div>
         </div>
         <StyleSelector product={product} styles={this.props.styles} updateStyle={this.props.updateStyle} />
         <DropDowns currentStyle={this.props.currentStyle} />

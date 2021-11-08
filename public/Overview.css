@@ -16,7 +16,7 @@ button {
   margin: auto;
   width: 74rem;
   height: 50rem;
-  border: 3px solid grey;
+  /* border: 3px solid grey; */
 }
 
 .product-info {
@@ -29,7 +29,7 @@ button {
   align-items: flex-start;
 
   margin: 5px;
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
   font-size: 1em;
   font-weight: 300;
 }
@@ -202,7 +202,7 @@ button {
   justify-content: space-between;
   align-items: center;
 
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
 }
 
 .arrow {
@@ -241,7 +241,7 @@ button {
   display: flex;
   justify-content: center;
 
-  background-color:hsl(0, 0%, 90%)
+  /* background-color:hsl(0, 0%, 90%) */
 }
 
 .image-area.expanded {
@@ -251,6 +251,8 @@ button {
   height: 49rem;
 
   border: 1px solid gray;
+  box-shadow: 0.5rem 0.5rem 0.5rem grey;
+  overflow: hidden;
 }
 
 .main-image.expanded {
@@ -258,8 +260,33 @@ button {
   max-width: 90%;
   max-height: 90%;
 
-  border: 1px solid grey;
+  /* border: 1px solid grey; */
+  border-radius: 0.5rem;
+  box-shadow: 1rem 1rem 1rem grey;
+
   cursor: crosshair;
+}
+
+/* .main-image.expanded:hover {
+  transform: scale(2.5);
+  max-width: 50rem;
+  max-height: 30rem;
+  overflow: hidden;
+} */
+
+.xOut {
+  position: absolute;
+
+  visibility: hidden;
+  z-index: -5;
+}
+
+.xOut.expanded {
+  visibility: visible;
+  align-self: flex-start;
+  justify-self: flex-end;
+  z-index: 3;
+  cursor: pointer;
 }
 
 .thumbnails.expanded {

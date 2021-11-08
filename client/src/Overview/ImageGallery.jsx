@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { LeftArrow, RightArrow, UpArrow, DownArrow } from "./Carousel.jsx";
 
 class ImageGallery extends React.Component {
@@ -13,11 +15,14 @@ class ImageGallery extends React.Component {
       upperThumbnailIndex: 7,
       length: 0,
       expanded: false,
+      zoomed: false,
     };
 
     this.englargeThumbnail = this.enlargeThumbnail.bind(this);
     this.createThumbnails = this.createThumbnails.bind(this);
     this.expand = this.expand.bind(this);
+    this.zoom = this.zoom.bind(this);
+    this.followMouseZoom = this.followMouseZoom.bind(this);
     this.goUp = this.goUp.bind(this);
     this.goDown = this.goDown.bind(this);
     this.goToPrevSlide = this.goToPrevSlide.bind(this);
@@ -114,6 +119,14 @@ class ImageGallery extends React.Component {
     this.setState(this.state.expanded ? { expanded: false } : { expanded: true });
   }
 
+  zoom() {
+    this.setState(this.state.zoomed ? { zoomed: false } : { zoomed: true });
+  }
+
+  followMouseZoom(event) {
+    console.log(event);
+  }
+
   // ADD PROPS (currentStylePhotos) TO STATE ON UPDATE
   componentDidUpdate(prevProps) {
     if (this.props.currentStylePhotos !== prevProps.currentStylePhotos) {
@@ -126,38 +139,66 @@ class ImageGallery extends React.Component {
 
   render() {
     var photos = this.props.currentStylePhotos;
+    console.log(this.state.zoomed);
     return (
       <div className={this.state.expanded ? "image-gallery expanded" : "image-gallery"}>
         <div className={this.state.expanded ? "image-area expanded" : "image-area"}>
+          {/* LEFT ARROW */}
           <div className={this.state.activeIndex === 0 ? "left-arrow hidden" : "left-arrow"}>
             {this.state.activeIndex === 0 ? <LeftArrow /> : <LeftArrow goToPrevSlide={this.goToPrevSlide} />}
           </div>
 
+          {/* MAIN IMAGE HANDLING */}
           {
             <img
               onClick={() => {
-                this.expand();
+                if (!this.state.expanded) {
+                  this.expand();
+                } else {
+                  this.zoom();
+                }
+              }}
+              onMouseMove={() => {
+                if (this.state.zoomed) {
+                  // this.followMouseZoom(event);
+                }
               }}
               className={this.state.expanded ? "main-image expanded" : "main-image"}
               src={photos ? photos[this.state.activeIndex].url : ""}
             />
           }
 
+          {/* RIGHT ARROW */}
           <div className={this.state.activeIndex === this.state.length - 1 ? "right-arrow hidden" : "right-arrow"}>
             {this.state.activeIndex === this.state.length - 1 ? "" : <RightArrow goToNextSlide={this.goToNextSlide} />}
           </div>
         </div>
 
+        {/* X FOR LEAVE EXPANDED VIEW */}
+
+        <FontAwesomeIcon
+          className={this.state.expanded ? "xOut expanded" : "xOut"}
+          icon={faTimes}
+          size="2x"
+          onClick={() => {
+            this.expand();
+            this.setState({ expanded: false, zoomed: false });
+          }}
+        />
+
+        {/* THUMBNAILS SECTION */}
         <div className={this.state.expanded ? "thumbnails expanded" : "thumbnails"}>
-          <div className={(this.state.lowerThumbnailIndex > 0 ? "up-arrow" : "up-arrow hidden") +
-            (this.state.expanded ? " expanded" : "")}>
+          <div className={(this.state.lowerThumbnailIndex > 0 ? "up-arrow" : "up-arrow hidden") + (this.state.expanded ? " expanded" : "")}>
             <UpArrow goUp={this.goUp} />
           </div>
 
           <div>{photos ? this.createThumbnails(photos) : ""}</div>
 
-          <div className={(this.state.upperThumbnailIndex < this.state.length ? "down-arrow" : "down-arrow hidden") +
-            (this.state.expanded ? " expanded" : "")}>
+          <div
+            className={
+              (this.state.upperThumbnailIndex < this.state.length ? "down-arrow" : "down-arrow hidden") + (this.state.expanded ? " expanded" : "")
+            }
+          >
             <DownArrow goDown={this.goDown} />
           </div>
         </div>
