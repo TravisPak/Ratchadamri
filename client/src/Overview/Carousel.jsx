@@ -3,18 +3,17 @@ import React from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronCircleRight, faChevronCircleLeft, faChevronUp, faChevronDown} from "@fortawesome/free-solid-svg-icons";
 
-
 const LeftArrow = (props) => {
   return (
-    <div className="back-arrow" onClick={props.goToPrevSlide}>
-      <FontAwesomeIcon icon={faChevronCircleLeft} size="2x" />
+    <div className="arrow" onClick={props.goToPrevSlide}>
+      <FontAwesomeIcon icon={faChevronCircleLeft} size="2x"/>
     </div>
   )
 }
 
 const RightArrow = (props) => {
   return (
-    <div className="next-arrow" onClick={props.goToNextSlide}>
+    <div className="arrow" onClick={props.goToNextSlide}>
       <FontAwesomeIcon icon={faChevronCircleRight} size="2x" />
     </div>
   )
@@ -22,7 +21,7 @@ const RightArrow = (props) => {
 
 const UpArrow = (props) => {
   return (
-    <div onClick={props.goUp}>
+    <div className="arrow" onClick={props.goUp}>
       <FontAwesomeIcon icon={faChevronUp} size="2x" />
     </div>
   )
@@ -30,7 +29,7 @@ const UpArrow = (props) => {
 
 const DownArrow = (props) => {
   return (
-    <div onClick={props.goDown}>
+    <div className="arrow" onClick={props.goDown}>
       <FontAwesomeIcon icon={faChevronDown} size="2x" />
     </div>
   )

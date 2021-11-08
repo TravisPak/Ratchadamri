@@ -106,6 +106,7 @@ class Form extends React.Component {
           // console.log(data);
 
           //Currently doesn't rerender list
+          this.props.getList();
           this.props.renderList();
           this.props.handleClose();
         })
@@ -172,136 +173,146 @@ class Form extends React.Component {
     }
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <h1>Write your Review</h1>
-          <label>
-            *Overall Rating*
-            <StarRatings setRating={this.setRating} />
-          </label>
-          <br></br>
-          <label>
-            *Do you recommend this product*
-            <label>
-              Yes:
-              <input
-                type="radio"
-                value="true"
-                name="recommend"
-                defaultChecked="checked"
-                onChange={this.handleChange}
-              ></input>
-            </label>
-            <label>
-              No:
-              <input
-                type="radio"
-                value="false"
-                name="recommend"
-                onChange={this.handleChange}
-              ></input>
-            </label>
-          </label>
-          <br></br>
-          <label>
-            *Characteristics*
-            {Object.keys(this.props.characteristics).map(
-              (characteristic, id) => {
-                return (
-                  <div key={id}>
-                    <label>
-                      {characteristic}
-                      <label>
-                        <input
-                          type="radio"
-                          value="1"
-                          name={characteristic}
-                          onChange={this.handleCharacteristicChange}
-                        ></input>
-                        <input
-                          type="radio"
-                          value="2"
-                          name={characteristic}
-                          onChange={this.handleCharacteristicChange}
-                        ></input>
-                        <input
-                          type="radio"
-                          value="3"
-                          name={characteristic}
-                          onChange={this.handleCharacteristicChange}
-                        ></input>
-                        <input
-                          type="radio"
-                          value="4"
-                          name={characteristic}
-                          onChange={this.handleCharacteristicChange}
-                        ></input>
-                        <input
-                          type="radio"
-                          value="5"
-                          name={characteristic}
-                          onChange={this.handleCharacteristicChange}
-                        ></input>
-                        {this.state.selections[characteristic]}
-                      </label>
-                    </label>
-                  </div>
-                );
-              }
-            )}
-          </label>
-          <br></br>
-          <label>
-            Summary
-            <textarea
-              type="text"
-              value={this.state.summary}
-              name="summary"
-              placeholder="Best purchase ever!"
-              onChange={this.handleChange}
-            ></textarea>
-          </label>
-          <br></br>
-          <label>
-            *Body*
-            <textarea
-              type="text"
-              value={this.state.body}
-              name="body"
-              placeholder="Why did you like the product or not?"
-              onChange={this.handleChange}
-            ></textarea>
-          </label>
-          <br></br>
-          <label>
-            *Nickname*
-            <input
-              type="text"
-              value={this.state.nickname}
-              name="nickname"
-              placeholder="jackson11!"
-              onChange={this.handleChange}
-            ></input>
-          </label>
-          <br></br>
-          <label>
-            *Email*
-            <input
-              type="text"
-              value={this.state.email}
-              name="email"
-              placeholder="jackson11@gmail.com"
-              onChange={this.handleChange}
-            ></input>
-          </label>
-          <br></br>
-          <i>For authentication reasons, you will not be emailed</i>
-          <button type="button" onClick={this.showModal}>
-            Upload Photos
-          </button>
-          {this.state.photos.map((photo, id) => {
-            return <img key={id} src={photo} width="50"></img>;
-          })}
-          <button type="submit">Submit</button>
+        <form className="form-container" onSubmit={this.handleSubmit}>
+          <h1 className="form-title">Write your Review</h1>
+          <h4 className="form-product-name">product name goes here</h4>
+          <div className="row">
+            <div className="column">
+              <label>
+                *Overall Rating*
+                <StarRatings setRating={this.setRating} />
+              </label>
+              <div className="styled-input">
+                <textarea
+                  type="text"
+                  value={this.state.summary}
+                  name="summary"
+                  placeholder="Best purchase ever!"
+                  onChange={this.handleChange}
+                ></textarea>
+                <label>Summary</label>
+                <div className="styled-input">
+                  <textarea
+                    type="text"
+                    value={this.state.body}
+                    name="body"
+                    placeholder="Why did you like the product or not?"
+                    onChange={this.handleChange}
+                  ></textarea>
+
+                  <label>*Body*</label>
+                </div>
+                <div className="styled-input">
+                  <input
+                    type="text"
+                    value={this.state.nickname}
+                    name="nickname"
+                    placeholder="jackson11!"
+                    onChange={this.handleChange}
+                  ></input>
+
+                  <label>*Nickname*</label>
+                </div>
+                <div className="styled-input">
+                  <input
+                    type="text"
+                    value={this.state.email}
+                    name="email"
+                    placeholder="jackson11@gmail.com"
+                    onChange={this.handleChange}
+                  ></input>
+                  <label>*Email*</label>
+                </div>
+                <br></br>
+                <i>For authentication reasons, you will not be emailed</i>
+              </div>
+            </div>
+            <div className="column">
+              <div className="recommend radio">
+                <label>
+                  *Do you recommend this product*
+                  <label>
+                    Yes:
+                    <input
+                      type="radio"
+                      value="true"
+                      name="recommend"
+                      defaultChecked="checked"
+                      onChange={this.handleChange}
+                    ></input>
+                  </label>
+                  <label>
+                    No:
+                    <input
+                      type="radio"
+                      value="false"
+                      name="recommend"
+                      onChange={this.handleChange}
+                    ></input>
+                  </label>
+                </label>
+              </div>
+              <div className="characteristics radio">
+                <label>*Characteristics*</label>
+                {Object.keys(this.props.characteristics).map(
+                  (characteristic, id) => {
+                    return (
+                      <div key={id}>
+                        <label>
+                          {characteristic}
+                          <label>
+                            <input
+                              type="radio"
+                              value="1"
+                              name={characteristic}
+                              onChange={this.handleCharacteristicChange}
+                            ></input>
+                            <input
+                              type="radio"
+                              value="2"
+                              name={characteristic}
+                              onChange={this.handleCharacteristicChange}
+                            ></input>
+                            <input
+                              type="radio"
+                              value="3"
+                              name={characteristic}
+                              onChange={this.handleCharacteristicChange}
+                            ></input>
+                            <input
+                              type="radio"
+                              value="4"
+                              name={characteristic}
+                              onChange={this.handleCharacteristicChange}
+                            ></input>
+                            <input
+                              type="radio"
+                              value="5"
+                              name={characteristic}
+                              onChange={this.handleCharacteristicChange}
+                            ></input>
+                            {this.state.selections[characteristic]}
+                          </label>
+                        </label>
+                      </div>
+                    );
+                  }
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            {this.state.photos.map((photo, id) => {
+              return <img key={id} src={photo} width="50"></img>;
+            })}
+
+            <button className="button" type="button" onClick={this.showModal}>
+              Upload Photos
+            </button>
+            <button className="button" type="submit">
+              Submit
+            </button>
+          </div>
         </form>
         <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <PhotosForm addPhoto={this.addPhoto} handleClose={this.hideModal} />

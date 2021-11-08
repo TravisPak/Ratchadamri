@@ -10,6 +10,7 @@ module.exports.cardHelpers = {
     if (totalReviews === 0) {
       return 0;
     }
-    return totalStars / totalReviews;
+    var result = Math.round(totalStars / totalReviews * 10) / 10;
+    return result;
   },
 };
