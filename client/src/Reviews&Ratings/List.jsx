@@ -63,12 +63,16 @@ class List extends React.Component {
       .then(({ data }) => {
         // console.log("Helpful data:", data.results);
 
-        this.setState({
-          value: "Helpful",
-          reviews: data.results,
-        });
+        if(this.props.filteredReviews.length !== 0){
+          this.setState({value:"Helpful",reviews:this.props.filteredReviews})
+
+        }else{
+          this.setState({
+            value: "Helpful",
+            reviews: data.results,
+          });
         this.renderList();
-      })
+      }})
       .catch((err) => {
         console.log(err);
       });
@@ -91,11 +95,16 @@ class List extends React.Component {
         //     reviews = this.filterList(data.results,this.props.filteredRating.rating);
 
         // console.log('Filtered for 5:',reviews);
+        if(this.props.filteredReviews.length !== 0){
+          this.setState({value:"Newest",reviews:this.props.filteredReviews})
 
-        this.setState({
-          value: "Newest",
-          reviews: reviews,
-        });
+        }else{
+          this.setState({
+            value: "Newest",
+            reviews: data.results,
+          });
+
+        }
         this.renderList();
       })
       .catch((err) => {
@@ -115,13 +124,16 @@ class List extends React.Component {
       })
       .then(({ data }) => {
         // console.log("relevant data:", data.results);
+        if(this.props.filteredReviews.length !== 0){
+          this.setState({value:"Relevant",reviews:this.props.filteredReviews})
 
-        this.setState({
-          value: "Relevant",
-          reviews: data.results,
-        });
+        }else{
+          this.setState({
+            value: "Relevant",
+            reviews: data.results,
+          });
         this.renderList();
-      })
+      }})
       .catch((err) => {
         console.log(err);
       });
@@ -231,7 +243,7 @@ class List extends React.Component {
       <div>
         <ul className="list-container">
           <div className="list-total-num-reviews">
-            # of reviews for viewed product{this.props.reviews.length}
+            # of reviews for viewed product{this.state.reviews.length}
           </div>
 
           <label className="list-dropdown-title">

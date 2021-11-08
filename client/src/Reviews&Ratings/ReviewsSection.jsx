@@ -69,6 +69,7 @@ class ReviewsSection extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.clickRating = this.clickRating.bind(this);
+    this.filterList = this.filterList.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -105,6 +106,11 @@ class ReviewsSection extends React.Component {
         });
     }
 
+
+  }
+
+
+  filterList(){
     let fives = [];
     let fours = [];
     let threes = [];
@@ -155,6 +161,9 @@ class ReviewsSection extends React.Component {
       "🚀 ~ file: ReviewsSection.jsx ~ line 163 ~ ReviewsSection ~ componentDidUpdate ~ filtered",
       filtered
     );
+
+    this.setState({filtered:filtered});
+
   }
 
   showModal() {
@@ -170,7 +179,9 @@ class ReviewsSection extends React.Component {
     let filteredRatings = [...this.state.filteredRatings];
 
     filteredRatings[rating - 1].isOn = !filteredRatings[rating - 1].isOn;
+
     this.setState({ filteredRatings: filteredRatings });
+    this.filterList();
   }
 
   render() {
@@ -192,7 +203,7 @@ class ReviewsSection extends React.Component {
           characteristics={this.state.meta.characteristics}
           ratings={this.state.meta.ratings}
           showModal={this.showModal}
-          filteredRatings={this.state.filteredRatings}
+          filteredReviews={this.state.filtered}
           selections={this.state.characteristicSelections}
         />
       </div>
