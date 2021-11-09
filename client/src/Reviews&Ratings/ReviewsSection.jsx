@@ -70,7 +70,6 @@ class ReviewsSection extends React.Component {
     this.hideModal = this.hideModal.bind(this);
     this.clickRating = this.clickRating.bind(this);
     this.filterList = this.filterList.bind(this);
-
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -171,7 +170,6 @@ class ReviewsSection extends React.Component {
     this.setState({ modalShowing: false });
   }
 
-
   clickRating(rating) {
     // console.log(`Rating to filter by ${rating}`);
     let filteredRatings = [...this.state.filteredRatings];
@@ -189,7 +187,6 @@ class ReviewsSection extends React.Component {
           <RatingBreakdown
             meta={this.state.meta}
             clickRating={this.clickRating}
-
           />
           <ProductBreakdown
             characteristics={this.state.meta.characteristics}
@@ -204,7 +201,6 @@ class ReviewsSection extends React.Component {
           showModal={this.showModal}
           filteredReviews={this.state.filtered}
           selections={this.state.characteristicSelections}
-
         />
       </div>
     );

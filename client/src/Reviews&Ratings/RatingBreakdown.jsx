@@ -26,9 +26,9 @@ class RatingBreakdown extends React.Component {
     return Math.round(avgRating * 10) / 10;
   }
 
-  getTotalRatings(){
+  getTotalRatings() {
     let total = 0;
-    for(let key in this.props.meta.ratings){
+    for (let key in this.props.meta.ratings) {
       total += parseInt(this.props.meta.ratings[key]);
     }
     return total;
@@ -48,7 +48,7 @@ class RatingBreakdown extends React.Component {
     }
     averagePercent = (yes / total) * 100;
 
-    return Math.round(averagePercent * 10)/10;
+    return Math.round(averagePercent * 10) / 10;
   }
 
   setStars(average) {
@@ -117,24 +117,25 @@ class RatingBreakdown extends React.Component {
     }
   }
 
-
-
-
-
-
   makeSVGBar(percentFilled) {
     return (
       <svg width="70%" height="16px">
         <g className="bars">
           <rect fill="#ebebeb" width="100%" height="8px" x="5%" y="50%"></rect>
-          <rect fill='#24BE1D' width={`${percentFilled}%`} height="8px" x="5%" y="50%"></rect>
+          <rect
+            fill="#24BE1D"
+            width={`${percentFilled}%`}
+            height="8px"
+            x="5%"
+            y="50%"
+          ></rect>
         </g>
       </svg>
     );
   }
 
-  getPercentageOfRating(ratingTotal,totalRatings){
-    return (ratingTotal/totalRatings) *100;
+  getPercentageOfRating(ratingTotal, totalRatings) {
+    return (ratingTotal / totalRatings) * 100;
   }
 
   render() {
@@ -158,7 +159,12 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star5-title">5 stars</span>
-          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['5'],this.getTotalRatings()))}
+          {this.makeSVGBar(
+            this.getPercentageOfRating(
+              this.props.meta.ratings["5"],
+              this.getTotalRatings()
+            )
+          )}
           <span className="star5-total"></span>
         </div>
         <div
@@ -168,7 +174,12 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star4-title">4 stars</span>
-          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['4'],this.getTotalRatings()))}
+          {this.makeSVGBar(
+            this.getPercentageOfRating(
+              this.props.meta.ratings["4"],
+              this.getTotalRatings()
+            )
+          )}
           <span className="star4-total"></span>
         </div>
         <div
@@ -178,7 +189,12 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star4-title">3 stars</span>
-          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['3'],this.getTotalRatings()))}
+          {this.makeSVGBar(
+            this.getPercentageOfRating(
+              this.props.meta.ratings["3"],
+              this.getTotalRatings()
+            )
+          )}
           <span className="star4-total"></span>
         </div>
         <div
@@ -188,7 +204,12 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star2-title">2 stars</span>
-          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['2'],this.getTotalRatings()))}
+          {this.makeSVGBar(
+            this.getPercentageOfRating(
+              this.props.meta.ratings["2"],
+              this.getTotalRatings()
+            )
+          )}
           <span className="star2-total"></span>
         </div>
         <div
@@ -198,7 +219,12 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star1-title">1 stars</span>
-          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['1'],this.getTotalRatings()))}
+          {this.makeSVGBar(
+            this.getPercentageOfRating(
+              this.props.meta.ratings["1"],
+              this.getTotalRatings()
+            )
+          )}
           <span className="star1-total"></span>
         </div>
       </div>

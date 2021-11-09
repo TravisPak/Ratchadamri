@@ -27,10 +27,11 @@ class List extends React.Component {
     this.getList = this.getList.bind(this);
   }
 
-
-
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.productId !== this.props.productId || prevProps.filteredReviews !== this.props.filteredReviews) {
+    if (
+      prevProps.productId !== this.props.productId ||
+      prevProps.filteredReviews !== this.props.filteredReviews
+    ) {
       axios
         .get("/reviews/", {
           params: {
@@ -44,7 +45,6 @@ class List extends React.Component {
           // console.log("Data:", data.results);
 
           if (this.props.filteredReviews.length !== 0) {
-
             this.setState({ reviews: this.props.filteredReviews });
           } else {
             this.setState({
@@ -250,43 +250,42 @@ class List extends React.Component {
     }
     return (
       <div className="list-container">
+        <div className="list-total-num-reviews">
+          # of reviews for viewed product{this.state.reviews.length}
+        </div>
 
-          <div className="list-total-num-reviews">
-            # of reviews for viewed product{this.state.reviews.length}
-          </div>
+        <label className="list-dropdown-title">
+          Sort on
+          <select
+            className="list-dropdown"
+            value={this.state.value}
+            onChange={this.handleChange}
+          >
+            <option value="Relevant">Relevant</option>
+            <option value="Helpful">Helpful</option>
+            <option value="Newest">Newest</option>
+          </select>
+        </label>
 
-          <label className="list-dropdown-title">
-            Sort on
-            <select
-              className="list-dropdown"
-              value={this.state.value}
-              onChange={this.handleChange}
-            >
-              <option value="Relevant">Relevant</option>
-              <option value="Helpful">Helpful</option>
-              <option value="Newest">Newest</option>
-            </select>
-          </label>
-
-          <div className="list-tile-container">
-            {this.state.displayList.map((review, id) => {
-              return (
-                <Tile
-                  key={id}
-                  review={review}
-                  updateHelpfulness={this.updateHelpfulness}
-                />
-              );
-            })}
-          </div>
-          <div className="list-button-container">
-            <MoreButton
-              reviews={this.state.reviews}
-              displayList={this.state.displayList}
-              addMore={this.addMore}
-            />
-            <AddButton showModal={this.showModal} />
-          </div>
+        <div className="list-tile-container">
+          {this.state.displayList.map((review, id) => {
+            return (
+              <Tile
+                key={id}
+                review={review}
+                updateHelpfulness={this.updateHelpfulness}
+              />
+            );
+          })}
+        </div>
+        <div className="list-button-container">
+          <MoreButton
+            reviews={this.state.reviews}
+            displayList={this.state.displayList}
+            addMore={this.addMore}
+          />
+          <AddButton showModal={this.showModal} />
+        </div>
 
         <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <Form
