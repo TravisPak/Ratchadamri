@@ -70,7 +70,7 @@ class ReviewsSection extends React.Component {
     this.hideModal = this.hideModal.bind(this);
     this.clickRating = this.clickRating.bind(this);
     this.filterList = this.filterList.bind(this);
-    this.reRenderList = this.reRenderList.bind(this);
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -170,9 +170,7 @@ class ReviewsSection extends React.Component {
   hideModal() {
     this.setState({ modalShowing: false });
   }
-  reRenderList(renderFunc) {
-    renderFunc();
-  }
+
 
   clickRating(rating) {
     // console.log(`Rating to filter by ${rating}`);
@@ -205,7 +203,7 @@ class ReviewsSection extends React.Component {
           showModal={this.showModal}
           filteredReviews={this.state.filtered}
           selections={this.state.characteristicSelections}
-          reRenderList={this.reRenderList}
+
         />
       </div>
     );

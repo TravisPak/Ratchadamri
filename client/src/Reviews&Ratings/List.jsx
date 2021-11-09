@@ -27,8 +27,10 @@ class List extends React.Component {
     this.getList = this.getList.bind(this);
   }
 
+
+
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.productId !== this.props.productId) {
+    if (prevProps.productId !== this.props.productId || prevProps.filteredReviews !== this.props.filteredReviews) {
       axios
         .get("/reviews/", {
           params: {
@@ -42,6 +44,7 @@ class List extends React.Component {
           // console.log("Data:", data.results);
 
           if (this.props.filteredReviews.length !== 0) {
+
             this.setState({ reviews: this.props.filteredReviews });
           } else {
             this.setState({
@@ -246,8 +249,8 @@ class List extends React.Component {
       // console.log('Undefined Area');
     }
     return (
-      <div>
-        <ul className="list-container">
+      <div className="list-container">
+
           <div className="list-total-num-reviews">
             # of reviews for viewed product{this.state.reviews.length}
           </div>
@@ -284,7 +287,7 @@ class List extends React.Component {
             />
             <AddButton showModal={this.showModal} />
           </div>
-        </ul>
+
         <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <Form
             characteristics={this.props.characteristics}
