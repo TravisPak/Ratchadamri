@@ -40,7 +40,7 @@ class RatingBreakdown extends React.Component {
     }
     averagePercent = (yes / total) * 100;
 
-    return averagePercent;
+    return Math.round(averagePercent * 10)/10;
   }
 
   setStars(average) {
