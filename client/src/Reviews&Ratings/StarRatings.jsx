@@ -72,7 +72,6 @@ class StarRatings extends React.Component {
   render() {
     return (
       <div className={this.state.isDisabled ? "stars disabled" : "stars"}>
-
         <a
           className={this.state.isActive.star1 ? "active" : ""}
           onClick={() => {
