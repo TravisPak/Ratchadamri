@@ -22,6 +22,7 @@ class Cards extends React.Component {
     this.hideModal = this.hideModal.bind(this);
     this.addItem = this.addItem.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -153,6 +154,13 @@ class Cards extends React.Component {
       });
   }
 
+  //REMOVE ITEM
+  removeItem (input) {
+      var newOutfit = [...this.state.outfit]
+      var filteredOutfit = newOutfit.filter((item) => (item[0].id != input));
+      this.setState({outfit: filteredOutfit})
+  }
+
   render() {
     return (
       <div className="cards-component">
@@ -162,7 +170,6 @@ class Cards extends React.Component {
         create new span with CATEGORY/NAME/PRICE/STAR RATING */
             Object.keys(this.state.relatedInfo).map((key, index) => (
               <div className="item" key={index}
-               onClick={() => {this.clickHandler(this.state.relatedInfo[key][0].id)}}
               >
                 <a
                   className="item-action-button"
@@ -174,9 +181,10 @@ class Cards extends React.Component {
                 </a>
                 <img
                   className="item-img"
-                  src={this.state.relatedInfo[key][2]}
+                  src={this.state.relatedInfo[key][2]} onClick={() => {this.clickHandler(this.state.relatedInfo[key][0].id)}}
                 />
                 <br />
+                <div className="card-body" onClick={() => {this.clickHandler(this.state.relatedInfo[key][0].id)}}>
                 <span className="item-category item-text">
                   {this.state.relatedInfo[key][0].category}
                 </span>
@@ -192,6 +200,7 @@ class Cards extends React.Component {
                 <span className="stars item-text">
                   {"Stars: " + this.state.relatedInfo[key][1]}
                 </span>
+                </div>
               </div>
             ))
           }
@@ -235,7 +244,7 @@ class Cards extends React.Component {
                 <a
                   className="item-action-button"
                   onClick={() => {
-                    this.showModal(this.state.relatedInfo[key][0]);
+                    this.removeItem(item[0].id);
                   }}
                 >
                   ❌
