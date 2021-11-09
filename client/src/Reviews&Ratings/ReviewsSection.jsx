@@ -189,6 +189,7 @@ class ReviewsSection extends React.Component {
           <RatingBreakdown
             meta={this.state.meta}
             clickRating={this.clickRating}
+
           />
           <ProductBreakdown
             characteristics={this.state.meta.characteristics}

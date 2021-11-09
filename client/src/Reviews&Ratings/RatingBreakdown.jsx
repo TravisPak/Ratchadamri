@@ -8,22 +8,30 @@ class RatingBreakdown extends React.Component {
     this.getPercentageRecommended = this.getPercentageRecommended.bind(this);
     this.getRatingAvg = this.getRatingAvg.bind(this);
     this.makeSVGBar = this.makeSVGBar.bind(this);
+    this.getTotalRatings = this.getTotalRatings.bind(this);
+    this.getPercentageOfRating = this.getPercentageOfRating.bind(this);
   }
 
   getRatingAvg() {
-    let total = 0;
     let totalStars = 0;
 
     for (let key in this.props.meta.ratings) {
-      total += parseInt(this.props.meta.ratings[key]);
       totalStars += parseInt(key) * parseInt(this.props.meta.ratings[key]);
     }
     // console.log(total);
     // console.log(totalStars);
 
-    let avgRating = totalStars / total;
+    let avgRating = totalStars / this.getTotalRatings();
 
     return Math.round(avgRating * 10) / 10;
+  }
+
+  getTotalRatings(){
+    let total = 0;
+    for(let key in this.props.meta.ratings){
+      total += parseInt(this.props.meta.ratings[key]);
+    }
+    return total;
   }
 
   getPercentageRecommended() {
@@ -112,15 +120,21 @@ class RatingBreakdown extends React.Component {
 
 
 
-  makeSVGBar() {
+
+
+  makeSVGBar(percentFilled) {
     return (
       <svg width="70%" height="16px">
         <g className="bars">
           <rect fill="#ebebeb" width="100%" height="8px" x="5%" y="50%"></rect>
-          <rect fill='#24BE1D' width="80%" height="8px" x="5%" y="50%"></rect>
+          <rect fill='#24BE1D' width={`${percentFilled}%`} height="8px" x="5%" y="50%"></rect>
         </g>
       </svg>
     );
+  }
+
+  getPercentageOfRating(ratingTotal,totalRatings){
+    return (ratingTotal/totalRatings) *100;
   }
 
   render() {
@@ -144,8 +158,8 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star5-title">5 stars</span>
-          {this.makeSVGBar()}
-          <span className="star5-total">#{this.props.meta.ratings["5"]}</span>
+          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['5'],this.getTotalRatings()))}
+          <span className="star5-total"></span>
         </div>
         <div
           className="rating-breakdown-star4"
@@ -154,8 +168,8 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star4-title">4 stars</span>
-          {this.makeSVGBar()}
-          <span className="star4-total">#{this.props.meta.ratings["4"]}</span>
+          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['4'],this.getTotalRatings()))}
+          <span className="star4-total"></span>
         </div>
         <div
           className="rating-breakdown-star3"
@@ -164,8 +178,8 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star4-title">3 stars</span>
-          {this.makeSVGBar()}
-          <span className="star4-total">#{this.props.meta.ratings["3"]}</span>
+          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['3'],this.getTotalRatings()))}
+          <span className="star4-total"></span>
         </div>
         <div
           className="rating-breakdown-star2"
@@ -174,8 +188,8 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star2-title">2 stars</span>
-          {this.makeSVGBar()}
-          <span className="star2-total">#{this.props.meta.ratings["2"]}</span>
+          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['2'],this.getTotalRatings()))}
+          <span className="star2-total"></span>
         </div>
         <div
           className="rating-breakdown-star1"
@@ -184,8 +198,8 @@ class RatingBreakdown extends React.Component {
           }}
         >
           <span className="star1-title">1 stars</span>
-          {this.makeSVGBar()}
-          <span className="star1-total">#{this.props.meta.ratings["1"]}</span>
+          {this.makeSVGBar(this.getPercentageOfRating(this.props.meta.ratings['1'],this.getTotalRatings()))}
+          <span className="star1-total"></span>
         </div>
       </div>
     );
