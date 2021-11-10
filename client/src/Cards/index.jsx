@@ -23,6 +23,7 @@ class Cards extends React.Component {
     this.addItem = this.addItem.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.salePriceChecker = this.salePriceChecker.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -63,6 +64,7 @@ class Cards extends React.Component {
                           relatedData[styles.data.product_id].push(
                             "https://http.cat/404"
                           );
+                          relatedData[styles.data.product_id].push(styles.data.results[0].sale_price);
                           this.setState({
                             relatedInfo: relatedData,
                             product_id: this.props.product.currentProduct.id,
@@ -76,6 +78,7 @@ class Cards extends React.Component {
                           relatedData[styles.data.product_id].push(
                             styles.data.results[0].photos[0].thumbnail_url
                           );
+                          relatedData[styles.data.product_id].push(styles.data.results[0].sale_price);
                           this.setState({
                             relatedInfo: relatedData,
                             product_id: this.props.product.currentProduct.id,
@@ -121,6 +124,12 @@ class Cards extends React.Component {
     var rating;
     var outfitAddition = [this.props.product.currentProduct];
 
+    //iterate over outfit
+      //if outfit already has matching product id?
+        //return alert that item is already in your bag
+
+
+
     axios
       .get(`/products/${this.props.product.currentProduct.id}/styles`)
       .then((styles) => {
@@ -152,6 +161,19 @@ class Cards extends React.Component {
             });
         }
       });
+  }
+
+//SALE PRICE CHECKER
+  salePriceChecker(price, sale) {
+    if (sale) {
+
+      return (<span className="item-price item-text">
+      {"$" + sale + ' '}<s className="struckthrough">{"$" + price}</s>
+    </span>)
+    }
+    return (<span className="item-price item-text">
+                  {"$" + price}
+                </span>)
   }
 
   //REMOVE ITEM
@@ -193,9 +215,7 @@ class Cards extends React.Component {
                 <span className="item-name item-text">
                   {this.state.relatedInfo[key][0].name}
                 </span>
-                <span className="item-price item-text">
-                  {"$" + this.state.relatedInfo[key][0].default_price}
-                </span>
+{this.salePriceChecker(this.state.relatedInfo[key][0].default_price, this.state.relatedInfo[key][3])}
                 <br />
                 <span className="stars item-text">
                   {"Stars: " + this.state.relatedInfo[key][1]}
