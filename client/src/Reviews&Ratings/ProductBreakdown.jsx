@@ -11,13 +11,17 @@ class ProductBreakdown extends React.Component {
   makeSVGtriangle(percentFilled) {
     return (
       <svg
-        x={`${percentFilled}%`}
-        xmlns="http://www.w3.org/2000/svg"
-        width="100"
-        height="100"
-        viewBox="0 0 100 100"
+      className="triangle"
+      x={`${percentFilled}%`}
+      y="1px"
+      xmlns="http://www.w3.org/2000/svg"
+      width="100"
+      height="100"
+      viewBox="0 0 100 100"
       >
+
         <polygon points="0 100, 50 15 ,100 100" />
+
       </svg>
     );
   }
@@ -37,25 +41,23 @@ class ProductBreakdown extends React.Component {
             <div className="product-characteristic" key={id}>
               {characteristic}
 
-              <svg width="100%" height="24px">
+              <svg width="100%" height="24px" style={{display:'inline-block'}}>
                 <g>
-                  {this.makeSVGtriangle(
-                    this.triangleSVGPosition(
-                      this.props.characteristics[characteristic].value
-                    )
-                  )}
-                  <rect fill="#ebebeb" width="27%" height="8px" x="0%"></rect>
+
+                  <rect fill="#ebebeb" width="32%" height="8px" x="0%"></rect>
                   <text x="0%" y="95%" fontSize="10">
                     {this.props.selections[characteristic][0]}
                   </text>
-                  <rect fill="#ebebeb" width="27%" height="8px" x="33%"></rect>
+                  <rect fill="#ebebeb" width="32%" height="8px" x="33%"></rect>
                   <text x="33%" y="95%" fontSize="10">
                     {this.props.selections[characteristic][2]}
                   </text>
-                  <rect fill="#ebebeb" width="27%" height="8px" x="66%"></rect>
+                  <rect fill="#ebebeb" width="32%" height="8px" x="66%"></rect>
                   <text x="66%" y="95%" fontSize="10">
                     {this.props.selections[characteristic][4]}
                   </text>
+                  {this.makeSVGtriangle(this.triangleSVGPosition(this.props.characteristics[characteristic].value))}
+
                 </g>
               </svg>
             </div>
