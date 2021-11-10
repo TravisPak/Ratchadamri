@@ -250,22 +250,22 @@ class List extends React.Component {
     }
     return (
       <div className="list-container">
-        <div className="list-total-num-reviews">
-          # of reviews for viewed product{this.state.reviews.length}
-        </div>
-
+        <div className="list-total-reviews">
+          {this.state.reviews.length} Reviews,
         <label className="list-dropdown-title">
-          Sort on
+           Sort on
           <select
             className="list-dropdown"
             value={this.state.value}
             onChange={this.handleChange}
           >
-            <option value="Relevant">Relevant</option>
-            <option value="Helpful">Helpful</option>
-            <option value="Newest">Newest</option>
+            <option id="a"value="Relevant">Relevant</option>
+            <option id="b"value="Helpful">Helpful</option>
+            <option id="c"value="Newest">Newest</option>
           </select>
         </label>
+        </div>
+
 
         <div className="list-tile-container">
           {this.state.displayList.map((review, id) => {
