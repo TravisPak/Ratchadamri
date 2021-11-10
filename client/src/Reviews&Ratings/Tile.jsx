@@ -128,6 +128,7 @@ class Tile extends React.Component {
             ></img>
           </Modal>
         </div>
+        <span className="tile-line">________________________________________________________________________________________</span>
       </div>
     );
   }
