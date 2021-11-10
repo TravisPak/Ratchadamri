@@ -165,7 +165,7 @@ class RatingBreakdown extends React.Component {
               this.getTotalRatings()
             )
           )}
-          <span className="star5-total"></span>
+
         </div>
         <div
           className="rating-breakdown-star4"
@@ -180,7 +180,7 @@ class RatingBreakdown extends React.Component {
               this.getTotalRatings()
             )
           )}
-          <span className="star4-total"></span>
+
         </div>
         <div
           className="rating-breakdown-star3"
@@ -188,14 +188,14 @@ class RatingBreakdown extends React.Component {
             this.props.clickRating(3);
           }}
         >
-          <span className="star4-title">3 stars</span>
+          <span className="star3-title">3 stars</span>
           {this.makeSVGBar(
             this.getPercentageOfRating(
               this.props.meta.ratings["3"],
               this.getTotalRatings()
             )
           )}
-          <span className="star4-total"></span>
+
         </div>
         <div
           className="rating-breakdown-star2"
@@ -210,7 +210,7 @@ class RatingBreakdown extends React.Component {
               this.getTotalRatings()
             )
           )}
-          <span className="star2-total"></span>
+
         </div>
         <div
           className="rating-breakdown-star1"
@@ -225,7 +225,7 @@ class RatingBreakdown extends React.Component {
               this.getTotalRatings()
             )
           )}
-          <span className="star1-total"></span>
+
         </div>
       </div>
     );
