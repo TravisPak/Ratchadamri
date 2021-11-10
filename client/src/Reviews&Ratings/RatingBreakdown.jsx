@@ -23,7 +23,7 @@ class RatingBreakdown extends React.Component {
 
     let avgRating = totalStars / this.getTotalRatings();
 
-    return Math.round(avgRating * 10) / 10;
+    return avgRating.toFixed(1);
   }
 
   getTotalRatings() {
@@ -48,7 +48,7 @@ class RatingBreakdown extends React.Component {
     }
     averagePercent = (yes / total) * 100;
 
-    return Math.round(averagePercent * 10) / 10;
+    return averagePercent.toFixed(0);
   }
 
   setStars(average) {
@@ -145,15 +145,18 @@ class RatingBreakdown extends React.Component {
     return (
       <div className="rating-breakdown-container">
         <div className="rating-breakdown-title">RATINGS &#38; REVIEWS</div>
-        <div className="rating-breakdown-avg">{this.getRatingAvg()}</div>
+        <div className="avg-stars-container">
+        <span className="rating-breakdown-avg">{this.getRatingAvg()}</span>
         <div className="rating-breakdown-stars">
           {this.setStars(this.getRatingAvg())}
+        </div>
+
         </div>
         <div className="rating-breakdown-percentage">
           {this.getPercentageRecommended()}% of reviews recommend this product
         </div>
         <div
-          className="rating-breakdown-star5"
+          className="rating-breakdown-star"
           onClick={() => {
             this.props.clickRating(5);
           }}
@@ -168,7 +171,7 @@ class RatingBreakdown extends React.Component {
 
         </div>
         <div
-          className="rating-breakdown-star4"
+          className="rating-breakdown-star"
           onClick={() => {
             this.props.clickRating(4);
           }}
@@ -183,7 +186,7 @@ class RatingBreakdown extends React.Component {
 
         </div>
         <div
-          className="rating-breakdown-star3"
+          className="rating-breakdown-star"
           onClick={() => {
             this.props.clickRating(3);
           }}
@@ -198,7 +201,7 @@ class RatingBreakdown extends React.Component {
 
         </div>
         <div
-          className="rating-breakdown-star2"
+          className="rating-breakdown-star"
           onClick={() => {
             this.props.clickRating(2);
           }}
@@ -213,7 +216,7 @@ class RatingBreakdown extends React.Component {
 
         </div>
         <div
-          className="rating-breakdown-star1"
+          className="rating-breakdown-star"
           onClick={() => {
             this.props.clickRating(1);
           }}

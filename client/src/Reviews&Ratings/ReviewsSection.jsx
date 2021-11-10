@@ -183,7 +183,7 @@ class ReviewsSection extends React.Component {
   render() {
     return (
       <div className="reviews-ratings-overall-container">
-        <div>
+
           <RatingBreakdown
             meta={this.state.meta}
             clickRating={this.clickRating}
@@ -192,7 +192,7 @@ class ReviewsSection extends React.Component {
             characteristics={this.state.meta.characteristics}
             selections={this.state.characteristicSelections}
           />
-        </div>
+
         <List
           reviews={this.state.reviews}
           productId={this.props.productId}
