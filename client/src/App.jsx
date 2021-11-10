@@ -1,4 +1,5 @@
 import React from 'react';
+import Banner from './Overview/Banner.jsx'
 import Overview from './Overview/Overview.jsx';
 import Cards from './Cards/index.jsx';
 import ReviewsSection from './Reviews&Ratings/ReviewsSection.jsx';
@@ -43,6 +44,7 @@ class App extends React.Component {
 render () {
 return (
   <div>
+    <Banner />
     <div>
       <Overview product={this.state.currentProduct}/>
     </div>

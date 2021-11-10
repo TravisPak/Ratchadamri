@@ -123,8 +123,24 @@ class ImageGallery extends React.Component {
     this.setState(this.state.zoomed ? { zoomed: false } : { zoomed: true });
   }
 
-  followMouseZoom(X, Y) {
-    console.log(X, Y);
+  followMouseZoom(event, mouseX, mouseY) {
+    // console.log(mouseX, mouseY);
+    var imageBounds = event.target.getBoundingClientRect();
+    var imageSizeX = imageBounds.right - imageBounds.left;
+    var imageSizeY = imageBounds.bottom - imageBounds.top;
+    // var xPos = (imageBounds.x - mouseX) * 2.5;
+    // var yPos = (imageBounds.y - mouseY) * 2.5;
+    // var xPos = (imageBounds.right - mouseX) - (imageSizeX * (2.5/2));
+    // var yPos = (imageBounds.bottom - mouseY) - (imageSizeY * (2.5/2));
+    var xPos = -5 * (mouseX - imageBounds.left - 50);
+    var yPos = -5 * (mouseY - imageBounds.top - 50);
+
+    this.setState({xPos, yPos});
+
+  }
+
+  zoomStyle() {
+    return {left: this.state.xPos, top: this.state.yPos }
   }
 
   // ADD PROPS (currentStylePhotos) TO STATE ON UPDATE
@@ -139,6 +155,7 @@ class ImageGallery extends React.Component {
 
   render() {
     var photos = this.props.currentStylePhotos;
+    var moveZoom = '{transition: translate(this.state.xPos, this.state.yPos) }'
     return (
       <div className={this.state.expanded ? "image-gallery expanded" : "image-gallery"}>
         <div className={this.state.expanded ? "image-area expanded" : "image-area"}>
@@ -157,13 +174,26 @@ class ImageGallery extends React.Component {
                   this.zoom();
                 }
               }}
+              // onMouseMove
               onMouseMove={() => {
                 if (this.state.zoomed) {
-                  this.followMouseZoom(event.clientX, event.clientY);
+                  this.followMouseZoom(event, event.clientX, event.clientY);
                 }
               }}
-              className={this.state.expanded ? "main-image expanded" : "main-image"}
+              className={(this.state.expanded ? "main-image expanded" : "main-image") + (this.state.zoomed ? " zoomed" : "")}
               src={photos ? photos[this.state.activeIndex].url : ""}
+            />
+          }
+
+          {
+            <img
+              className={this.state.zoomed ? "zoom-image" : "not-zoomed"}
+              src={photos ? photos[this.state.activeIndex].url : ""}
+              onClick={() => {
+                this.setState({ zoomed: false });
+                console.log(event.target.getBoundingClientRect())
+              }}
+              style={{left: this.state.xPos, top: this.state.yPos }}
             />
           }
 
