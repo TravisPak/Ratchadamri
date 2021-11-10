@@ -123,10 +123,26 @@ class Cards extends React.Component {
     var newUrl;
     var rating;
     var outfitAddition = [this.props.product.currentProduct];
+    var duplicateItem = false;
 
     //iterate over outfit
       //if outfit already has matching product id?
-        //return alert that item is already in your bag
+      // duplicateItem = true
+    this.state.outfit.map((item) => {
+
+      if (item[0].id === this.props.product.currentProduct.id) {
+        // console.log('item[0].id', item[0].id)
+        // console.log('current prod id', this.props.product.currentProduct.id);
+        duplicateItem = true;
+      }
+
+    })
+
+      if (duplicateItem) {
+        alert('Oop, you already have this in your outfit!');
+        return;
+      }
+
 
 
 
