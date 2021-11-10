@@ -13,6 +13,7 @@ class App extends React.Component {
     currentProduct: {}
   }
   //BIND FUNCTIONS IN HERE
+  this.updateStyle = this.updateStyle.bind(this);
   }
 
   // set default start up productId
@@ -26,15 +27,15 @@ class App extends React.Component {
       })
   }
 
-  // updateStyle(productId) {
-  //   axios.get(`/products/${productId}`)
-  //     .then((response)=>{
-  //       this.setState({currentProduct: response.data});
-  //     })
-  //     .catch((err)=>{
-  //       console.log(err);
-  //     })
-  // }
+  updateStyle(productId) {
+    axios.get(`/products/${productId}`)
+      .then((response)=>{
+        this.setState({currentProduct: response.data});
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+  }
 
   // componentDidMount() {
   //   update(37311)
@@ -49,7 +50,7 @@ return (
       <Overview product={this.state.currentProduct}/>
     </div>
     <div>
-    <Cards product={this.state} />
+    <Cards product={this.state} pageChange={this.updateStyle}/>
     </div>
     <div>
     <QuestionsList currentProductID={this.state.currentProduct.id} />
