@@ -92,7 +92,7 @@ class Form extends React.Component {
       // console.log("we are validated");
       axios
         .post("/reviews", {
-          product_id: parseInt(this.props.productId),
+          product_id: parseInt(this.props.product.id),
           rating: this.state.overallRating,
           summary: this.state.summary,
           body: this.state.body,
@@ -175,7 +175,7 @@ class Form extends React.Component {
       <div>
         <form className="form-container" onSubmit={this.handleSubmit}>
           <h1 className="form-title">Write your Review</h1>
-          <h4 className="form-product-name">product name goes here</h4>
+          <h4 className="form-product-name">{this.props.product.name}</h4>
           <div className="row">
             <div className="column">
               <label>
