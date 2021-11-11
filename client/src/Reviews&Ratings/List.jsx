@@ -14,6 +14,7 @@ class List extends React.Component {
       value: "Relevant",
       reviews: [],
       displayList: [],
+
     };
     this.handleChange = this.handleChange.bind(this);
     this.sortByHelpfulness = this.sortByHelpfulness.bind(this);
@@ -25,6 +26,7 @@ class List extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.getList = this.getList.bind(this);
+
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -57,6 +59,8 @@ class List extends React.Component {
           console.log(err);
         });
     }
+
+
   }
 
   sortByHelpfulness() {
@@ -188,7 +192,14 @@ class List extends React.Component {
     if (review2) {
       currentList.push(review2);
     }
-    this.setState({ displayList: currentList });
+
+    if(currentList.length === this.state.reviews.length){
+      this.setState({displayList:currentList})
+      this.props.hideAddButton();
+    }else{
+
+      this.setState({ displayList: currentList });
+    }
   }
 
   handleChange(event) {
@@ -237,6 +248,8 @@ class List extends React.Component {
     this.setState({ modalShowing: false });
   }
 
+
+
   render() {
     if (
       !this.props.characteristics ||
@@ -247,6 +260,10 @@ class List extends React.Component {
       !this.state.displayList
     ) {
       // console.log('Undefined Area');
+    }
+
+    if(this.props.reviews.length === 0){
+      return <AddButton showModal={this.showModal} />
     }
     return (
       <div className="list-container">
@@ -284,6 +301,7 @@ class List extends React.Component {
             reviews={this.state.reviews}
             displayList={this.state.displayList}
             addMore={this.addMore}
+            hideButton={this.props.hide}
           />
           <AddButton showModal={this.showModal} />
         </div>
