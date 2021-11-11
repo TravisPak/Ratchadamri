@@ -74,11 +74,9 @@ class Tile extends React.Component {
         <div className="tile-heading">
         <div className="tile-star-ratings">{this.setStars()}</div>
 
-        <div className="tile-reviewer-name">
-          {this.props.review.reviewer_name}
-        </div>
-        <div className="tile-date">
-          {moment(this.props.review.date).format("MMMM Do YYYY")}
+
+        <div className="tile-name-date">
+        {this.props.review.reviewer_name}{','}{moment(this.props.review.date).format("MMMM Do YYYY")}
         </div>
 
         </div>
