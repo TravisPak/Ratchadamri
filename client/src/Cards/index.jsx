@@ -199,6 +199,47 @@ class Cards extends React.Component {
       this.setState({outfit: filteredOutfit})
   }
 
+  renderTable () {
+    if (this.state.clickedProductInfo.length > 0) {
+      var itemOneName = this.props.product.currentProduct.name;
+    var itemTwoName = this.state.clickedProduct;
+    var itemOneFeatures = this.state.product_info.features;
+    var itemTwoFeatures = this.state.clickedProductInfo;
+    console.log('itemonename', itemOneName);
+    console.log('itemtwoname', itemTwoName);
+    console.log('itemonefeatuers', itemOneFeatures);
+    console.log('itemtwofeatuers', itemTwoFeatures);
+    var combinedFeatures = [];
+    itemOneFeatures.map((feature) => {combinedFeatures.push(feature)})
+    itemTwoFeatures.map((feature) => {combinedFeatures.push(feature)})
+    // combinedFeatures.filter((feature) => ())
+    console.log('combinedFeatures', combinedFeatures)
+return ( <div>
+  <table className="related-modal">
+    <thead>
+      <tr>
+        <td>{this.state.clickedProduct}</td>
+        <td>Characteristics</td>
+        <td>{this.state.product_info.name}</td>
+      </tr>
+    </thead>
+    <tbody>
+      {this.state.clickedProductInfo.map((feature) => {
+        return (
+          <tr>
+            <td>Placeholder</td>
+            <td>{feature.feature}</td>
+            <td>Placeholder</td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+</div>)
+    }
+
+  }
+
   render() {
     return (
       <div className="cards-component">
@@ -245,28 +286,7 @@ class Cards extends React.Component {
             isShowing={this.state.modalShowing}
             handleClose={this.hideModal}
           >
-            <div>
-              <table className="related-modal">
-                <thead>
-                  <tr>
-                    <td>{this.state.clickedProduct}</td>
-                    <td>Characteristics</td>
-                    <td>{this.state.product_info.name}</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.clickedProductInfo.map((feature) => {
-                    return (
-                      <tr>
-                        <td>Placeholder</td>
-                        <td>{feature.feature}</td>
-                        <td>Placeholder</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+           {this.renderTable()}
           </Modal>
         </div>
 
