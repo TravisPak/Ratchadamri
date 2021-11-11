@@ -9,6 +9,7 @@ class ReviewsSection extends React.Component {
     super(props);
 
     this.state = {
+      hideAddButton:false,
       modalShowing: false,
       reviews: [],
       meta: [],
@@ -70,6 +71,7 @@ class ReviewsSection extends React.Component {
     this.hideModal = this.hideModal.bind(this);
     this.clickRating = this.clickRating.bind(this);
     this.filterList = this.filterList.bind(this);
+    this.hideAddButton = this.hideAddButton.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -170,11 +172,18 @@ class ReviewsSection extends React.Component {
     this.setState({ modalShowing: false });
   }
 
+  hideAddButton(){
+    this.setState({hideAddButton:!this.state.hideAddButton})
+  }
+
+
+
   clickRating(rating) {
     // console.log(`Rating to filter by ${rating}`);
     let filteredRatings = [...this.state.filteredRatings];
 
     filteredRatings[rating - 1].isOn = !filteredRatings[rating - 1].isOn;
+
 
     this.setState({ filteredRatings: filteredRatings });
     this.filterList();
@@ -183,7 +192,20 @@ class ReviewsSection extends React.Component {
   render() {
     return (
       <div className="reviews-ratings-overall-container">
+           <svg height="30" width="30">
+  <defs>
+    <linearGradient id="half">
 
+      <stop offset="50%" stop-color="yellow" />
+      <stop offset="50%" stop-color="red" />
+
+    </linearGradient>
+  </defs>
+  <g fill="url(#half)" stroke="black" stroke-width="3">
+    <polygon points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5"/>
+    <polygon points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5" stroke="none"/>
+  </g>
+</svg>
           <RatingBreakdown
             meta={this.state.meta}
             clickRating={this.clickRating}
@@ -201,6 +223,8 @@ class ReviewsSection extends React.Component {
           showModal={this.showModal}
           filteredReviews={this.state.filtered}
           selections={this.state.characteristicSelections}
+          hideAddButton={this.hideAddButton}
+          hide={this.state.hideAddButton}
         />
       </div>
     );

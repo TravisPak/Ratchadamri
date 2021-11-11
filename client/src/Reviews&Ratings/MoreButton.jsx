@@ -1,6 +1,8 @@
 import React from "react";
 
 const MoreButton = (props) => {
+
+
   const handleClick = () => {
     // console.log("render more reviews");
 
@@ -9,7 +11,7 @@ const MoreButton = (props) => {
   };
 
   return (
-    <button className="more-button" onClick={handleClick}>
+    <button className={props.hideButton ? "hidden":"more-button"} onClick={handleClick}>
       More Reviews
     </button>
   );
