@@ -13,53 +13,34 @@ class App extends React.Component {
     currentProduct: {}
   }
   //BIND FUNCTIONS IN HERE
-  this.updateStyle = this.updateStyle.bind(this);
+  this.updateProduct = this.updateProduct.bind(this);
   }
 
-  // set default start up productId
+  // SET DEFAULT PRODUCT ON STARTUP
   componentDidMount() {
-    axios.get('/products/37318')
-      .then((response)=>{
-        this.setState({currentProduct: response.data});
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+    this.updateProduct(37318)
   }
 
-  updateStyle(productId) {
+  // UPDATE CHOSEN ITEM
+  updateProduct(productId) {
     axios.get(`/products/${productId}`)
       .then((response)=>{
         this.setState({currentProduct: response.data});
       })
       .catch((err)=>{
         console.log(err);
+        alert('please search for a valid product number 37311-37320')
       })
   }
-
-  // componentDidMount() {
-  //   update(37311)
-  // }
-
 
 render () {
 return (
   <div>
-    <Banner />
-    <div>
-      <Overview product={this.state.currentProduct}/>
-    </div>
-    <div>
-    <Cards product={this.state} pageChange={this.updateStyle}/>
-    </div>
-    <div>
+    <Banner updateProduct={this.updateProduct}/>
+    <Overview product={this.state.currentProduct}/>
+    <Cards product={this.state} pageChange={this.updateProduct}/>
     <QuestionsList currentProductID={this.state.currentProduct.id} />
-    </div>
-
-    <div>
-    REVIEWS HERE
     <ReviewsSection productId={this.state.currentProduct.id}/>
-    </div>
   </div>
 )
 }

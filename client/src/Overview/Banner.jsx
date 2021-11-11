@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 
 class Banner extends React.Component {
   constructor(props) {
@@ -13,21 +15,24 @@ class Banner extends React.Component {
     this.setState({value: event.target.value});
   }
 
+  // UPDATE PRODUCT BASED ON USER INPUT PRODUCT NUMBER
   handleSubmit(event) {
     event.preventDefault();
-
+    this.props.updateProduct(this.state.value)
   }
 
   render() {
     return (
       <div className="banner">
-        <h1 className="logo">Logo</h1>
+        <h1 className="logo">H A C S U N</h1>
         <form onSubmit={this.handleSubmit} className="search-bar">
-          <label>
-            Search Item:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+          <label className="search-label">
+            SEARCH ITEM #:
           </label>
-          <input type="submit" value="Submit" />
+          <input type="text" value={this.state.value} onChange={this.handleChange} className="search-text"/>
+          <div  className="search-button">
+            <FontAwesomeIcon icon={faSearch} onClick={this.handleSubmit}/>
+          </div>
         </form>
       </div>
     );

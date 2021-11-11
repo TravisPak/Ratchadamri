@@ -29,6 +29,7 @@ class ImageGallery extends React.Component {
     this.goToNextSlide = this.goToNextSlide.bind(this);
   }
 
+  // CAROUSEL THROUGH THUMBNAILS
   goUp() {
     var lower = this.state.lowerThumbnailIndex;
     var upper = this.state.upperThumbnailIndex;
@@ -51,6 +52,7 @@ class ImageGallery extends React.Component {
     }
   }
 
+  // CAROUSEL THROUGH MAIN IMAGE
   goToPrevSlide() {
     var lower = this.state.lowerThumbnailIndex;
     var upper = this.state.upperThumbnailIndex;
@@ -89,6 +91,7 @@ class ImageGallery extends React.Component {
     this.setState({ activeIndex: index });
   }
 
+  // CREATE ARRAY OF THUMBNAILS FOR RENDERING
   createThumbnails(photos) {
     var thumbnails = photos.map((eachPhoto, key) => {
       return (
@@ -115,6 +118,7 @@ class ImageGallery extends React.Component {
     this.setState({ activeIndex: clicked });
   }
 
+  // TOGGLE STATE TO EXPAND AND ZOOM IMAGE GALLERY
   expand() {
     this.setState(this.state.expanded ? { expanded: false } : { expanded: true });
   }
@@ -123,22 +127,20 @@ class ImageGallery extends React.Component {
     this.setState(this.state.zoomed ? { zoomed: false } : { zoomed: true });
   }
 
+  // PAN ZOOM CSS POSITION BASED ON MOUSE POSITTION
   followMouseZoom(event, mouseX, mouseY) {
-    // console.log(mouseX, mouseY);
     var imageBounds = event.target.getBoundingClientRect();
     var imageSizeX = imageBounds.right - imageBounds.left;
     var imageSizeY = imageBounds.bottom - imageBounds.top;
-    // var xPos = (imageBounds.x - mouseX) * 2.5;
-    // var yPos = (imageBounds.y - mouseY) * 2.5;
-    // var xPos = (imageBounds.right - mouseX) - (imageSizeX * (2.5/2));
-    // var yPos = (imageBounds.bottom - mouseY) - (imageSizeY * (2.5/2));
-    var xPos = -5 * (mouseX - imageBounds.left - 50);
-    var yPos = -5 * (mouseY - imageBounds.top - 50);
+
+    var xPos = -2.5 * (mouseX - imageBounds.left - 300);
+    var yPos = imageBounds.top - (mouseY * 2.5) + 500;
 
     this.setState({xPos, yPos});
 
   }
 
+  // USED TO PASS VARIABLES TO INLINE STYLING FOR ZOOM FEATURE
   zoomStyle() {
     return {left: this.state.xPos, top: this.state.yPos }
   }
@@ -155,10 +157,10 @@ class ImageGallery extends React.Component {
 
   render() {
     var photos = this.props.currentStylePhotos;
-    var moveZoom = '{transition: translate(this.state.xPos, this.state.yPos) }'
     return (
       <div className={this.state.expanded ? "image-gallery expanded" : "image-gallery"}>
         <div className={this.state.expanded ? "image-area expanded" : "image-area"}>
+
           {/* LEFT ARROW */}
           <div className={this.state.activeIndex === 0 ? "left-arrow hidden" : "left-arrow"}>
             {this.state.activeIndex === 0 ? <LeftArrow /> : <LeftArrow goToPrevSlide={this.goToPrevSlide} />}
@@ -174,7 +176,6 @@ class ImageGallery extends React.Component {
                   this.zoom();
                 }
               }}
-              // onMouseMove
               onMouseMove={() => {
                 if (this.state.zoomed) {
                   this.followMouseZoom(event, event.clientX, event.clientY);
@@ -191,7 +192,6 @@ class ImageGallery extends React.Component {
               src={photos ? photos[this.state.activeIndex].url : ""}
               onClick={() => {
                 this.setState({ zoomed: false });
-                console.log(event.target.getBoundingClientRect())
               }}
               style={{left: this.state.xPos, top: this.state.yPos }}
             />
@@ -199,12 +199,10 @@ class ImageGallery extends React.Component {
 
           {/* RIGHT ARROW */}
           <div className={this.state.activeIndex === this.state.length - 1 ? "right-arrow hidden" : "right-arrow"}>
-            {this.state.activeIndex === this.state.length - 1 ? "" : <RightArrow goToNextSlide={this.goToNextSlide} />}
+            {this.state.activeIndex === this.state.length - 1 ? <RightArrow /> : <RightArrow goToNextSlide={this.goToNextSlide} />}
           </div>
-        </div>
 
         {/* X FOR LEAVE EXPANDED VIEW */}
-
         <FontAwesomeIcon
           className={this.state.expanded ? "xOut expanded" : "xOut"}
           icon={faTimes}
@@ -214,6 +212,7 @@ class ImageGallery extends React.Component {
             this.setState({ expanded: false, zoomed: false });
           }}
         />
+        </div>
 
         {/* THUMBNAILS SECTION */}
         <div className={this.state.expanded ? "thumbnails expanded" : "thumbnails"}>

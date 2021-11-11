@@ -20,17 +20,29 @@ class DropDowns extends React.Component {
     if (qty === 0) {
       return <option>OUT OF STOCK</option>;
     }
-    var options = [<option value="-" key={0}> - </option>];
+    var options = [
+      <option value="-" key={0}>
+        {" "}
+        -{" "}
+      </option>,
+    ];
 
     for (var i = 1; i <= this.state.skuObject.quantity && i <= 15; i++) {
       options.push(
-        <option value={i} key={i} onChange={() => { this.handleQtyChange; }} >
+        <option
+          value={i}
+          key={i}
+          onChange={() => {
+            this.handleQtyChange;
+          }}
+        >
           {i}
         </option>
       );
     }
     return options;
   }
+
   // UPDATE STATE FOR skuObject WHEN A SIZE IS CHOSEN
   handleSizeChange(event) {
     this.setState({
@@ -38,7 +50,8 @@ class DropDowns extends React.Component {
       skuObject: this.props.currentStyle.skus[event.target.value],
     });
   }
-  // UPDATE STATE FOR SELECTEDQTY WHEN A QTY IS CHOSEN
+
+  // UPDATE STATE FOR SELECTED QTY WHEN A QTY IS CHOSEN
   handleQtyChange(event) {
     this.setState({ qty: event.target.value });
   }
@@ -46,18 +59,18 @@ class DropDowns extends React.Component {
   // MAKE THIS SEND A POST REQUEST
   handleSubmit(event) {
     event.preventDefault();
-    console.log('submitted: ', this.state.skuNumber, this.state.qty)
-    axios.post('/cart', {
-      sku_id: this.state.skuNumber,
-      count: this.state.qty
-    })
+    console.log("submitted: ", this.state.skuNumber, " x", this.state.qty);
+    axios
+      .post("/cart", {
+        sku_id: this.state.skuNumber,
+        count: this.state.qty,
+      })
       .then((response) => {
-        // console.log(response);
-        alert(`added quantity ${this.state.qty}x of item# ${this.state.skuNumber} to cart`)
+        alert(`added quantity ${this.state.qty}x of item# ${this.state.skuNumber} to cart`);
       })
       .catch((err) => {
         alert(err);
-      })
+      });
   }
 
   componentDidUpdate(prevProps) {
