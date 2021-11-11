@@ -10,6 +10,8 @@ class RatingBreakdown extends React.Component {
     this.makeSVGBar = this.makeSVGBar.bind(this);
     this.getTotalRatings = this.getTotalRatings.bind(this);
     this.getPercentageOfRating = this.getPercentageOfRating.bind(this);
+    this.makeSVGStar = this.makeSVGStar.bind(this);
+    this.setSVGs = this.setSVGs.bind(this);
   }
 
   getRatingAvg() {
@@ -62,6 +64,14 @@ class RatingBreakdown extends React.Component {
     }
 
     return averagePercent.toFixed(0);
+  }
+
+  setSVGs(){
+    return <div>
+      {this.makeSVGStar(50)}
+      {this.makeSVGStar(100)}
+
+    </div>
   }
 
   setStars(average) {
@@ -147,6 +157,29 @@ class RatingBreakdown extends React.Component {
     );
   }
 
+  makeSVGStar(percentage){
+    return <svg
+
+          width="30"
+          height="30"
+
+        >
+          <defs>
+            <linearGradient id="half">
+              <stop offset={`${percentage}%`} stop-color="yellow" />
+              <stop offset="50%" stop-color="black" />
+            </linearGradient>
+          </defs>
+          <g >
+            <polygon fill="url(#half)"
+              points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5"
+
+
+            />
+          </g>
+        </svg>
+  }
+
   getPercentageOfRating(ratingTotal, totalRatings) {
     return (ratingTotal / totalRatings) * 100;
   }
@@ -156,12 +189,18 @@ class RatingBreakdown extends React.Component {
       return null;
     }
     return (
+      <>
+      <div className="svg-stars">
+
+          {this.setSVGs()}
+      </div>
       <div className="rating-breakdown-container">
         <div className="rating-breakdown-title">RATINGS &#38; REVIEWS</div>
         <div className="avg-stars-container">
         <span className="rating-breakdown-avg">{this.getRatingAvg()}</span>
         <div className="rating-breakdown-stars">
           {this.setStars(this.getRatingAvg())}
+
         </div>
 
         </div>
@@ -244,6 +283,7 @@ class RatingBreakdown extends React.Component {
 
         </div>
       </div>
+      </>
     );
   }
 }
