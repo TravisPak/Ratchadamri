@@ -14,22 +14,33 @@ class RatingBreakdown extends React.Component {
 
   getRatingAvg() {
     let totalStars = 0;
+    let avgRating = 0;
 
-    for (let key in this.props.meta.ratings) {
-      totalStars += parseInt(key) * parseInt(this.props.meta.ratings[key]);
+    if(Object.keys(this.props.meta.ratings).length !== 0){
+
+      for (let key in this.props.meta.ratings) {
+        totalStars += parseInt(key) * parseInt(this.props.meta.ratings[key]);
+      }
+      // console.log(total);
+      // console.log(totalStars);
+
+      avgRating = totalStars / this.getTotalRatings();
+
     }
-    // console.log(total);
-    // console.log(totalStars);
 
-    let avgRating = totalStars / this.getTotalRatings();
+
 
     return avgRating.toFixed(1);
   }
 
   getTotalRatings() {
     let total = 0;
-    for (let key in this.props.meta.ratings) {
-      total += parseInt(this.props.meta.ratings[key]);
+
+    if(Object.keys(this.props.meta.ratings).length !== 0){
+
+      for (let key in this.props.meta.ratings) {
+        total += parseInt(this.props.meta.ratings[key]);
+      }
     }
     return total;
   }
@@ -45,8 +56,10 @@ class RatingBreakdown extends React.Component {
     let averagePercent;
     if (total === 0) {
       averagePercent = 0;
+    }else{
+
+      averagePercent = (yes / total) * 100;
     }
-    averagePercent = (yes / total) * 100;
 
     return averagePercent.toFixed(0);
   }
