@@ -14,7 +14,6 @@ class List extends React.Component {
       value: "Relevant",
       reviews: [],
       displayList: [],
-
     };
     this.handleChange = this.handleChange.bind(this);
     this.sortByHelpfulness = this.sortByHelpfulness.bind(this);
@@ -26,18 +25,17 @@ class List extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
     this.getList = this.getList.bind(this);
-
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (
-      prevProps.productId !== this.props.productId ||
+      prevProps.product !== this.props.product ||
       prevProps.filteredReviews !== this.props.filteredReviews
     ) {
       axios
         .get("/reviews/", {
           params: {
-            product_id: this.props.productId,
+            product_id: this.props.product.id,
             page: 1,
             count: 1000,
             sort: "Relevant",
@@ -59,15 +57,13 @@ class List extends React.Component {
           console.log(err);
         });
     }
-
-
   }
 
   sortByHelpfulness() {
     axios
       .get("/reviews/", {
         params: {
-          product_id: this.props.productId,
+          product_id: this.props.product.id,
           page: 1,
           count: 1000,
           sort: "helpful",
@@ -98,7 +94,7 @@ class List extends React.Component {
     axios
       .get("/reviews/", {
         params: {
-          product_id: this.props.productId,
+          product_id: this.props.product.id,
           page: 1,
           count: 1000,
           sort: "newest",
@@ -127,7 +123,7 @@ class List extends React.Component {
     axios
       .get("/reviews/", {
         params: {
-          product_id: this.props.productId,
+          product_id: this.props.product.id,
           page: 1,
           count: 1000,
           sort: "relevant",
@@ -157,7 +153,7 @@ class List extends React.Component {
     axios
       .get("/reviews/", {
         params: {
-          product_id: this.props.productId,
+          product_id: this.props.product.id,
           page: 1,
           count: 1000,
           sort: "Relevant",
@@ -193,11 +189,10 @@ class List extends React.Component {
       currentList.push(review2);
     }
 
-    if(currentList.length === this.state.reviews.length){
-      this.setState({displayList:currentList})
+    if (currentList.length === this.state.reviews.length) {
+      this.setState({ displayList: currentList });
       this.props.hideAddButton();
-    }else{
-
+    } else {
       this.setState({ displayList: currentList });
     }
   }
@@ -248,12 +243,10 @@ class List extends React.Component {
     this.setState({ modalShowing: false });
   }
 
-
-
   render() {
     if (
       !this.props.characteristics ||
-      !this.props.productId ||
+      !this.props.product ||
       !this.props.reviews ||
       !this.props.ratings ||
       !this.state.reviews ||
@@ -262,27 +255,49 @@ class List extends React.Component {
       // console.log('Undefined Area');
     }
 
-    if(this.props.reviews.length === 0){
-      return <AddButton showModal={this.showModal} />
+    if (this.props.reviews.length === 0) {
+      return (
+        <div className="list-container">
+          <AddButton showModal={this.showModal} />
+          <Modal
+            isShowing={this.state.modalShowing}
+            handleClose={this.hideModal}
+          >
+            <Form
+              characteristics={this.props.characteristics}
+              product={this.props.product}
+              handleClose={this.hideModal}
+              renderList={this.renderList}
+              selections={this.props.selections}
+              getList={this.getList}
+            />
+          </Modal>
+        </div>
+      );
     }
     return (
       <div className="list-container">
         <div className="list-total-reviews">
           {this.state.reviews.length} Reviews,
-        <label className="list-dropdown-title">
-           Sort on
-          <select
-            className="list-dropdown"
-            value={this.state.value}
-            onChange={this.handleChange}
-          >
-            <option id="a"value="Relevant">Relevant</option>
-            <option id="b"value="Helpful">Helpful</option>
-            <option id="c"value="Newest">Newest</option>
-          </select>
-        </label>
+          <label className="list-dropdown-title">
+            Sort on
+            <select
+              className="list-dropdown"
+              value={this.state.value}
+              onChange={this.handleChange}
+            >
+              <option id="a" value="Relevant">
+                Relevant
+              </option>
+              <option id="b" value="Helpful">
+                Helpful
+              </option>
+              <option id="c" value="Newest">
+                Newest
+              </option>
+            </select>
+          </label>
         </div>
-
 
         <div className="list-tile-container">
           {this.state.displayList.map((review, id) => {
@@ -291,8 +306,8 @@ class List extends React.Component {
                 key={id}
                 review={review}
                 updateHelpfulness={this.updateHelpfulness}
+                makeSVGStar={this.props.makeSVGStar}
               />
-
             );
           })}
         </div>
@@ -309,7 +324,7 @@ class List extends React.Component {
         <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <Form
             characteristics={this.props.characteristics}
-            productId={this.props.productId}
+            product={this.props.product}
             handleClose={this.hideModal}
             renderList={this.renderList}
             selections={this.props.selections}

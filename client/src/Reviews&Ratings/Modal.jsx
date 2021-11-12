@@ -7,9 +7,13 @@ const Modal = (props) => {
 
   return (
     <div className={showHideClassName}>
-      <div className="modal-main">
+      <div className="ratings-modal">
         {props.children}
-        <button className="modal-button"type="button" onClick={props.handleClose}>
+        <button
+          className="modal-button"
+          type="button"
+          onClick={props.handleClose}
+        >
           ✖️
         </button>
       </div>

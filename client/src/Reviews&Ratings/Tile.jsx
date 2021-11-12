@@ -36,15 +36,12 @@ class Tile extends React.Component {
     return (
       <>
         <div className="tile-container">
-          <div className="tile-heading">
-            <div className="tile-star-ratings">{this.setSVGStars()}</div>
-
-            <div className="tile-name-date">
-              {this.props.review.reviewer_name}
-              {","}
-              {moment(this.props.review.date).format("MMMM Do YYYY")}
-            </div>
+          <div className="tile-name-date">
+            {this.props.review.reviewer_name}
+            {","}
+            {moment(this.props.review.date).format("MMMM Do YYYY")}
           </div>
+          <div className="tile-star-ratings">{this.setSVGStars()}</div>
 
           <div className="tile-summary">
             <b>{this.props.review.summary}</b>

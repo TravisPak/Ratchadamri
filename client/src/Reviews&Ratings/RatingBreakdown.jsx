@@ -69,10 +69,6 @@ class RatingBreakdown extends React.Component {
       } else if (avg > 0 && avg < 1) {
         if (avg > 0.6) {
           array.push(0.7);
-          console.log(
-            "🚀 ~ file: RatingBreakdown.jsx ~ line 71 ~ RatingBreakdown ~ setSVGStars ~ avg ",
-            avg
-          );
         } else if (avg < 0.4) {
           array.push(0.3);
         } else {

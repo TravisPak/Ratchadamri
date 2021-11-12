@@ -9,14 +9,16 @@ class ProductBreakdown extends React.Component {
   }
 
   makeSVGtriangle(percentFilled) {
+
+
     return (
       <svg
       className="triangle"
       x={`${percentFilled}%`}
       y="1px"
+      width="30"
+      height="30"
       xmlns="http://www.w3.org/2000/svg"
-      width="100"
-      height="100"
       viewBox="0 0 100 100"
       >
 
@@ -27,6 +29,12 @@ class ProductBreakdown extends React.Component {
   }
 
   triangleSVGPosition(value) {
+
+
+    if(value === null){
+
+      return 0;
+    }
     return (parseInt(value) * 66) / 5;
   }
 
@@ -36,10 +44,11 @@ class ProductBreakdown extends React.Component {
     }
     return (
       <div className="product-breakdown-container">
+
         {Object.keys(this.props.characteristics).map((characteristic, id) => {
           return (
             <div className="product-characteristic" key={id}>
-              {characteristic}
+              <span className="characteristic">{characteristic}</span>
 
               <svg width="100%" height="24px" style={{display:'inline-block'}}>
                 <g>
@@ -56,9 +65,13 @@ class ProductBreakdown extends React.Component {
                   <text x="66%" y="95%" fontSize="10">
                     {this.props.selections[characteristic][4]}
                   </text>
+
                   {this.makeSVGtriangle(this.triangleSVGPosition(this.props.characteristics[characteristic].value))}
 
+
+
                 </g>
+
               </svg>
             </div>
           );

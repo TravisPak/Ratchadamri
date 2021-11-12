@@ -24,13 +24,17 @@ class PhotosForm extends React.Component {
   render() {
     return (
       <form className="photo-form" onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          value={this.state.image}
-          name="image"
-          onChange={this.handleChange}
-        ></input>
-        <input type="submit" value="Upload" />
+        <div className="input-container">
+          <input
+            className="input"
+            type="text"
+            value={this.state.image}
+            name="image"
+            onChange={this.handleChange}
+          ></input>
+          <label className="label">Upload</label>
+        </div>
+        <input className="button" type="submit" value="Submit" />
       </form>
     );
   }
