@@ -29,7 +29,7 @@ hideModal(){
 
   componentDidUpdate(prevProps) {
     if (prevProps.currentProductID !== this.props.currentProductID) {
-    console.log('currentProductID: ', this.props.currentProductID);
+    //console.log('currentProductID: ', this.props.currentProductID);
     axios.get(`/qa/questions/${this.props.currentProductID}`)
       .then((response)=>{
        // console.log('componentDidMount response: ', response.data.results);
@@ -49,7 +49,7 @@ hideModal(){
   }
 
  handleSearch(search){
-   //console.log('handleSearch invoked with search query: ', search);
+  //  console.log('handleSearch invoked with search query: ', search);
    var filteredQuestions=this.filterQuestions(this.state.questions, search);
    this.setState({filtered: filteredQuestions});
    //console.log('current filtered value: ', this.state.filtered);

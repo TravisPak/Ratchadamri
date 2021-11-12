@@ -18,7 +18,7 @@ class App extends React.Component {
 
   // SET DEFAULT PRODUCT ON STARTUP
   componentDidMount() {
-    this.updateProduct(37318);
+    this.updateProduct(37311);
   }
 
   // UPDATE CHOSEN ITEM

@@ -54,6 +54,8 @@
 
 .reviews-container {
   background-color: hsl(0, 0%, 63%);
+  width: 74rem;
+  margin:auto;
 }
 
 .reviews-ratings-overall-container {
@@ -65,6 +67,7 @@
   grid-template-rows: repeat(5, 20%);
   height: 25rem;
   width: 74rem;
+  margin:auto;
 }
 
 .rating-breakdown-container {
@@ -73,7 +76,7 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  grid-column: 2/3;
+  grid-column: 1/2;
   grid-row: 1/4;
   /* align-items: flex-start;
   flex-direction: column;
@@ -100,7 +103,7 @@
 }
 
 .product-breakdown-container {
-  grid-column: 2/3;
+  grid-column: 1/2;
   grid-row: 4/6;
   height: 100%;
   /* border: solid black;
@@ -130,7 +133,7 @@
   max-height: 100%;
   /* border:solid black;
   padding: 1px; */
-  grid-column: 3/ 6;
+  grid-column: 2/ 6;
   grid-row: 1/ 6;
   border-width: 0.0625rem;
   padding-bottom: 0.0625rem;

@@ -39,10 +39,10 @@ class QuestionSubmissionForm extends React.Component{
           </input>
           <input className='question-submission-username' placeholder="Nickname" value={this.state.nickname} onChange={this.handleNicknameChange}>
           </input>
-          <span className='question-submission-username-disclaimer'>For privacy reasons, do not use your full name or email address as a nickname</span>
+          <div className='question-submission-username-disclaimer'>For privacy reasons, do not use your full name or email address as a nickname.</div>
           <input className='question-submission-email' placeholder="Email" value={this.state.email} onChange={this.handleEmailChange}>
           </input>
-          <span className='question-submission-email-disclaimer'> For authentication reasons, you will not be emailed </span>
+          <div className='question-submission-email-disclaimer'> For authentication reasons, you will not be emailed. </div>
           <input className='question-submission-submit' type='submit' value='Submit'/>
         </form>
       </div>
