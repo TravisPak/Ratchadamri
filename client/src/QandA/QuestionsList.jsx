@@ -29,7 +29,7 @@ hideModal(){
 
   componentDidUpdate(prevProps) {
     if (prevProps.currentProductID !== this.props.currentProductID) {
-    console.log('currentProductID: ', this.props.currentProductID);
+    //console.log('currentProductID: ', this.props.currentProductID);
     axios.get(`/qa/questions/${this.props.currentProductID}`)
       .then((response)=>{
        // console.log('componentDidMount response: ', response.data.results);
