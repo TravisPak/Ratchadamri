@@ -16,7 +16,7 @@ class App extends React.Component {
 
   // set default start up productId
   componentDidMount() {
-    axios.get('/products/37318')
+    axios.get('/products/37220')
       .then((response)=>{
         this.setState({currentProduct: response.data});
       })
