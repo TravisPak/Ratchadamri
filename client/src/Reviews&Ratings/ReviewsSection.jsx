@@ -9,7 +9,7 @@ class ReviewsSection extends React.Component {
     super(props);
 
     this.state = {
-      hideAddButton:false,
+      hideAddButton: false,
       modalShowing: false,
       reviews: [],
       meta: [],
@@ -72,11 +72,12 @@ class ReviewsSection extends React.Component {
     this.clickRating = this.clickRating.bind(this);
     this.filterList = this.filterList.bind(this);
     this.hideAddButton = this.hideAddButton.bind(this);
+    this.makeSVGStar = this.makeSVGStar.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.productId !== this.props.productId) {
-      let productId = this.props.productId;
+    if (prevProps.product !== this.props.product) {
+      let productId = this.props.product.id;
       let copy = [];
 
       axios
@@ -172,11 +173,9 @@ class ReviewsSection extends React.Component {
     this.setState({ modalShowing: false });
   }
 
-  hideAddButton(){
-    this.setState({hideAddButton:!this.state.hideAddButton})
+  hideAddButton() {
+    this.setState({ hideAddButton: !this.state.hideAddButton });
   }
-
-
 
   clickRating(rating) {
     // console.log(`Rating to filter by ${rating}`);
@@ -184,42 +183,61 @@ class ReviewsSection extends React.Component {
 
     filteredRatings[rating - 1].isOn = !filteredRatings[rating - 1].isOn;
 
-
     this.setState({ filteredRatings: filteredRatings });
     this.filterList();
+  }
+
+  makeSVGStar(value, id, width, height, wholeStars) {
+    let filled = (value * 100).toString();
+
+    let unfilled = (value * 100 + 1).toString();
+
+    if (wholeStars) {
+      return (
+        <svg width={width} height={height} key={id}>
+          <polygon
+            fill="yellow"
+            points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5"
+          />
+        </svg>
+      );
+    }
+    return (
+      <svg width={width} height={height} key={id}>
+        <polygon
+          fill={`url(#half${id})`}
+          points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5"
+        />
+
+        <defs>
+          <linearGradient id={`half${id}`}>
+            <stop offset={`${filled}%`} stopColor="yellow" />
+            <stop offset={`${unfilled}%`} stopColor="grey" />
+          </linearGradient>
+        </defs>
+      </svg>
+    );
   }
 
   render() {
     return (
       <div className="reviews-ratings-overall-container">
-           <svg height="30" width="30">
-  <defs>
-    <linearGradient id="half">
-
-      <stop offset="50%" stop-color="yellow" />
-      <stop offset="50%" stop-color="red" />
-
-    </linearGradient>
-  </defs>
-  <g fill="url(#half)" stroke="black" stroke-width="3">
-    <polygon points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5"/>
-    <polygon points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5" stroke="none"/>
-  </g>
-</svg>
-          <RatingBreakdown
-            meta={this.state.meta}
-            clickRating={this.clickRating}
-          />
-          <ProductBreakdown
-            characteristics={this.state.meta.characteristics}
-            selections={this.state.characteristicSelections}
-          />
+        <RatingBreakdown
+          meta={this.state.meta}
+          clickRating={this.clickRating}
+          makeSVGStar={this.makeSVGStar}
+        />
+        <ProductBreakdown
+          characteristics={this.state.meta.characteristics}
+          selections={this.state.characteristicSelections}
+        />
 
         <List
           reviews={this.state.reviews}
-          productId={this.props.productId}
+          product={this.props.product}
           characteristics={this.state.meta.characteristics}
           ratings={this.state.meta.ratings}
+          makeSVGStar={this.makeSVGStar}
           showModal={this.showModal}
           filteredReviews={this.state.filtered}
           selections={this.state.characteristicSelections}
