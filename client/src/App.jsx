@@ -41,7 +41,9 @@ class App extends React.Component {
         <Overview product={this.state.currentProduct} />
         <Cards product={this.state} pageChange={this.updateProduct} />
         <QuestionsList currentProductID={this.state.currentProduct.id} />
-        <ReviewsSection product={this.state.currentProduct} />
+        <div className="reviews-container">
+          <ReviewsSection product={this.state.currentProduct} />
+        </div>
       </div>
     );
   }
