@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import ProductInfo from "./ProductInfo.jsx";
 import ImageGallery from "./ImageGallery.jsx";
+import Features from "./Features.jsx";
 
 class Overview extends React.Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class Overview extends React.Component {
           <div className="product-slogan">{this.props.product.slogan}</div>
           <div className="product-desc">{this.props.product.description} </div>
         </div>
+          <Features features={this.props.product.features}/>
       </div>
 
     );

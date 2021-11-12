@@ -9,6 +9,7 @@ class ReviewsSection extends React.Component {
     super(props);
 
     this.state = {
+      hideAddButton: false,
       modalShowing: false,
       reviews: [],
       meta: [],
@@ -70,12 +71,13 @@ class ReviewsSection extends React.Component {
     this.hideModal = this.hideModal.bind(this);
     this.clickRating = this.clickRating.bind(this);
     this.filterList = this.filterList.bind(this);
-    this.reRenderList = this.reRenderList.bind(this);
+    this.hideAddButton = this.hideAddButton.bind(this);
+    this.makeSVGStar = this.makeSVGStar.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.productId !== this.props.productId) {
-      let productId = this.props.productId;
+    if (prevProps.product !== this.props.product) {
+      let productId = this.props.product.id;
       let copy = [];
 
       axios
@@ -170,8 +172,9 @@ class ReviewsSection extends React.Component {
   hideModal() {
     this.setState({ modalShowing: false });
   }
-  reRenderList(renderFunc) {
-    renderFunc();
+
+  hideAddButton() {
+    this.setState({ hideAddButton: !this.state.hideAddButton });
   }
 
   clickRating(rating) {
@@ -184,28 +187,62 @@ class ReviewsSection extends React.Component {
     this.filterList();
   }
 
+  makeSVGStar(value, id, width, height, wholeStars) {
+    let filled = (value * 100).toString();
+
+    let unfilled = (value * 100 + 1).toString();
+
+    if (wholeStars) {
+      return (
+        <svg width={width} height={height} key={id}>
+          <polygon
+            fill="yellow"
+            points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5"
+          />
+        </svg>
+      );
+    }
+    return (
+      <svg width={width} height={height} key={id}>
+        <polygon
+          fill={`url(#half${id})`}
+          points="12.5,1.25 5,22.5 23.75,7.5 1.25,7.5 20,22.5"
+        />
+
+        <defs>
+          <linearGradient id={`half${id}`}>
+            <stop offset={`${filled}%`} stopColor="yellow" />
+            <stop offset={`${unfilled}%`} stopColor="grey" />
+          </linearGradient>
+        </defs>
+      </svg>
+    );
+  }
+
   render() {
     return (
       <div className="reviews-ratings-overall-container">
-        <div>
-          <RatingBreakdown
-            meta={this.state.meta}
-            clickRating={this.clickRating}
-          />
-          <ProductBreakdown
-            characteristics={this.state.meta.characteristics}
-            selections={this.state.characteristicSelections}
-          />
-        </div>
+        <RatingBreakdown
+          meta={this.state.meta}
+          clickRating={this.clickRating}
+          makeSVGStar={this.makeSVGStar}
+        />
+        <ProductBreakdown
+          characteristics={this.state.meta.characteristics}
+          selections={this.state.characteristicSelections}
+        />
+
         <List
           reviews={this.state.reviews}
-          productId={this.props.productId}
+          product={this.props.product}
           characteristics={this.state.meta.characteristics}
           ratings={this.state.meta.ratings}
+          makeSVGStar={this.makeSVGStar}
           showModal={this.showModal}
           filteredReviews={this.state.filtered}
           selections={this.state.characteristicSelections}
-          reRenderList={this.reRenderList}
+          hideAddButton={this.hideAddButton}
+          hide={this.state.hideAddButton}
         />
       </div>
     );

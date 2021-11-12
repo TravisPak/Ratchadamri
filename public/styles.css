@@ -1,6 +1,12 @@
 /* body {
   background-color: rgb(42, 125, 199);
 } */
+.cards-component {
+  width: 74rem;
+  margin: auto;
+  /* display: flex; */
+  /* justify-content: center; */
+}
 
 .cards {
   display: flex;
@@ -60,4 +66,7 @@
 }
 .display-none {
   display:none;
+}
+.struckthrough {
+  color: red;
 }

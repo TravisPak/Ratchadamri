@@ -46,15 +46,19 @@ class HelpfulReport extends React.Component {
           className={this.state.isClicked ? "disabled" : "helpful-report-yes"}
           onClick={this.clickYes}
         >
-          {" "}
-          Yes {this.props.helpfulCount}
+          (Yes) {this.props.helpfulCount}
         </span>{" "}
         |{" "}
         <span
           className={this.state.isClicked ? "disabled" : "helpful-report-no"}
           onClick={this.clickReport}
         >
-          Report {this.state.reportClicked ? " :Reported" : ""}
+          Report{" "}
+          {this.state.reportClicked ? (
+            <span className="reported"> :Reported</span>
+          ) : (
+            ""
+          )}
         </span>
       </div>
     );
