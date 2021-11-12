@@ -2,6 +2,9 @@ import React from "react";
 import axios from "axios";
 import cardHelpers from "./helpers.js";
 import Modal from "./Modal.jsx";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
+// import 'font-awesome/css/font-awesome.min.css';
 const findReviewAverage = cardHelpers.cardHelpers.findReviewAverage;
 
 class Cards extends React.Component {
@@ -24,6 +27,7 @@ class Cards extends React.Component {
     this.clickHandler = this.clickHandler.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.salePriceChecker = this.salePriceChecker.bind(this);
+    this.tableRowMaker = this.tableRowMaker.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -198,6 +202,24 @@ class Cards extends React.Component {
       var filteredOutfit = newOutfit.filter((item) => (item[0].id != input));
       this.setState({outfit: filteredOutfit})
   }
+  tableRowMaker (characteristic, values, itemOneName, itemTwoName) {
+    // console.log('tableRowMaker')
+    var checkOne = '';
+    var checkTwo = '';
+    if (values[itemOneName]) {
+      checkOne = '✅';
+    }
+    if (values[itemTwoName]) {
+      checkTwo = '✅';
+    }
+    return (
+      <tr key={characteristic}>
+      <td>{checkOne}</td>
+      <td>{characteristic}</td>
+      <td>{checkTwo}</td>
+    </tr>
+     )
+  }
 
   renderTable () {
     if (this.state.clickedProductInfo.length > 0) {
@@ -205,34 +227,40 @@ class Cards extends React.Component {
     var itemTwoName = this.state.clickedProduct;
     var itemOneFeatures = this.state.product_info.features;
     var itemTwoFeatures = this.state.clickedProductInfo;
-    console.log('itemonename', itemOneName);
-    console.log('itemtwoname', itemTwoName);
-    console.log('itemonefeatuers', itemOneFeatures);
-    console.log('itemtwofeatuers', itemTwoFeatures);
-    var combinedFeatures = [];
-    itemOneFeatures.map((feature) => {combinedFeatures.push(feature)})
-    itemTwoFeatures.map((feature) => {combinedFeatures.push(feature)})
+    // console.log('itemonename', itemOneName);
+    // console.log('itemtwoname', itemTwoName);
+    // console.log('itemonefeatuers', itemOneFeatures);
+    // console.log('itemtwofeatuers', itemTwoFeatures);
+    var combinedFeatures = {};
+    itemOneFeatures.map((feature) => {
+      var featureKey = feature.feature + ': ' + feature.value;
+      combinedFeatures[featureKey] = {[itemOneName]: true, [itemTwoName]: false};
+    })
+    itemTwoFeatures.map((feature) => {
+      var featureKey = feature.feature + ': ' + feature.value;
+      if (combinedFeatures[featureKey]) {
+        combinedFeatures[featureKey][itemTwoName] = true;
+      } else {
+        combinedFeatures[featureKey] = {[itemOneName]: false, [itemTwoName]: true};
+      }
+    })
     // combinedFeatures.filter((feature) => ())
-    console.log('combinedFeatures', combinedFeatures)
+    // console.log('combinedFeatures', combinedFeatures)
 return ( <div>
   <table className="related-modal">
     <thead>
       <tr>
-        <td>{this.state.clickedProduct}</td>
+        <td>{itemOneName}</td>
         <td>Characteristics</td>
-        <td>{this.state.product_info.name}</td>
+        <td>{itemTwoName}</td>
       </tr>
     </thead>
     <tbody>
-      {this.state.clickedProductInfo.map((feature) => {
-        return (
-          <tr>
-            <td>Placeholder</td>
-            <td>{feature.feature}</td>
-            <td>Placeholder</td>
-          </tr>
-        );
-      })}
+     {Object.keys(combinedFeatures).map((characteristic) => {
+      //  console.log('characteristics', characteristic)
+      //  console.log('combinedfeatures at characteristics', combinedFeatures[characteristic]);
+       return (this.tableRowMaker(characteristic, combinedFeatures[characteristic], itemOneName, itemTwoName));
+     })}
     </tbody>
   </table>
 </div>)
@@ -243,7 +271,10 @@ return ( <div>
   render() {
     return (
       <div className="cards-component">
+                 Related Items
+          <br />
         <div className="cards">
+
           {
             /* iterate over state.related
         create new span with CATEGORY/NAME/PRICE/STAR RATING */
@@ -289,11 +320,15 @@ return ( <div>
            {this.renderTable()}
           </Modal>
         </div>
+{/* <i class="far fa-plus-square"></i> */}
 
         <div className="outfit">
-          <button type="submit" onClick={this.addItem}>
-            Add to Outfit
-          </button>
+          {/* <button type="submit" className="far fa-plus-square" onClick={this.addItem}>
+          <i className="far fa-plus-square" onClick={this.addItem}></i>
+          </button> */}
+          Add to Your Outfit
+          <br />
+          <FontAwesomeIcon size="3x" icon={faPlus} onClick={this.addItem}/>
           <div className="cards">
             {this.state.outfit.map((item, index) => (
               <div className="item" key={index}>
