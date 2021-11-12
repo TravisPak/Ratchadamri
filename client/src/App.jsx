@@ -1,65 +1,50 @@
-import React from 'react';
-import Overview from './Overview/Overview.jsx';
-import Cards from './Cards/index.jsx';
-import ReviewsSection from './Reviews&Ratings/ReviewsSection.jsx';
-import axios from 'axios';
-import QuestionsList from './QandA/QuestionsList.jsx';
+import React from "react";
+import Banner from "./Overview/Banner.jsx";
+import Overview from "./Overview/Overview.jsx";
+import Cards from "./Cards/index.jsx";
+import ReviewsSection from "./Reviews&Ratings/ReviewsSection.jsx";
+import axios from "axios";
+import QuestionsList from "./QandA/QuestionsList.jsx";
 
 class App extends React.Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    currentProduct: {}
-  }
-  //BIND FUNCTIONS IN HERE
+    super(props);
+    this.state = {
+      currentProduct: {},
+    };
+    //BIND FUNCTIONS IN HERE
+    this.updateProduct = this.updateProduct.bind(this);
   }
 
-  // set default start up productId
+  // SET DEFAULT PRODUCT ON STARTUP
   componentDidMount() {
-    axios.get('/products/37220')
-      .then((response)=>{
-        this.setState({currentProduct: response.data});
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+    this.updateProduct(37318);
   }
 
-  // updateStyle(productId) {
-  //   axios.get(`/products/${productId}`)
-  //     .then((response)=>{
-  //       this.setState({currentProduct: response.data});
-  //     })
-  //     .catch((err)=>{
-  //       console.log(err);
-  //     })
-  // }
+  // UPDATE CHOSEN ITEM
+  updateProduct(productId) {
+    axios
+      .get(`/products/${productId}`)
+      .then((response) => {
+        this.setState({ currentProduct: response.data });
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("please search for a valid product number 37311-37320");
+      });
+  }
 
-  // componentDidMount() {
-  //   update(37311)
-  // }
-
-
-render () {
-return (
-  <div>
-    <div>
-      <Overview product={this.state.currentProduct}/>
-    </div>
-    <div>
-    <Cards product={this.state} />
-    </div>
-    <div>
-    <QuestionsList currentProductID={this.state.currentProduct.id} />
-    </div>
-
-    <div>
-    REVIEWS HERE
-    <ReviewsSection productId={this.state.currentProduct.id}/>
-    </div>
-  </div>
-)
-}
+  render() {
+    return (
+      <div>
+        <Banner updateProduct={this.updateProduct} />
+        <Overview product={this.state.currentProduct} />
+        <Cards product={this.state} pageChange={this.updateProduct} />
+        <QuestionsList currentProductID={this.state.currentProduct.id} />
+        <ReviewsSection productId={this.state.currentProduct.id} />
+      </div>
+    );
+  }
 }
 
 export default App;

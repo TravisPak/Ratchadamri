@@ -11,6 +11,7 @@ class StyleSelector extends React.Component {
     this.updateStyleIndex = this.updateStyleIndex.bind(this);
   }
 
+  // UPDATE SELECTED STYLE
   updateStyleIndex(index) {
     this.setState({ selectedStyle: index });
   }
