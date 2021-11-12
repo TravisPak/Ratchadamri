@@ -9,29 +9,30 @@ import WithClickTracker from './ClickTracker.jsx';
 
 class App extends React.Component {
   constructor(props) {
-  super(props);
-  this.state = {
-    currentProduct: {}
-  }
-  //BIND FUNCTIONS IN HERE
-  this.updateProduct = this.updateProduct.bind(this);
+    super(props);
+    this.state = {
+      currentProduct: {},
+    };
+    //BIND FUNCTIONS IN HERE
+    this.updateProduct = this.updateProduct.bind(this);
   }
 
   // SET DEFAULT PRODUCT ON STARTUP
   componentDidMount() {
-    this.updateProduct(37318)
+    this.updateProduct(37318);
   }
 
   // UPDATE CHOSEN ITEM
   updateProduct(productId) {
-    axios.get(`/products/${productId}`)
-      .then((response)=>{
-        this.setState({currentProduct: response.data});
+    axios
+      .get(`/products/${productId}`)
+      .then((response) => {
+        this.setState({ currentProduct: response.data });
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err);
-        alert('please search for a valid product number 37311-37320')
-      })
+        alert("please search for a valid product number 37311-37320");
+      });
   }
 
   render () {
