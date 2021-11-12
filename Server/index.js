@@ -242,7 +242,8 @@ app.get('/qa/questions/:product_id', (req, res) => {
       Authorization: `${config.TOKEN}`,
     },
     params: {
-      product_id: requestParameters.product_id
+      product_id: requestParameters.product_id,
+      count: 25
     }
   };
   axios(options)

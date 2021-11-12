@@ -94,7 +94,7 @@ hideModal(){
         <div className= 'qa-widget-home'>
           <h5 className='header'>Questions And Answers</h5>
           {/* <SearchBar handleSearch={this.handleSearch.bind(this)}/> */}
-          <button className='add-questions-btn' onClick={this.showModal}>Add Question</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
           <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)}/>
           </Modal>
@@ -116,7 +116,7 @@ hideModal(){
             })}
           </div>
           <button className='more-questions-btn' onClick={this.handleFewerQuesitionsClick.bind(this)}>See Fewer Answered Questions</button>
-          <button className='add-questions-btn' onClick={this.showModal}>Add Question</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
           <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)}/>
           </Modal>
@@ -136,7 +136,7 @@ hideModal(){
             })}
           </div>
           <button className='more-questions-btn' onClick={this.handleMoreQuesitionsClick.bind(this)}>See More Questions</button>
-          <button className='add-questions-btn' onClick={this.showModal}>Add Question</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
           <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)} />
           </Modal>
@@ -157,7 +157,7 @@ hideModal(){
             })}
           </div>
           <button className='more-questions-btn' onClick={this.handleFewerQuesitionsClick.bind(this)}>See Fewer Answered Questions</button>
-          <button className='add-questions-btn' onClick={this.showModal}>Add Question</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
           <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)}/>
           </Modal>
@@ -176,7 +176,7 @@ hideModal(){
             })}
           </div>
           <button className='more-questions-btn' onClick={this.handleMoreQuesitionsClick.bind(this)}>See More Questions</button>
-          <button className='add-questions-btn' onClick={this.showModal}>Add Question</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
           <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)} />
           </Modal>
