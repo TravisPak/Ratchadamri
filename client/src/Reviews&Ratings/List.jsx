@@ -24,6 +24,7 @@ class List extends React.Component {
     this.filterList = this.filterList.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.getList = this.getList.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -40,7 +41,13 @@ class List extends React.Component {
         .then(({ data }) => {
           // console.log("Data:", data.results);
 
-          this.setState({ reviews: data.results });
+          if (this.props.filteredReviews.length !== 0) {
+            this.setState({ reviews: this.props.filteredReviews });
+          } else {
+            this.setState({
+              reviews: data.results,
+            });
+          }
           this.renderList();
         })
         .catch((err) => {
@@ -62,10 +69,17 @@ class List extends React.Component {
       .then(({ data }) => {
         // console.log("Helpful data:", data.results);
 
-        this.setState({
-          value: "Helpful",
-          reviews: data.results,
-        });
+        if (this.props.filteredReviews.length !== 0) {
+          this.setState({
+            value: "Helpful",
+            reviews: this.props.filteredReviews,
+          });
+        } else {
+          this.setState({
+            value: "Helpful",
+            reviews: data.results,
+          });
+        }
         this.renderList();
       })
       .catch((err) => {
@@ -84,17 +98,17 @@ class List extends React.Component {
         },
       })
       .then(({ data }) => {
-        // console.log("Newest data:", data.results);
-        let reviews = data.results;
-
-        //     reviews = this.filterList(data.results,this.props.filteredRating.rating);
-
-        // console.log('Filtered for 5:',reviews);
-
-        this.setState({
-          value: "Newest",
-          reviews: reviews,
-        });
+        if (this.props.filteredReviews.length !== 0) {
+          this.setState({
+            value: "Newest",
+            reviews: this.props.filteredReviews,
+          });
+        } else {
+          this.setState({
+            value: "Newest",
+            reviews: data.results,
+          });
+        }
         this.renderList();
       })
       .catch((err) => {
@@ -114,12 +128,38 @@ class List extends React.Component {
       })
       .then(({ data }) => {
         // console.log("relevant data:", data.results);
-
-        this.setState({
-          value: "Relevant",
-          reviews: data.results,
-        });
+        if (this.props.filteredReviews.length !== 0) {
+          this.setState({
+            value: "Relevant",
+            reviews: this.props.filteredReviews,
+          });
+        } else {
+          this.setState({
+            value: "Relevant",
+            reviews: data.results,
+          });
+        }
         this.renderList();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  getList() {
+    axios
+      .get("/reviews/", {
+        params: {
+          product_id: this.props.productId,
+          page: 1,
+          count: 1000,
+          sort: "Relevant",
+        },
+      })
+      .then(({ data }) => {
+        // console.log("Data:", data.results);
+
+        this.setState({ reviews: data.results });
       })
       .catch((err) => {
         console.log(err);
@@ -178,7 +218,6 @@ class List extends React.Component {
   }
 
   filterList(reviews, filteredRatings) {
-    //NOT FINISHED
     let filteredReviews = reviews.filter((review) => {
       if (review.rating === filteredRatings[0].rating) {
         return review;
@@ -210,7 +249,7 @@ class List extends React.Component {
       <div>
         <ul className="list-container">
           <div className="list-total-num-reviews">
-            # of reviews for viewed product{this.props.reviews.length}
+            # of reviews for viewed product{this.state.reviews.length}
           </div>
 
           <label className="list-dropdown-title">
@@ -253,6 +292,7 @@ class List extends React.Component {
             handleClose={this.hideModal}
             renderList={this.renderList}
             selections={this.props.selections}
+            getList={this.getList}
           />
         </Modal>
       </div>

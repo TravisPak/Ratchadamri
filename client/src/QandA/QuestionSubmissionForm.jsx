@@ -21,7 +21,7 @@ class QuestionSubmissionForm extends React.Component{
   handleNicknameChange(event){
     this.setState({nickname: event.target.value});
   }
-  
+
   handleEmailChange(event){
     this.setState({email: event.target.value});
   }
@@ -33,17 +33,17 @@ class QuestionSubmissionForm extends React.Component{
 
   render(){
     return(
-      <div>
+      <div className='question-submission-form'>
         <form onSubmit={this.handleSubmit}>
-          <input placeholder="Ask question here" value={this.state.question} onChange={this.handleQuestionChange}>
+          <input className='question-submission-body' placeholder="Ask question here" value={this.state.question} onChange={this.handleQuestionChange}>
           </input>
-          <input placeholder="What is your nickname?" value={this.state.nickname} onChange={this.handleNicknameChange}>
+          <input className='question-submission-username' placeholder="Nickname" value={this.state.nickname} onChange={this.handleNicknameChange}>
           </input>
-          <h5>For privacy reasons, do not use your full name or email address</h5>
-          <input placeholder="Your email" value={this.state.email} onChange={this.handleEmailChange}>
+          <span className='question-submission-username-disclaimer'>For privacy reasons, do not use your full name or email address as a nickname</span>
+          <input className='question-submission-email' placeholder="Email" value={this.state.email} onChange={this.handleEmailChange}>
           </input>
-          <h5> For authentication reasons, you will not be emailed </h5>
-          <input type='submit' value='Submit'/>
+          <span className='question-submission-email-disclaimer'> For authentication reasons, you will not be emailed </span>
+          <input className='question-submission-submit' type='submit' value='Submit'/>
         </form>
       </div>
      );

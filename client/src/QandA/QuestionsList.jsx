@@ -91,11 +91,11 @@ hideModal(){
   render(){
     if(this.state.questions.length===0){
       return(
-        <div>
-          <h5>Questions And Answers</h5>
+        <div className= 'qa-widget-home'>
+          <h5 className='header'>Questions And Answers</h5>
           {/* <SearchBar handleSearch={this.handleSearch.bind(this)}/> */}
-          <button onClick={this.showModal}>Add Question</button>
-          <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
+          <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)}/>
           </Modal>
         </div>
@@ -105,38 +105,39 @@ hideModal(){
     if(this.state.filtered.length===0){
     if(this.state.moreQuestionsClicked){
       return(
-        <div>
-          <h5>Questions And Answers</h5>
+        <div className='qa-widget-home'>
+          <h5 className='header'>Questions And Answers</h5>
           <SearchBar handleSearch={this.handleSearch.bind(this)}/>
-          <div>
+          <div className='questions-list'>
             {this.state.questions.map((question, i)=>{
               return(
                 <Question key={i} question={question} answersList={question.answers}/>
               );
             })}
           </div>
-          <button onClick={this.handleFewerQuesitionsClick.bind(this)}>See Fewer Answered Questions</button>
-          <button onClick={this.showModal}>Add Question</button>
-          <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <button className='more-questions-btn' onClick={this.handleFewerQuesitionsClick.bind(this)}>See Fewer Answered Questions</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
+          <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)}/>
           </Modal>
         </div>
       );
     } else {
+      //default if no search and questions isn't empty
       return(
-        <div>
-          <h5>Questions And Answers</h5>
+        <div className='qa-widget-home'>
+          <h5 className='header'>Questions And Answers</h5>
           <SearchBar handleSearch={this.handleSearch.bind(this)}/>
-          <div>
-            {this.state.questions.slice(0,4).map((question, i)=>{
+          <div className='questions-list'>
+            {this.state.questions.slice(0,2).map((question, i)=>{
             return(
               <Question key={i} question={question} answersList={question.answers}/>
             );
             })}
           </div>
-          <button onClick={this.handleMoreQuesitionsClick.bind(this)}>See More Questions</button>
-          <button onClick={this.showModal}>Add Question</button>
-          <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <button className='more-questions-btn' onClick={this.handleMoreQuesitionsClick.bind(this)}>See More Questions</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
+          <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)} />
           </Modal>
         </div>
@@ -145,38 +146,38 @@ hideModal(){
   } else {
     if(this.state.moreQuestionsClicked){
       return(
-        <div>
-          <h5>Questions And Answers</h5>
+        <div className='qa-widget-home'>
+          <h5 className='header'>Questions And Answers</h5>
           <SearchBar handleSearch={this.handleSearch.bind(this)}/>
-          <div>
+          <div className='questions-list'>
             {this.state.filtered.map((question, i)=>{
               return(
                 <Question key={i} question={question} answersList={question.answers}/>
               );
             })}
           </div>
-          <button onClick={this.handleFewerQuesitionsClick.bind(this)}>See Fewer Answered Questions</button>
-          <button onClick={this.showModal}>Add Question</button>
-          <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <button className='more-questions-btn' onClick={this.handleFewerQuesitionsClick.bind(this)}>See Fewer Answered Questions</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
+          <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)}/>
           </Modal>
         </div>
       );
     } else {
       return(
-        <div>
-          <h5>Questions And Answers</h5>
+        <div className='qa-widget-home'>
+          <h1 className='header'>Questions And Answers</h1>
           <SearchBar handleSearch={this.handleSearch.bind(this)}/>
-          <div>
-            {this.state.filtered.slice(0,4).map((question, i)=>{
+          <div className='questions-list'>
+            {this.state.filtered.slice(0,2).map((question, i)=>{
             return(
               <Question key={i} question={question} answersList={question.answers}/>
             );
             })}
           </div>
-          <button onClick={this.handleMoreQuesitionsClick.bind(this)}>See More Questions</button>
-          <button onClick={this.showModal}>Add Question</button>
-          <Modal isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+          <button className='more-questions-btn' onClick={this.handleMoreQuesitionsClick.bind(this)}>See More Questions</button>
+          <button className='add-questions-btn' onClick={this.showModal}>Add Question +</button>
+          <Modal className='modal-question-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <QuestionSubmissionForm handleQuestionSubmission={this.handleQuestionSubmission.bind(this)} />
           </Modal>
         </div>

@@ -9,7 +9,7 @@ const Modal = (props) => {
     <div className={showHideClassName}>
       <div className="modal-main">
         {props.children}
-        <button type="button" onClick={props.handleClose}>
+        <button className="modal-button"type="button" onClick={props.handleClose}>
           ✖️
         </button>
       </div>
