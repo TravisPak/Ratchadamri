@@ -5,6 +5,7 @@ import Cards from './Cards/index.jsx';
 import ReviewsSection from './Reviews&Ratings/ReviewsSection.jsx';
 import axios from 'axios';
 import QuestionsList from './QandA/QuestionsList.jsx';
+import WithClickTracker from './ClickTracker.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -33,17 +34,17 @@ class App extends React.Component {
       })
   }
 
-render () {
-return (
-  <div>
-    <Banner updateProduct={this.updateProduct}/>
-    <Overview product={this.state.currentProduct}/>
-    <Cards product={this.state} pageChange={this.updateProduct}/>
-    <QuestionsList currentProductID={this.state.currentProduct.id} />
-    <ReviewsSection productId={this.state.currentProduct.id}/>
-  </div>
-)
-}
+  render () {
+    return (
+      <WithClickTracker>
+        <Banner updateProduct={this.updateProduct} onClick={this.props.onClick}/>
+        <Overview product={this.state.currentProduct}/>
+        <Cards product={this.state} pageChange={this.updateProduct}/>
+        <QuestionsList currentProductID={this.state.currentProduct.id} />
+        <ReviewsSection productId={this.state.currentProduct.id}/>
+      </WithClickTracker>
+    )
+  }
 }
 
 export default App;

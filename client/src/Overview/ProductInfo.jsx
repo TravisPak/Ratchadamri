@@ -1,6 +1,8 @@
 import React from "react";
 import StyleSelector from "./StyleSelector.jsx";
 import DropDowns from "./DropDowns.jsx";
+import WithClickTracker from '../ClickTracker.jsx';
+
 import {FacebookIcon, FacebookShareButton, TwitterIcon, TwitterShareButton, PinterestIcon, PinterestShareButton} from "react-share";
 
 function ProductInfo(props) {
