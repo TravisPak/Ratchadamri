@@ -35,16 +35,15 @@ class AnswerSubmissionForm extends React.Component{
     return(
       <div className='answer-submission-form'>
         <form onSubmit={this.handleSubmit}>
-          <input placeholder="Your answer" value={this.state.answer} onChange={this.handleAnswerChange}>
+          <input className='answer-submission-body' placeholder="Enter answer here" value={this.state.answer} onChange={this.handleAnswerChange}>
           </input>
-          <input placeholder="What is your nickname?" value={this.state.nickname} onChange={this.handleNicknameChange}>
+          <input className='answer-submission-username' placeholder="Nickname" value={this.state.nickname} onChange={this.handleNicknameChange}>
           </input>
-          <h5>For privacy reasons, do not use your full name or email address</h5>
-          <input placeholder="Your email" value={this.state.email} onChange={this.handleEmailChange}>
+          <div className='answer-submission-username-disclaimer'>For privacy reasons, do not use your full name or email address.</div>
+          <input className='answer-submission-email' placeholder="Email" value={this.state.email} onChange={this.handleEmailChange}>
           </input>
-          <h5> For authentication reasons, you will not be emailed </h5>
-          <h5>placeholder for photos</h5>
-          <input type='submit' value='Submit Answer'/>
+          <div className='answer-submission-email-disclaimer'> For authentication reasons, you will not be emailed.</div>
+          <input className='answer-submission-submit' type='submit' value='Submit Answer'/>
         </form>
       </div>
      );

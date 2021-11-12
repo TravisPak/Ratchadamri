@@ -123,6 +123,7 @@ class Question extends React.Component {
   }
 
   render(){
+
     if(this.state.seeMoreAnswersClicked){
       return(
         <div className='question'>
@@ -131,7 +132,6 @@ class Question extends React.Component {
           <span className='question-helpful-rating'>Helpful?</span>
           <span className='question-helpful-btn' onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Yes ({this.props.question.question_helpfulness})</span>
           <span className='question-report-btn' onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</span>
-
           <div className='answer-list'>{this.state.answersList.map((answer, i)=>{
             return(
               <div className='answer' key={i}>
