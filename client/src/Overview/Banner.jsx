@@ -25,7 +25,7 @@ class Banner extends React.Component {
     return (
       <div className="banner">
         <h1 className="logo">H A C S U N</h1>
-        <form onSubmit={this.handleSubmit} className="search-bar">
+        <form onSubmit={this.handleSubmit} className="search-bar-area">
           <label className="search-label">
             SEARCH ITEM #:
           </label>
