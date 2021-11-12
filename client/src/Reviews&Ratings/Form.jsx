@@ -191,7 +191,7 @@ class Form extends React.Component {
                   placeholder=" "
                   onChange={this.handleChange}
                 ></textarea>
-                <label for="summary" className="label">
+                <label htmlFor="summary" className="label">
                   Summary
                 </label>
               </div>
@@ -205,7 +205,7 @@ class Form extends React.Component {
                   placeholder=" "
                   onChange={this.handleChange}
                 ></textarea>
-                <label for="body" className="label">
+                <label htmlFor="body" className="label">
                   *Body*
                 </label>
               </div>
@@ -219,7 +219,7 @@ class Form extends React.Component {
                   placeholder=" "
                   onChange={this.handleChange}
                 ></input>
-                <label for="nickname" className="label">
+                <label htmlFor="nickname" className="label">
                   *Nickname*
                 </label>
               </div>
@@ -233,7 +233,7 @@ class Form extends React.Component {
                   placeholder=" "
                   onChange={this.handleChange}
                 ></input>
-                <label for="email" className="label">
+                <label htmlFor="email" className="label">
                   *Email*
                 </label>
               </div>

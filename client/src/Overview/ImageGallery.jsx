@@ -162,7 +162,7 @@ class ImageGallery extends React.Component {
         <div className={this.state.expanded ? "image-area expanded" : "image-area"}>
 
           {/* LEFT ARROW */}
-          <div className={this.state.activeIndex === 0 ? "left-arrow hidden" : "left-arrow"}>
+          <div className={this.state.activeIndex === 0 ? "left-arrow transparent" : "left-arrow"}>
             {this.state.activeIndex === 0 ? <LeftArrow /> : <LeftArrow goToPrevSlide={this.goToPrevSlide} />}
           </div>
 
@@ -198,7 +198,7 @@ class ImageGallery extends React.Component {
           }
 
           {/* RIGHT ARROW */}
-          <div className={this.state.activeIndex === this.state.length - 1 ? "right-arrow hidden" : "right-arrow"}>
+          <div className={this.state.activeIndex === this.state.length - 1 ? "right-arrow transparent" : "right-arrow"}>
             {this.state.activeIndex === this.state.length - 1 ? <RightArrow /> : <RightArrow goToNextSlide={this.goToNextSlide} />}
           </div>
 
@@ -216,7 +216,7 @@ class ImageGallery extends React.Component {
 
         {/* THUMBNAILS SECTION */}
         <div className={this.state.expanded ? "thumbnails expanded" : "thumbnails"}>
-          <div className={(this.state.lowerThumbnailIndex > 0 ? "up-arrow" : "up-arrow hidden") + (this.state.expanded ? " expanded" : "")}>
+          <div className={(this.state.lowerThumbnailIndex > 0 ? "up-arrow" : "up-arrow transparent") + (this.state.expanded ? " expanded" : "")}>
             <UpArrow goUp={this.goUp} />
           </div>
 
@@ -224,7 +224,7 @@ class ImageGallery extends React.Component {
 
           <div
             className={
-              (this.state.upperThumbnailIndex < this.state.length ? "down-arrow" : "down-arrow hidden") + (this.state.expanded ? " expanded" : "")
+              (this.state.upperThumbnailIndex < this.state.length ? "down-arrow" : "down-arrow transparent") + (this.state.expanded ? " expanded" : "")
             }
           >
             <DownArrow goDown={this.goDown} />

@@ -200,6 +200,9 @@ button {
 .product-text {
   grid-area: 5 / 1 / 6 / 4;
   margin: .25rem;
+  padding-top: 0.5rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
   font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -211,7 +214,7 @@ button {
 }
 
 .product-desc {
-  text-align: center;
+  text-align: left;
   margin: .5rem;
   font-size: 1rem;
   font-weight: 400;
@@ -377,7 +380,7 @@ button {
   border: 3px solid grey;
 }
 
-.hidden {
+.transparent {
   opacity: 0.1;
 }
 
