@@ -10,9 +10,10 @@ class Tile extends React.Component {
     super(props);
 
     this.state = { modalShowing: false, currentPhoto: "" };
+
+    this.setSVGStars = this.setSVGStars.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.setSVGStars = this.setSVGStars.bind(this);
   }
 
   setSVGStars() {

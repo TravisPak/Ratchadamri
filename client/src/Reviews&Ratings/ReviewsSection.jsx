@@ -67,11 +67,11 @@ class ReviewsSection extends React.Component {
       },
     };
 
+    this.filterList = this.filterList.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.clickRating = this.clickRating.bind(this);
-    this.filterList = this.filterList.bind(this);
     this.hideAddButton = this.hideAddButton.bind(this);
+    this.clickRating = this.clickRating.bind(this);
     this.makeSVGStar = this.makeSVGStar.bind(this);
   }
 
@@ -157,10 +157,6 @@ class ReviewsSection extends React.Component {
     }
 
     let filtered = fives.concat(fours).concat(threes).concat(twos).concat(ones);
-    // console.log(
-    //   "🚀 ~ file: ReviewsSection.jsx ~ line 163 ~ ReviewsSection ~ componentDidUpdate ~ filtered",
-    //   filtered
-    // );
 
     this.setState({ filtered: filtered });
   }
@@ -178,7 +174,6 @@ class ReviewsSection extends React.Component {
   }
 
   clickRating(rating) {
-    // console.log(`Rating to filter by ${rating}`);
     let filteredRatings = [...this.state.filteredRatings];
 
     filteredRatings[rating - 1].isOn = !filteredRatings[rating - 1].isOn;

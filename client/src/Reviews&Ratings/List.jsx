@@ -15,16 +15,17 @@ class List extends React.Component {
       reviews: [],
       displayList: [],
     };
-    this.handleChange = this.handleChange.bind(this);
     this.sortByHelpfulness = this.sortByHelpfulness.bind(this);
     this.sortByNewest = this.sortByNewest.bind(this);
+    this.sortByRelevant = this.sortByRelevant.bind(this);
+    this.getList = this.getList.bind(this);
     this.renderList = this.renderList.bind(this);
     this.addMore = this.addMore.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.updateHelpfulness = this.updateHelpfulness.bind(this);
     this.filterList = this.filterList.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
-    this.getList = this.getList.bind(this);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -42,8 +43,6 @@ class List extends React.Component {
           },
         })
         .then(({ data }) => {
-          // console.log("Data:", data.results);
-
           if (this.props.filteredReviews.length !== 0) {
             this.setState({ reviews: this.props.filteredReviews });
           } else {
@@ -70,8 +69,6 @@ class List extends React.Component {
         },
       })
       .then(({ data }) => {
-        // console.log("Helpful data:", data.results);
-
         if (this.props.filteredReviews.length !== 0) {
           this.setState({
             value: "Helpful",
@@ -160,15 +157,13 @@ class List extends React.Component {
         },
       })
       .then(({ data }) => {
-        // console.log("Data:", data.results);
-
         this.setState({ reviews: data.results });
       })
       .catch((err) => {
         console.log(err);
       });
   }
-
+  //displays two reviews in the list
   renderList() {
     let list = [];
     if (this.state.reviews[0]) {
@@ -179,7 +174,7 @@ class List extends React.Component {
     }
     this.setState({ displayList: list });
   }
-
+  // adds at most two reviews when clicking on the add more button
   addMore(review1, review2) {
     let currentList = [...this.state.displayList];
     if (review1) {
@@ -200,32 +195,26 @@ class List extends React.Component {
   handleChange(event) {
     let sortType = event.target.value;
 
-    // console.log("we sorting by:", sortType);
-
     if (sortType === "Newest") {
-      // console.log("newest");
       this.sortByNewest();
     } else if (sortType === "Helpful") {
-      // console.log("helpful");
       this.sortByHelpfulness();
     } else {
-      // console.log("relevant");
       this.sortByRelevant();
     }
   }
-
+  // rerenders the reviews list with the updated helpfulness count
   updateHelpfulness(reviewId) {
-    // console.log(`we gonna update ${reviewId} this helpfulness bruh!`);
     let reviews = this.state.displayList.map((review) => {
       if (reviewId === review.review_id) {
         review.helpfulness += 1;
       }
       return review;
     });
-    // console.log("reviews:", reviews);
+
     this.setState({ displayList: reviews });
   }
-
+  //returns a filtered list by the rating number
   filterList(reviews, filteredRatings) {
     let filteredReviews = reviews.filter((review) => {
       if (review.rating === filteredRatings[0].rating) {
@@ -252,7 +241,6 @@ class List extends React.Component {
       !this.state.reviews ||
       !this.state.displayList
     ) {
-      // console.log('Undefined Area');
     }
 
     if (this.props.reviews.length === 0) {

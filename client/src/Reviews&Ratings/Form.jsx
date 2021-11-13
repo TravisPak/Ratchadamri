@@ -21,20 +21,19 @@ class Form extends React.Component {
       modalShowing: false,
     };
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleCharacteristicChange =
-      this.handleCharacteristicChange.bind(this);
     this.validateForm = this.validateForm.bind(this);
-    this.setRating = this.setRating.bind(this);
-    this.addPhoto = this.addPhoto.bind(this);
     this.validateImage = this.validateImage.bind(this);
     this.showModal = this.showModal.bind(this);
     this.hideModal = this.hideModal.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleCharacteristicChange =
+      this.handleCharacteristicChange.bind(this);
+    this.addPhoto = this.addPhoto.bind(this);
+    this.setRating = this.setRating.bind(this);
   }
 
-  componentDidMount() {}
-
+  //validates a form based on the criteria below and sends an alert if not correct format
   validateForm() {
     //mandatory fields blank
     if (
@@ -71,6 +70,7 @@ class Form extends React.Component {
     return true;
   }
 
+  //checks if a link is a valid image
   validateImage(url) {
     let img = new Image();
     img.src = url;
@@ -85,6 +85,7 @@ class Form extends React.Component {
     this.setState({ modalShowing: false });
   }
 
+  //submits form inputs to api after validation
   handleSubmit(event) {
     event.preventDefault();
     // console.log("validated or not:", this.validateForm());
@@ -120,6 +121,7 @@ class Form extends React.Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  //sets the characteristics inputs based on the selected product
   handleCharacteristicChange(event) {
     let id = this.props.characteristics[event.target.name].id;
     let characteristic = event.target.name;
@@ -153,13 +155,12 @@ class Form extends React.Component {
   }
 
   addPhoto(image) {
-    // console.log(`I am adding this photo: ${image}`);
     let photos = [...this.state.photos];
     if (photos.length < 5) {
       photos.push(image);
       this.setState({ photos: photos });
     } else {
-      // console.log("Reached photo upload limit");
+      alert("Reached photo upload limit");
     }
   }
 
