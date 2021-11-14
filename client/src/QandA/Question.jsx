@@ -123,7 +123,7 @@ class Question extends React.Component {
   }
 
   render(){
-
+    if(this.state.answersList.length!==0){
     if(this.state.seeMoreAnswersClicked){
       return(
         <div className='question'>
@@ -176,6 +176,24 @@ class Question extends React.Component {
         </div>
       );
     }
+  } else {
+    return(
+      <div className='question-without-answers'>
+        <h4 className='question-body'>Q: {this.props.question.question_body}</h4>
+        <div className='no-answers-currently'>There are currently no answers for this question.</div>
+
+
+        <span className='question-helpful-rating'>Helpful?</span>
+        <span className='question-helpful-btn' onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Yes ({this.props.question.question_helpfulness})</span>
+        <span className='question-report-btn' onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</span>
+        {/* <span className='more-answers-btn' onClick={this.handleSeeFewerAnswersClick.bind(this)}>Collapse Answers</span> */}
+        <span className='add-answer-btn' onClick={this.showModal}>Add Answer</span>
+        <Modal className='modal-answer-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+        <AnswerSubmissionForm handleAnswerSubmission={this.handleAnswerSubmission.bind(this)} />
+        </Modal>
+      </div>);
+  }
+
   }
 }
 
