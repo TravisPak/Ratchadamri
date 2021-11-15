@@ -123,59 +123,107 @@ class Question extends React.Component {
   }
 
   render(){
-
+    if(this.state.answersList.length!==0){
     if(this.state.seeMoreAnswersClicked){
       return(
         <div className='question'>
-          <h4 className='question-body'>Q: {this.props.question.question_body}</h4>
-
-          <span className='question-helpful-rating'>Helpful?</span>
+          <span className="question-label">Q:</span>
+          <span className='question-body'>{this.props.question.question_body}</span>
+          <span className="question_options">
+          <span className='question-helpful-rating'>Helpful?&nbsp;&nbsp;</span>
           <span className='question-helpful-btn' onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Yes ({this.props.question.question_helpfulness})</span>
+          <span>&nbsp;&nbsp;</span>
+          <span className="divider">|</span>
+          <span>&nbsp;&nbsp;</span>
           <span className='question-report-btn' onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</span>
-          <div className='answer-list'>{this.state.answersList.map((answer, i)=>{
-            return(
-              <div className='answer' key={i}>
-              <h5 className='answer-body'>A: {answer.body}</h5>
-              {/* <h5 className='answer-helpful-rating'>Helpfulness rating: {answer.helpfulness}</h5> */}
-              <h5 className='answer-username'>by {answer.answerer_name}, {moment(answer.date, 'YYYYMMDD').fromNow()} </h5>
-              <span className='answer-helpful-btn' onClick={()=>this.handleAnswerMarkedHelpful(answer.answer_id)}>Helpful?</span>
-              <span className='answer-report-btn' onClick={()=>this.handleAnswerReport(answer.answer_id)}>Report?</span>
-              </div>
-            );
-          })}</div>
-          <span className='more-answers-btn' onClick={this.handleSeeFewerAnswersClick.bind(this)}>Collapse Answers</span>
+          <span>&nbsp;&nbsp;</span>
+          <span className="divider">|</span>
+          <span>&nbsp;&nbsp;</span>
           <span className='add-answer-btn' onClick={this.showModal}>Add Answer</span>
           <Modal className='modal-answer-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <AnswerSubmissionForm handleAnswerSubmission={this.handleAnswerSubmission.bind(this)} />
           </Modal>
+          </span>
+          <span className='answer-list'>{this.state.answersList.map((answer, i)=>{
+            return(
+              <div className='answer' key={i}>
+              <span className="answer-label">&nbsp;A:  </span>
+              <span className='answer-body'>{answer.body}</span>
+              <div className="answer-info-line">
+              <div className='answer-info'>
+              <span className='answer-username'>by {answer.answerer_name},&nbsp;{moment(answer.date, 'YYYYMMDD').fromNow()} </span>
+              <span className='answer-helpful-btn' onClick={()=>this.handleAnswerMarkedHelpful(answer.answer_id)}>Helpful?</span>
+              <span className='answer-report-btn' onClick={()=>this.handleAnswerReport(answer.answer_id)}>Report?</span>
+              </div>
+              </div>
+              </div>
+            );
+          })}</span>
+          <div className='more-answers-btn' onClick={this.handleSeeFewerAnswersClick.bind(this)}>COLLAPSE ANSWERS</div>
+
         </div>
       );
     } else {
       return(
         <div className='question'>
-          <h4 className='question-body'>Q: {this.props.question.question_body}</h4>
-          <span className='question-helpful-rating'>Helpful?</span>
+          <span className="question-label">Q:</span>
+          <span className='question-body'>{this.props.question.question_body}</span>
+          <span className="question_options">
+          <span className='question-helpful-rating'>Helpful?&nbsp;&nbsp;</span>
           <span className='question-helpful-btn' onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Yes ({this.props.question.question_helpfulness})</span>
+          <span className="divider">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
           <span className='question-report-btn' onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</span>
-          <div className='answer-list'>{this.state.answersList.slice(0, 2).map((answer, i)=>{
-            return(
-              <div className='answer' key={i}>
-              <h5 className='answer-body'>A: {answer.body}</h5>
-              {/* <h5 className='answer-helpful-rating'>Helpfulness rating: {answer.helpfulness}</h5> */}
-              <h5 className='answer-username'>by {answer.answerer_name}, {moment(answer.date, 'YYYYMMDD').fromNow()} </h5>
-              <span className='answer-helpful-btn' onClick={()=>this.handleAnswerMarkedHelpful(answer.answer_id)}>Helpful?</span>
-              <span className='answer-report-btn' onClick={()=>this.handleAnswerReport(answer.answer_id)}>Report?</span>
-              </div>
-            );
-          })}</div>
-          <span className='more-answers-btn' onClick={this.handleSeeMoreAnswersClick.bind(this)}>LOAD MORE ANSWERS</span>
+          <span className="divider">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
           <span className='add-answer-btn' onClick={this.showModal}>Add Answer</span>
           <Modal className='modal-answer-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
           <AnswerSubmissionForm handleAnswerSubmission={this.handleAnswerSubmission.bind(this)} />
           </Modal>
+          </span>
+          <span className='answer-list'>{this.state.answersList.slice(0, 2).map((answer, i)=>{
+            return(
+              <div className='answer' key={i}>
+              <span className="answer-label">&nbsp;A:  </span>
+              <span className='answer-body'>{answer.body}</span>
+              <div className="answer-info-line">
+              <div className='answer-info'>
+              <span className='answer-username'>by {answer.answerer_name},&nbsp;{moment(answer.date, 'YYYYMMDD').fromNow()} </span>
+              <span className="divider">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+              <span className='answer-helpful-btn' onClick={()=>this.handleAnswerMarkedHelpful(answer.answer_id)}>Helpful?</span>
+              <span className="divider">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
+              <span className='answer-report-btn' onClick={()=>this.handleAnswerReport(answer.answer_id)}>Report?</span>
+              </div>
+              </div>
+              </div>
+            );
+          })}</span>
+          <div className='more-answers-btn' onClick={this.handleSeeMoreAnswersClick.bind(this)}>LOAD MORE ANSWERS</div>
         </div>
       );
     }
+  } else {
+    return(
+      <div className='question-without-answers'>
+        <span className="question-label">Q:</span>
+          <span className='question-body'>{this.props.question.question_body}</span>
+        <div className='no-answers-currently'>There are currently no answers for this question.</div>
+        <span className="question_options">
+        <span className='question-helpful-rating'>Helpful?&nbsp;&nbsp;</span>
+        <span className='question-helpful-btn' onClick={()=>this.handleQuestionMarkedHelpful(this.props.question.question_id)}>Yes ({this.props.question.question_helpfulness})</span>
+        <span>&nbsp;&nbsp;</span>
+          <span className="divider">|</span>
+          <span>&nbsp;&nbsp;</span>
+        <span className='question-report-btn' onClick={()=>this.handleQuestionReported(this.props.question.question_id)}>Report?</span>
+        <span>&nbsp;&nbsp;</span>
+          <span className="divider">|</span>
+          <span>&nbsp;&nbsp;</span>
+        <span className='add-answer-btn' onClick={this.showModal}>Add Answer</span>
+        <Modal className='modal-answer-submission' isShowing={this.state.modalShowing} handleClose={this.hideModal}>
+        <AnswerSubmissionForm handleAnswerSubmission={this.handleAnswerSubmission.bind(this)} />
+        </Modal>
+        </span>
+      </div>);
+  }
+
   }
 }
 
