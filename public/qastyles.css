@@ -2,7 +2,7 @@
   margin-bottom: 100px;
   margin-top: 100px;
   display: grid;
-  grid-template-columns: 12.5% 75% 12.5%;
+  grid-template-columns: 20% 60% 20%;
 }
 .qa-widget-home {
   font-size: 20px;
@@ -14,17 +14,28 @@
 }
 .search-bar-container{
   display: grid;
-  grid-template-columns: 1% 98% 1%;
+  grid-template-columns: 90% 10%;
 }
 .search-bar {
-  grid-column-start: 2;
+  grid-column-start: 1;
   margin-bottom: 5px;
   padding-top: 5px;
-  height: 40px;
+  height: 2.5rem;
+  width: auto;
   font-size: 18px;
-  color: #226C73;
+  margin-right: 3px;
 }
-
+.search-bar-submit-btn{
+  grid-column-start: 2;
+  height: 2.5rem;
+  margin-bottom: 5px;
+  margin-left: 2px;
+  width: 5rem;
+  cursor: pointer;
+  font-size: large;
+  font-weight: bold;
+  border: 2px solid black;
+}
 .questions-list {
   overflow-y: auto;
   max-height: 500px;
@@ -87,7 +98,6 @@
   text-decoration: underline;
 }
 .question-helpful-btn:hover {
-  color: blue;
   font-size: 14px;
   font-weight: 500;
 }
@@ -110,7 +120,6 @@
   text-decoration: underline;
 }
 .add-answer-btn:hover {
-  color: blue;
   font-size: 14px;
   font-weight: 500;
 }
@@ -125,6 +134,7 @@
   min-height: 100px;
   max-height: 150px;
   padding: 3px;
+  margin: 2px;
 }
 .answer{
   display: grid;
@@ -176,7 +186,7 @@
   cursor: pointer;
   font-weight: bold;
   font-size: smaller;
-  padding-top: 3px;
+  margin: 10px;
 }
 /* question submission */
 .modal-main {
