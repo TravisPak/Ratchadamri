@@ -18,17 +18,17 @@ _designed by Ratchadamri Studios_
 
 ### ✨ Demo Links
 
-#### Overview
+
 
 ![](https://imgur.com/a/ADziyEp.jpeg)
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/ADziyEp"  ><a href="//imgur.com/a/ADziyEp">Product Overview</a></blockquote>
 
-#### Question & Answers
+
 
 ![](https://imgur.com/a/xv6JrDr.jpeg)
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/xv6JrDr"  ><a href="//imgur.com/a/xv6JrDr">Questions and Answers</a></blockquote>
 
-#### Rating & Reviews
+
 
 ![](https://imgur.com/a/F4upm0N.jpeg)
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/F4upm0N"  ><a href="//imgur.com/a/F4upm0N">Ratings and Reviews</a></blockquote>
