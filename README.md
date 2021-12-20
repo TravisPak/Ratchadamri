@@ -20,15 +20,15 @@ _designed by Ratchadamri Studios_
 
 #### Overview
 
-![](https://imgur.com/mvh8RJA.jpg)
+![](https://imgur.com/a/ADziyEp)
 
 #### Question & Answers
 
-![](https://imgur.com/dkjmMNq.jpg)
+![](https://imgur.com/a/xv6JrDr)
 
 #### Rating & Reviews
 
-![](https://imgur.com/lxVWeCD.jpg)
+![](https://imgur.com/a/F4upm0N)
 
 ### 🧪 Technologies
 
