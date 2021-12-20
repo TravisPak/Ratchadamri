@@ -21,12 +21,12 @@ _designed by Ratchadamri Studios_
 #### Overview
 
 ![](https://imgur.com/a/ADziyEp.jpeg)
-<blockquote class="imgur-embed-pub" lang="en" data-id="a/ADziyEp"  ><a href="//imgur.com/a/ADziyEp">Product Overview</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/ADziyEp"  ><a href="//imgur.com/a/ADziyEp">Product Overview</a></blockquote>
 
 #### Question & Answers
 
 ![](https://imgur.com/a/xv6JrDr.jpeg)
-
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/xv6JrDr"  ><a href="//imgur.com/a/xv6JrDr">Questions and Answers</a></blockquote>
 #### Rating & Reviews
 
 ![](https://imgur.com/a/F4upm0N.jpeg)
