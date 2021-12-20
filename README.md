@@ -16,7 +16,7 @@
 An e-Commerce website that delivers products to the user.
 _designed by Ratchadamri Studios_
 
-### ✨ Demo
+### ✨ Demo Links
 
 #### Overview
 
@@ -30,6 +30,7 @@ _designed by Ratchadamri Studios_
 #### Rating & Reviews
 
 ![](https://imgur.com/a/F4upm0N.jpeg)
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/F4upm0N"  ><a href="//imgur.com/a/F4upm0N">Ratings and Reviews</a></blockquote>
 
 ### 🧪 Technologies
 
