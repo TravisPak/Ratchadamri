@@ -27,6 +27,7 @@ _designed by Ratchadamri Studios_
 
 ![](https://imgur.com/a/xv6JrDr.jpeg)
 <blockquote class="imgur-embed-pub" lang="en" data-id="a/xv6JrDr"  ><a href="//imgur.com/a/xv6JrDr">Questions and Answers</a></blockquote>
+
 #### Rating & Reviews
 
 ![](https://imgur.com/a/F4upm0N.jpeg)
