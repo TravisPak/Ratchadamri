@@ -13,7 +13,7 @@
 
 ### General Info
 
-An e-Commerce website that deliver products to the users.
+An e-Commerce website that delivers products to the user.
 _designed by Ratchadamri Studios_
 
 ### ✨ Demo
