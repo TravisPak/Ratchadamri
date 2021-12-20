@@ -21,6 +21,7 @@ _designed by Ratchadamri Studios_
 #### Overview
 
 ![](https://imgur.com/a/ADziyEp.jpeg)
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/ADziyEp"  ><a href="//imgur.com/a/ADziyEp">Product Overview</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
 #### Question & Answers
 
