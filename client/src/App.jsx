@@ -18,7 +18,7 @@ class App extends React.Component {
 
   // SET DEFAULT PRODUCT ON STARTUP
   componentDidMount() {
-    this.updateProduct(37318);
+    this.updateProduct(37311);
   }
 
   // UPDATE CHOSEN ITEM
@@ -41,7 +41,9 @@ class App extends React.Component {
         <Overview product={this.state.currentProduct} />
         <Cards product={this.state} pageChange={this.updateProduct} />
         <QuestionsList currentProductID={this.state.currentProduct.id} />
-        <ReviewsSection productId={this.state.currentProduct.id} />
+        <div className="reviews-container">
+          <ReviewsSection product={this.state.currentProduct} />
+        </div>
       </div>
     );
   }

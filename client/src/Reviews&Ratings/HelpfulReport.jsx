@@ -12,12 +12,9 @@ class HelpfulReport extends React.Component {
   }
 
   clickYes() {
-    // console.log("Yes");
-
     axios
       .put(`/reviews/${this.props.id}/helpful`)
       .then((data) => {
-        // console.log(data);
         this.setState({ isClicked: true });
         this.props.updateHelpfulness(this.props.id);
       })
@@ -27,11 +24,9 @@ class HelpfulReport extends React.Component {
   }
 
   clickReport() {
-    // console.log("Report");
     axios
       .put(`/reviews/${this.props.id}/report`)
       .then((data) => {
-        // console.log(data);
         this.setState({ isClicked: true, reportClicked: true });
       })
       .catch((err) => {
@@ -46,15 +41,19 @@ class HelpfulReport extends React.Component {
           className={this.state.isClicked ? "disabled" : "helpful-report-yes"}
           onClick={this.clickYes}
         >
-          {" "}
-          Yes {this.props.helpfulCount}
+          (Yes) {this.props.helpfulCount}
         </span>{" "}
         |{" "}
         <span
           className={this.state.isClicked ? "disabled" : "helpful-report-no"}
           onClick={this.clickReport}
         >
-          Report {this.state.reportClicked ? " :Reported" : ""}
+          Report{" "}
+          {this.state.reportClicked ? (
+            <span className="reported"> :Reported</span>
+          ) : (
+            ""
+          )}
         </span>
       </div>
     );
