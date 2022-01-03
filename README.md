@@ -37,7 +37,10 @@ A front-end redesign for an e-commerce website specializing in clothing and appa
 #### Product Overview:
 ![](https://media.giphy.com/media/4c8RvmXMrmWHgykV09/giphy.gif)
 
-![](https://media.giphy.com/media/bGWyvWm8ZiHyPm45Vi/giphy.gif)
+![gif not found](https://media.giphy.com/media/bGWyvWm8ZiHyPm45Vi/giphy.gif)
+
+<img src="https://media.giphy.com/media/bGWyvWm8ZiHyPm45Vi/giphy.gif">
+
 
 ![](https://media.giphy.com/media/1xozJ5TOCyTB3oyTeY/giphy.gif)
 
