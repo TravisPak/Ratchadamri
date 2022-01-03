@@ -1,1 +1,1 @@
-module.exports.TOKEN = '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';
+module.exports.TOKEN = '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';
